@@ -1,0 +1,46 @@
+{
+    "DAFE_PIX_ACCOUNT": [
+        {
+            "id": 1,
+            "tx_id": 1,
+            "account_id": 5980,
+            "service_provider": "CELCOIN",
+            "expected_account": "130031335",
+            "created_at": "2021-06-30 16:17:27",
+            "updated_at": "2021-06-30 16:23:05"
+        }
+    ],
+    "DAFE_WEBHOOK_PIX_RECEIVED": [
+        {
+            "id": 1,
+            "tx_id": "1",
+            "id_pix_account": 1,
+            "amount": 4,
+            "credit_account_pix_key": "e9a39f65-0ab9-4712-97b9-6e08ff52eb0e",
+            "credit_bank":"13935893",
+            "credit_bank_account":"206839423",
+            "credit_bank_account_type":"CACC",
+            "credit_bank_branch":"0001",
+            "credit_person_name":"Dafe Tecnologia E Pagamentos Ltda",
+            "credit_person_type":"NATURAL_PERSON",
+            "credit_tax_id":"40828547000102",
+            "debit_bank":"08744817",
+            "debit_bank_account":"171433",
+            "debit_bank_account_type":"CACC",
+            "debit_bank_branch":"1912146",
+            "debit_person_name":"TESTE MEU PATRAO",
+            "debit_person_type":"LEGAL_PERSON",
+            "debit_tax_id":"31701680000102",
+            "end_to_end_id": "E08744817202108101254LZXLTQRKKAS",
+            "external_tx_id": 675319249,
+            "liquidated": true,
+            "propagated": true,
+            "status": "PAID",
+            "transaction_type": "RECEIVEPIX",
+            "payment_date": "2021-06-30 16:23:05",
+            "payment_info": null,
+            "created_at": "2021-06-30 16:23:05",
+            "updated_at": "2021-06-30 16:23:05"
+        }
+    ]
+}
