@@ -1,15 +1,15 @@
 package com.milk.pay.mapper;
 
+import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
+import com.milk.pay.dto.pix.PixPaymentCreditPartyCelcoinDto;
+import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.entities.PixPayment;
-import com.milk.pay.pix.dto.PixPaymentCelcoinDto;
-import com.milk.pay.pix.dto.PixPaymentCreditPartyDto;
-import com.milk.pay.pix.dto.PixPaymentDto;
 import javax.annotation.processing.Generated;
 import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-08T20:22:20-0300",
+    date = "2022-04-03T16:40:15-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -23,7 +23,7 @@ public class IPixMapperImpl implements IPixMapper {
 
         PixPaymentCelcoinDto pixPaymentCelcoinDto = new PixPaymentCelcoinDto();
 
-        pixPaymentCelcoinDto.setCreditParty( pixPaymentDtoToPixPaymentCreditPartyDto( dto ) );
+        pixPaymentCelcoinDto.setCreditParty( pixPaymentDtoToPixPaymentCreditPartyCelcoinDto( dto ) );
         pixPaymentCelcoinDto.setAmount( dto.getAmount() );
         pixPaymentCelcoinDto.setEndToEndId( dto.getEndToEndId() );
         pixPaymentCelcoinDto.setTxId( dto.getTxId() );
@@ -55,21 +55,21 @@ public class IPixMapperImpl implements IPixMapper {
         return pixPayment;
     }
 
-    protected PixPaymentCreditPartyDto pixPaymentDtoToPixPaymentCreditPartyDto(PixPaymentDto pixPaymentDto) {
+    protected PixPaymentCreditPartyCelcoinDto pixPaymentDtoToPixPaymentCreditPartyCelcoinDto(PixPaymentDto pixPaymentDto) {
         if ( pixPaymentDto == null ) {
             return null;
         }
 
-        PixPaymentCreditPartyDto pixPaymentCreditPartyDto = new PixPaymentCreditPartyDto();
+        PixPaymentCreditPartyCelcoinDto pixPaymentCreditPartyCelcoinDto = new PixPaymentCreditPartyCelcoinDto();
 
-        pixPaymentCreditPartyDto.setKey( pixPaymentDto.getCreditAccountKey() );
-        pixPaymentCreditPartyDto.setBank( pixPaymentDto.getCreditAccountBank() );
-        pixPaymentCreditPartyDto.setAccount( pixPaymentDto.getCreditAccount() );
-        pixPaymentCreditPartyDto.setBranch( pixPaymentDto.getCreditAccountBranch() );
-        pixPaymentCreditPartyDto.setTaxId( pixPaymentDto.getCreditAccountTaxId() );
-        pixPaymentCreditPartyDto.setAccountType( pixPaymentDto.getCreditAccountType() );
-        pixPaymentCreditPartyDto.setName( pixPaymentDto.getCreditAccountName() );
+        pixPaymentCreditPartyCelcoinDto.setKey( pixPaymentDto.getCreditAccountKey() );
+        pixPaymentCreditPartyCelcoinDto.setBank( pixPaymentDto.getCreditAccountBank() );
+        pixPaymentCreditPartyCelcoinDto.setAccount( pixPaymentDto.getCreditAccount() );
+        pixPaymentCreditPartyCelcoinDto.setBranch( pixPaymentDto.getCreditAccountBranch() );
+        pixPaymentCreditPartyCelcoinDto.setTaxId( pixPaymentDto.getCreditAccountTaxId() );
+        pixPaymentCreditPartyCelcoinDto.setAccountType( pixPaymentDto.getCreditAccountType() );
+        pixPaymentCreditPartyCelcoinDto.setName( pixPaymentDto.getCreditAccountName() );
 
-        return pixPaymentCreditPartyDto;
+        return pixPaymentCreditPartyCelcoinDto;
     }
 }

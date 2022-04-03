@@ -7,22 +7,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ *
+ * @author SRamos
+ */
 public class ListUtil {
 
     public synchronized static <T> T first(Collection<T> list) {
-        if (isNotNullOrEmpty(list)) {
+        if (!isNullOrEmpty(list)) {
             return list.iterator().next();
         }
 
         return null;
-    }
-
-    public synchronized static boolean isNotNullOrEmpty(Collection<?> list) {
-        return !isNullOrEmpty(list);
-    }
-
-    public synchronized static boolean isNotNullOrEmpty(Object[] array) {
-        return !isNullOrEmpty(array);
     }
 
     public synchronized static boolean isNullOrEmpty(Object[] array) {
@@ -60,7 +56,7 @@ public class ListUtil {
     }
 
     public synchronized static <T> void addAllIfNotNull(Collection<T> collection, Collection<T> values) {
-        if (isNotNullOrEmpty(values)) {
+        if (!isNullOrEmpty(values)) {
             for (T value : values) {
                 addIfNotNull(collection, value);
             }
@@ -68,7 +64,7 @@ public class ListUtil {
     }
 
     public synchronized static <T> void addAllIfNotExists(Collection<T> collection, Collection<T> values) {
-        if (isNotNullOrEmpty(values)) {
+        if (!isNullOrEmpty(values)) {
             for (T value : values) {
                 addIfNotExists(collection, value);
             }
@@ -76,7 +72,7 @@ public class ListUtil {
     }
 
     public static <T> Stream<T> stream(Collection<T> lista) {
-        return isNotNullOrEmpty(lista) ? Collections.unmodifiableList(new ArrayList<>(lista)).stream() : new ArrayList<T>().stream();
+        return !isNullOrEmpty(lista) ? Collections.unmodifiableList(new ArrayList<>(lista)).stream() : new ArrayList<T>().stream();
     }
 
 }

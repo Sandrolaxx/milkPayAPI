@@ -2,6 +2,10 @@ package com.milk.pay.utils;
 
 import java.text.MessageFormat;
 
+/**
+ *
+ * @author SRamos
+ */
 public class StringUtil {
 
     public static String stringPatternFormat(String pattern, Object... arguments) {

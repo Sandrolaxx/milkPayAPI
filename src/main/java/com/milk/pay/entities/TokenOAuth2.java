@@ -15,6 +15,10 @@ import javax.persistence.TemporalType;
 
 import com.milk.pay.entities.pattern.DafeEntity;
 
+/**
+ *
+ * @author SRamos
+ */
 @Entity
 @Table(name = "MILK_TOKEN_OAUTH2")
 public class TokenOAuth2 extends DafeEntity {

@@ -6,13 +6,12 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Locale;
 
+/**
+ *
+ * @author SRamos
+ */
 public class NumericUtil {
 
-    /**
-     * @param val
-     * @param decimais
-     * @return
-     */
     public static BigDecimal toBigDecimal(Object val, Integer decimais) {
         if (val == null) {
             return null;

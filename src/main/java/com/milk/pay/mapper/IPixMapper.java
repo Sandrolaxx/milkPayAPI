@@ -1,13 +1,17 @@
 package com.milk.pay.mapper;
 
+import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
+import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.entities.PixPayment;
-import com.milk.pay.pix.dto.PixPaymentCelcoinDto;
-import com.milk.pay.pix.dto.PixPaymentDto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+/**
+ *
+ * @author SRamos
+ */
 @Mapper(componentModel = "cdi")
 public interface IPixMapper {
 

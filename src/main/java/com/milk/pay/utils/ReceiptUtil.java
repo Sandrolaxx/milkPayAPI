@@ -5,6 +5,10 @@ import java.util.Date;
 
 import com.milk.pay.entities.ReceiptInfo;
 
+/**
+ *
+ * @author SRamos
+ */
 public class ReceiptUtil {
 
     public static String createReceiptPix(ReceiptInfo receiptInfo) {

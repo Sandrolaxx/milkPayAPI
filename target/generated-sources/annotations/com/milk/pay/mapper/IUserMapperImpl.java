@@ -1,8 +1,8 @@
 package com.milk.pay.mapper;
 
+import com.milk.pay.dto.user.CreateUserDto;
+import com.milk.pay.dto.user.ListUserDto;
 import com.milk.pay.entities.User;
-import com.milk.pay.user.dto.CreateUserDto;
-import com.milk.pay.user.dto.ListUserDto;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import javax.annotation.processing.Generated;
@@ -10,7 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-08T20:22:19-0300",
+    date = "2022-04-03T16:40:15-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped

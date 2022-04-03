@@ -4,7 +4,7 @@ import java.util.Base64;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import com.milk.pay.pix.dto.PixPaymentDebitPartyDto;
+import com.milk.pay.dto.pix.PixPaymentDebitPartyCelcoinDto;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -51,9 +51,9 @@ public class RequestUtil {
         return tokenBearer;
     }
 
-    public PixPaymentDebitPartyDto getMilkPayDebitParty() {
+    public PixPaymentDebitPartyCelcoinDto getMilkPayDebitParty() {
 
-        var milkPayDebitParty = new PixPaymentDebitPartyDto();
+        var milkPayDebitParty = new PixPaymentDebitPartyCelcoinDto();
 
         milkPayDebitParty.setAccount(milkPayAccount);
         milkPayDebitParty.setAccountType(milkPayAccountType);

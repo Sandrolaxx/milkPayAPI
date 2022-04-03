@@ -10,6 +10,10 @@ import javax.ws.rs.WebApplicationException;
 import org.apache.commons.jcs.utils.zip.CompressionUtil;
 import org.jboss.resteasy.client.exception.WebApplicationExceptionWrapper;
 
+/**
+ *
+ * @author SRamos
+ */
 public class WebApplicationExceptionConverter {
 
     public static <T> T convertExceptionToObject(WebApplicationException exception, Class<T> targetClass) {

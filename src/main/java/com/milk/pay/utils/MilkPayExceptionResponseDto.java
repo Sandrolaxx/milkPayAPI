@@ -1,5 +1,9 @@
 package com.milk.pay.utils;
 
+/**
+ *
+ * @author SRamos
+ */
 public class MilkPayExceptionResponseDto {
 
     private String errorDate;

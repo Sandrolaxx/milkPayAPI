@@ -20,6 +20,10 @@ import com.milk.pay.entities.pattern.DafeEntity;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+/**
+ *
+ * @author SRamos
+ */
 @Entity
 @Table(name = "MILK_RECEIPT_INFO")
 public class ReceiptInfo extends DafeEntity {

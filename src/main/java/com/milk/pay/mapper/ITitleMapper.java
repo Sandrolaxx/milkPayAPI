@@ -1,10 +1,14 @@
 package com.milk.pay.mapper;
 
+import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.entities.Title;
-import com.milk.pay.title.dto.TitleDto;
 
 import org.mapstruct.Mapper;
 
+/**
+ *
+ * @author SRamos
+ */
 @Mapper(componentModel = "cdi")
 public interface ITitleMapper {
 

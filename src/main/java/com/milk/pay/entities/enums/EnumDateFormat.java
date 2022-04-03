@@ -7,7 +7,7 @@ import java.util.Locale;
 
 /**
  *
- * @author ocean
+ * @author SRamos
  */
 public enum EnumDateFormat {
 

@@ -5,6 +5,10 @@ import java.security.Key;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ *
+ * @author SRamos
+ */
 public class EncryptUtil {
 
     public static String textEncrypt(final String plainText, final String key) {

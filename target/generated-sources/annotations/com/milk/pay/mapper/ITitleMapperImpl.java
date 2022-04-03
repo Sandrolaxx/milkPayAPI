@@ -1,9 +1,9 @@
 package com.milk.pay.mapper;
 
+import com.milk.pay.dto.title.TitleDto;
+import com.milk.pay.dto.user.CreateUserDto;
 import com.milk.pay.entities.Title;
 import com.milk.pay.entities.User;
-import com.milk.pay.title.dto.TitleDto;
-import com.milk.pay.user.dto.CreateUserDto;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.annotation.processing.Generated;
@@ -11,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-11T05:50:30-0300",
+    date = "2022-04-03T16:40:15-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -27,20 +27,20 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         titleDto.setAmount( entity.getAmount() );
         titleDto.setBalance( entity.getBalance() );
-        titleDto.setCompanyId( entity.getCompanyId() );
-        titleDto.setDailyFine( entity.getDailyFine() );
+        if ( entity.getPaidDate() != null ) {
+            titleDto.setPaidDate( new SimpleDateFormat().format( entity.getPaidDate() ) );
+        }
         if ( entity.getDueDate() != null ) {
             titleDto.setDueDate( new SimpleDateFormat().format( entity.getDueDate() ) );
         }
+        titleDto.setTxId( entity.getTxId() );
+        titleDto.setCompanyId( entity.getCompanyId() );
+        titleDto.setUser( userToCreateUserDto( entity.getUser() ) );
         if ( entity.hasId() ) {
             titleDto.setId( entity.getId() );
         }
         titleDto.setLiquidated( entity.isLiquidated() );
-        if ( entity.getPaidDate() != null ) {
-            titleDto.setPaidDate( new SimpleDateFormat().format( entity.getPaidDate() ) );
-        }
-        titleDto.setTxId( entity.getTxId() );
-        titleDto.setUser( userToCreateUserDto( entity.getUser() ) );
+        titleDto.setDailyFine( entity.getDailyFine() );
 
         return titleDto;
     }
@@ -53,9 +53,13 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         Title title = new Title();
 
+        title.setId( resDto.getId() );
         title.setAmount( resDto.getAmount() );
         title.setBalance( resDto.getBalance() );
+        title.setTxId( resDto.getTxId() );
         title.setCompanyId( resDto.getCompanyId() );
+        title.setUser( createUserDtoToUser( resDto.getUser() ) );
+        title.setLiquidated( resDto.isLiquidated() );
         title.setDailyFine( resDto.getDailyFine() );
         try {
             if ( resDto.getDueDate() != null ) {
@@ -65,8 +69,6 @@ public class ITitleMapperImpl implements ITitleMapper {
         catch ( ParseException e ) {
             throw new RuntimeException( e );
         }
-        title.setId( resDto.getId() );
-        title.setLiquidated( resDto.isLiquidated() );
         try {
             if ( resDto.getPaidDate() != null ) {
                 title.setPaidDate( new SimpleDateFormat().parse( resDto.getPaidDate() ) );
@@ -75,8 +77,6 @@ public class ITitleMapperImpl implements ITitleMapper {
         catch ( ParseException e ) {
             throw new RuntimeException( e );
         }
-        title.setTxId( resDto.getTxId() );
-        title.setUser( createUserDtoToUser( resDto.getUser() ) );
 
         return title;
     }
@@ -88,20 +88,20 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         CreateUserDto createUserDto = new CreateUserDto();
 
-        if ( user.getAcceptTerms() != null ) {
-            createUserDto.setAcceptTerms( user.getAcceptTerms() );
-        }
+        createUserDto.setName( user.getName() );
+        createUserDto.setEmail( user.getEmail() );
+        createUserDto.setPassword( user.getPassword() );
+        createUserDto.setDocument( user.getDocument() );
+        createUserDto.setPhone( user.getPhone() );
         if ( user.getActive() != null ) {
             createUserDto.setActive( user.getActive() );
         }
-        createUserDto.setAddressName( user.getAddressName() );
-        createUserDto.setDocument( user.getDocument() );
-        createUserDto.setEmail( user.getEmail() );
-        createUserDto.setName( user.getName() );
-        createUserDto.setPassword( user.getPassword() );
-        createUserDto.setPhone( user.getPhone() );
-        createUserDto.setPixKey( user.getPixKey() );
+        if ( user.getAcceptTerms() != null ) {
+            createUserDto.setAcceptTerms( user.getAcceptTerms() );
+        }
         createUserDto.setPostalCode( user.getPostalCode() );
+        createUserDto.setAddressName( user.getAddressName() );
+        createUserDto.setPixKey( user.getPixKey() );
 
         return createUserDto;
     }

@@ -2,7 +2,7 @@ package com.milk.pay.utils;
 
 /**
  *
- * @author SmartBR
+ * @author SRamos
  */
 public class EnumUtil {
 

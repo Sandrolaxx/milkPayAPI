@@ -1,6 +1,5 @@
 package com.milk.pay.entities.enums;
 
-
 /**
  *
  * @author SRamos

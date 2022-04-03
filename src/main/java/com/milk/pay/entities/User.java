@@ -21,6 +21,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
+/**
+ *
+ * @author SRamos
+ */
 @Entity
 @Table(name = "MILK_USER")
 public class User extends PanacheEntityBase {

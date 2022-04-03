@@ -2,13 +2,17 @@ package com.milk.pay.mapper;
 
 import java.util.Arrays;
 
+import com.milk.pay.dto.user.CreateUserDto;
+import com.milk.pay.dto.user.ListUserDto;
 import com.milk.pay.entities.User;
-import com.milk.pay.user.dto.CreateUserDto;
-import com.milk.pay.user.dto.ListUserDto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+/**
+ *
+ * @author SRamos
+ */
 @Mapper(componentModel = "cdi", imports = {Arrays.class})
 public interface IUserMapper {
 

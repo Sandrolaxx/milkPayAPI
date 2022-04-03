@@ -10,6 +10,10 @@ import com.milk.pay.entities.enums.EnumErrorCode;
 
 import org.apache.http.HttpStatus;
 
+/**
+ *
+ * @author SRamos
+ */
 @Provider
 public class ErrorResponseExceptionMapper implements ExceptionMapper<MilkPayException> {
 
