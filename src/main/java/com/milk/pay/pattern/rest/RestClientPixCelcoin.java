@@ -17,7 +17,7 @@ import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
  *
  * @author SRamos
  */
-@RegisterRestClient(configKey = "base-uri-openfinance-celcoin")
+@RegisterRestClient(configKey = "base-uri-pix-celcoin")
 public interface RestClientPixCelcoin {
 
     @POST
