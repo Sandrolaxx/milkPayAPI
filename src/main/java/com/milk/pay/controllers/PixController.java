@@ -26,7 +26,7 @@ import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
  *
  * @author SRamos
  */
-@Path("/milkPay/v1/pix")
+@Path("/milkpay-api/v1/pix")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Pix")

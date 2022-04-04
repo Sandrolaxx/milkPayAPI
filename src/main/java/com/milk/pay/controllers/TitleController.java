@@ -23,7 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
  *
  * @author SRamos
  */
-@Path("/milkPay/v1/title")
+@Path("/milkpay-api/v1/title")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Title Management")
