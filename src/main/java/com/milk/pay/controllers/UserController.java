@@ -1,10 +1,7 @@
 package com.milk.pay.controllers;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.inject.Inject;
+import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,9 +23,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
 import io.quarkus.security.identity.SecurityIdentity;
-import io.quarkus.vertx.http.runtime.devmode.Json;
-import io.quarkus.vertx.http.runtime.devmode.Json.JsonObjectBuilder;
-import io.vertx.core.json.JsonObject;
 
 /**
  *
@@ -52,15 +46,14 @@ public class UserController {
     public Response createUser(CreateUserDto dto) {
 
         var userIdentity = (OidcJwtCallerPrincipal) identity.getPrincipal();
-        var resourceAccess = (JsonObject) userIdentity.getClaim("resource_access");//realm-management
-        
-        System.out.println(resourceAccess.getClass());
+        var resourceAccess = (JsonValue) userIdentity.getClaim("resource_access");
+        var isAdmin = resourceAccess.asJsonObject().containsKey("realm-management");
 
-        if (resourceAccess.toString().contains("realm-management")) {
-            throw new MilkPayException(EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
+        if (!isAdmin) {
+            throw new MilkPayException(EnumErrorCode.USUARIO_SEM_CREDENCIAIS);
         }
 
-        // userService.persistUser(dto);
+        userService.persistUser(dto);
         
         return Response.status(Status.CREATED).build();
     }

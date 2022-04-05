@@ -1,7 +1,5 @@
 package com.milk.pay.entities.enums;
 
-import com.spun.util.StringUtils;
-
 import org.apache.http.HttpStatus;
 
 /**
@@ -24,7 +22,7 @@ public enum EnumErrorCode {
     ERRO_PERSISTIR_PAGAMENTO_PIX("012", "Erro persistir pagamento Pix!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_SALVAR_COMPROVANTE("013", "Erro ao salvar comprovante!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_AO_CADASTRAR_USUARIO("014", "Ocorreu um erro interno e não foi possível cadastrar o usuário!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
-    USUARIO_SEM_CREDENCIAIS("015", "Rota não disponível para as credenciais informadas.", HttpStatus.SC_FORBIDDEN),
+    USUARIO_SEM_CREDENCIAIS("015", "Rota não disponível para as credenciais informadas.", HttpStatus.SC_UNAUTHORIZED),
     //Erros externos
     ERRO_COMUNICACAO_CELCOIN("050", "A requisição enviada a Celcoin retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
     ERRO_PARSE_JSON_CELCOIN("052", "Erro ao realizar o parse do Json de resposta da Celcoin!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
@@ -58,7 +56,7 @@ public enum EnumErrorCode {
     public static EnumErrorCode parseByKey(String key) {
         if (key != null && !key.trim().isEmpty()) {
             for (EnumErrorCode error : EnumErrorCode.values()) {
-                if (StringUtils.equalsIgnoreCase(error.getKey(), key)) {
+                if (error.getKey().equalsIgnoreCase(key)) {
                     return error;
                 }
             }
@@ -69,7 +67,7 @@ public enum EnumErrorCode {
     public static EnumErrorCode parseByName(String name) {
         if (name != null && !name.trim().isEmpty()) {
             for (EnumErrorCode error : EnumErrorCode.values()) {
-                if (StringUtils.equalsIgnoreCase(error.name(), name)) {
+                if (error.name().equalsIgnoreCase(name)) {
                     return error;
                 }
             }

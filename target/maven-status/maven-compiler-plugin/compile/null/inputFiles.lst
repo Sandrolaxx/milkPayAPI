@@ -1,3 +1,5 @@
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/services/KeycloakService.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/user/CreateUserKeycloakDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixPaymentCreditPartyCelcoinDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/controllers/PixController.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/PixPayment.java
@@ -25,6 +27,7 @@
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixKeyOwnerResponseCelcoinDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/services/PixServiceCelcoin.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixPaymentDebitPartyCelcoinDto.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/pattern/rest/RestClientKeycloak.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixKeyConsultErrorResponseCelcoinDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixPayerCelcoinDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/services/TitleService.java
@@ -40,6 +43,7 @@
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/DateUtil.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/pattern/DafeRepository.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/ErrorResponseExceptionMapper.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/user/CreateUserKeycloakCredentialsDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/controllers/TitleController.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/enums/EnumMovementCode.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/ReceiptUtil.java
