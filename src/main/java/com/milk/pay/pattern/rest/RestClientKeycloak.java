@@ -17,16 +17,17 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
  *
  * @author SRamos
  */
-@RegisterRestClient(baseUri = "http://localhost:9091/auth")
+@RegisterRestClient(configKey = "base-uri-keycloak")
 public interface RestClientKeycloak {
 
     @POST
-    @Path("/realms/DonaFrost/protocol/openid-connect/token")
+    @Path("/realms/MilkPay/protocol/openid-connect/token")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     TokenResponseDto getNewToken(@HeaderParam("Authorization") String basicToken, Form tokenForm);
-
+    
     @POST
-    @Path("/admin/realms/DonaFrost/users")
+    @Path("/admin/realms/MilkPay/users")
+    @Consumes(MediaType.APPLICATION_JSON)
     Response createUserKeycloak(@HeaderParam("Authorization") String tokenKeycloak,
             CreateUserKeycloakDto dto);
             

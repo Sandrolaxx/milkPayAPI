@@ -16,6 +16,10 @@ import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.IUserMapper;
 import com.milk.pay.utils.MilkPayException;
 
+/**
+ *
+ * @author SRamos
+ */
 @ApplicationScoped
 public class UserService {
 
@@ -26,20 +30,20 @@ public class UserService {
     KeycloakService keycloakService;
 
     public ListUserDto findInfoById(Integer idUser) {
-        var user = (User) User.findById(idUser);
-
-        return userMapper.toListUserDto(user);
+        return userMapper.toListUserDto((User) User.findById(idUser));
     }
 
     @Transactional()
     public User persistUser(CreateUserDto dto) {
+        
         User newUser = userMapper.createUserDtoToUser(dto);
 
         newUser.persistAndFlush();
-
+        
         saveUserKeycloak(newUser);
         
         return newUser;
+
     }
 
     public void saveUserKeycloak(User newUser) {
@@ -57,14 +61,10 @@ public class UserService {
         credencialList.add(newCredencial);
         
         newUserKeycloak.setCredentials(credencialList);
-        newUserKeycloak.setAttributes(Map.of("userId",newUser.getId()));
+        newUserKeycloak.setAttributes(Map.of("userId",newUser.getName()));
 
         try {
-            var response = keycloakService.createUserKeycloak(newUserKeycloak);
-            
-            if (response.getStatus() != 201) {
-                throw new MilkPayException(EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
-            }
+            keycloakService.createUserKeycloak(newUserKeycloak);
         } catch (Exception e) {
             throw new MilkPayException(EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
         }

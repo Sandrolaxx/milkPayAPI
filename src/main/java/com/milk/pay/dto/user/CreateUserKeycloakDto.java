@@ -11,7 +11,7 @@ public class CreateUserKeycloakDto {
 
     private String username;
 
-    private Map<String, Integer> attributes;
+    private Map<String, String> attributes;
 
     private List<CreateUserKeycloakCredentialsDto> credentials;
 
@@ -25,11 +25,11 @@ public class CreateUserKeycloakDto {
         this.username = username;
     }
 
-    public Map<String, Integer> getAttributes() {
+    public Map<String, String> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Map<String, Integer> attributes) {
+    public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
     }
 

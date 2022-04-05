@@ -26,33 +26,32 @@ public class KeycloakService {
 
     @ConfigProperty(name = "the-ashen-one-username")
     String username;
-  
+
     @ConfigProperty(name = "the-ashen-one-password")
     String password;
-  
+
     @ConfigProperty(name = "the-ashen-one-auth")
     String auth;
 
     public String getNewToken() {
-        
+
         var grantType = "password";
         var basicToken = RequestUtil.onlyBasic(auth);
-    
+
         Form tokenReq = new Form()
-        .param("grant_type", grantType)
-        .param("username", username)
-        .param("password", password);
-        
+                .param("grant_type", grantType)
+                .param("username", username)
+                .param("password", password);
+
         TokenResponseDto tokenDto = restClientKey.getNewToken(basicToken, tokenReq);
         var token = tokenDto.getTokenType() + " " + tokenDto.getAccessToken();
-        
+
         return token;
-        
+
     }
 
     public Response createUserKeycloak(CreateUserKeycloakDto userDto) {
         return restClientKey.createUserKeycloak(getNewToken(), userDto);
     }
 
-    
 }
