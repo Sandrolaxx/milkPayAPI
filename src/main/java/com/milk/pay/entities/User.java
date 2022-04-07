@@ -2,13 +2,13 @@ package com.milk.pay.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
@@ -30,8 +31,10 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 public class User extends PanacheEntityBase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @Column(name = "NAME")
     private String name;
@@ -48,20 +51,8 @@ public class User extends PanacheEntityBase {
     @Column(name = "PHONE")
     private String phone;
 
-    @Column(name = "ACTIVE")
-    private Boolean active;
-
-    @Column(name = "ACCEPT_TERMS")
-    private Boolean acceptTerms;
-
     @Column(name = "PIX_KEY")
     private String pixKey;
-
-    @Column(name = "POSTAL_CODE")
-    private String postalCode;
-
-    @Column(name = "ADDRESS_NAME")
-    private String addressName;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
@@ -83,11 +74,11 @@ public class User extends PanacheEntityBase {
     public User() {
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -131,38 +122,6 @@ public class User extends PanacheEntityBase {
         this.phone = phone;
     }
     
-    public Boolean isActive() {
-        return this.active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Boolean isAcceptTerms() {
-        return this.acceptTerms;
-    }
-
-    public void setAcceptTerms(Boolean acceptTerms) {
-        this.acceptTerms = acceptTerms;
-    }
-    
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getAddressName() {
-        return addressName;
-    }
-
-    public void setAddressName(String addressName) {
-        this.addressName = addressName;
-    }
-
     public Date getCreatedAt() {
         return this.createdAt;
     }
@@ -177,14 +136,6 @@ public class User extends PanacheEntityBase {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public Boolean getAcceptTerms() {
-        return acceptTerms;
     }
 
     public String getPixKey() {
