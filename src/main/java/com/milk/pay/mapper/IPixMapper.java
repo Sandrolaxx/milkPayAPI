@@ -2,7 +2,7 @@ package com.milk.pay.mapper;
 
 import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
-import com.milk.pay.entities.PixPayment;
+import com.milk.pay.entities.Payment;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,6 +26,6 @@ public interface IPixMapper {
             @Mapping(target = "clientCode", ignore = true) })
     public PixPaymentCelcoinDto pixPaymentDtoToPixPaymentCelcoinDto(PixPaymentDto dto);
 
-    public PixPayment pixPaymentDtoToPixPaymentEntity(PixPaymentDto dto);
+    public Payment pixPaymentDtoToPixPaymentEntity(PixPaymentDto dto);
 
 }

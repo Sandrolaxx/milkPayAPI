@@ -5,11 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.milk.pay.utils.Utils;
+
 /**
  *
  * @author SRamos
  */
-public enum EnumDateFormat {
+public enum EnumDateFormat implements IEnum {
 
     DDMM(new SimpleDateFormat("dd/MM")),
     DDMMYY(new SimpleDateFormat("dd/MM/yy")),
@@ -49,6 +51,17 @@ public enum EnumDateFormat {
 
     public String toPattern() {
         return dateFormat.toPattern();
+    }
+
+    @Override
+    public boolean containsInEnum(String key) {
+        return parseByKey(key) != null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Enum<T>> T parseByKey(String key) {
+        return (T) Utils.parseByKey(EnumDateFormat.class, key);
     }
 
 }

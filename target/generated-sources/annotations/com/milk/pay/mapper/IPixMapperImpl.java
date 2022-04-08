@@ -3,13 +3,13 @@ package com.milk.pay.mapper;
 import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentCreditPartyCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
-import com.milk.pay.entities.PixPayment;
+import com.milk.pay.entities.Payment;
 import javax.annotation.processing.Generated;
 import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-05T21:58:48-0300",
+    date = "2022-04-07T22:06:16-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -33,26 +33,18 @@ public class IPixMapperImpl implements IPixMapper {
     }
 
     @Override
-    public PixPayment pixPaymentDtoToPixPaymentEntity(PixPaymentDto dto) {
+    public Payment pixPaymentDtoToPixPaymentEntity(PixPaymentDto dto) {
         if ( dto == null ) {
             return null;
         }
 
-        PixPayment pixPayment = new PixPayment();
+        Payment payment = new Payment();
 
-        pixPayment.setAmount( dto.getAmount() );
-        pixPayment.setTxId( dto.getTxId() );
-        pixPayment.setInitiationType( dto.getInitiationType() );
-        pixPayment.setEndToEndId( dto.getEndToEndId() );
-        pixPayment.setCreditAccountKey( dto.getCreditAccountKey() );
-        pixPayment.setCreditAccountBank( dto.getCreditAccountBank() );
-        pixPayment.setCreditAccount( dto.getCreditAccount() );
-        pixPayment.setCreditAccountBranch( dto.getCreditAccountBranch() );
-        pixPayment.setCreditAccountTaxId( dto.getCreditAccountTaxId() );
-        pixPayment.setCreditAccountType( dto.getCreditAccountType() );
-        pixPayment.setCreditAccountName( dto.getCreditAccountName() );
+        payment.setAmount( dto.getAmount() );
+        payment.setEndToEndId( dto.getEndToEndId() );
+        payment.setInitiationType( dto.getInitiationType() );
 
-        return pixPayment;
+        return payment;
     }
 
     protected PixPaymentCreditPartyCelcoinDto pixPaymentDtoToPixPaymentCreditPartyCelcoinDto(PixPaymentDto pixPaymentDto) {

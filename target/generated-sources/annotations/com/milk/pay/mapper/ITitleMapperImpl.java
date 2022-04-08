@@ -11,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-05T21:58:48-0300",
+    date = "2022-04-07T22:06:16-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -27,14 +27,9 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         titleDto.setAmount( entity.getAmount() );
         titleDto.setBalance( entity.getBalance() );
-        if ( entity.getPaidDate() != null ) {
-            titleDto.setPaidDate( new SimpleDateFormat().format( entity.getPaidDate() ) );
-        }
         if ( entity.getDueDate() != null ) {
             titleDto.setDueDate( new SimpleDateFormat().format( entity.getDueDate() ) );
         }
-        titleDto.setTxId( entity.getTxId() );
-        titleDto.setCompanyId( entity.getCompanyId() );
         titleDto.setUser( userToCreateUserDto( entity.getUser() ) );
         if ( entity.hasId() ) {
             titleDto.setId( entity.getId() );
@@ -56,22 +51,12 @@ public class ITitleMapperImpl implements ITitleMapper {
         title.setId( resDto.getId() );
         title.setAmount( resDto.getAmount() );
         title.setBalance( resDto.getBalance() );
-        title.setTxId( resDto.getTxId() );
-        title.setCompanyId( resDto.getCompanyId() );
         title.setUser( createUserDtoToUser( resDto.getUser() ) );
         title.setLiquidated( resDto.isLiquidated() );
         title.setDailyFine( resDto.getDailyFine() );
         try {
             if ( resDto.getDueDate() != null ) {
                 title.setDueDate( new SimpleDateFormat().parse( resDto.getDueDate() ) );
-            }
-        }
-        catch ( ParseException e ) {
-            throw new RuntimeException( e );
-        }
-        try {
-            if ( resDto.getPaidDate() != null ) {
-                title.setPaidDate( new SimpleDateFormat().parse( resDto.getPaidDate() ) );
             }
         }
         catch ( ParseException e ) {
@@ -93,14 +78,6 @@ public class ITitleMapperImpl implements ITitleMapper {
         createUserDto.setPassword( user.getPassword() );
         createUserDto.setDocument( user.getDocument() );
         createUserDto.setPhone( user.getPhone() );
-        if ( user.getActive() != null ) {
-            createUserDto.setActive( user.getActive() );
-        }
-        if ( user.getAcceptTerms() != null ) {
-            createUserDto.setAcceptTerms( user.getAcceptTerms() );
-        }
-        createUserDto.setPostalCode( user.getPostalCode() );
-        createUserDto.setAddressName( user.getAddressName() );
         createUserDto.setPixKey( user.getPixKey() );
 
         return createUserDto;
@@ -118,10 +95,6 @@ public class ITitleMapperImpl implements ITitleMapper {
         user.setPassword( createUserDto.getPassword() );
         user.setDocument( createUserDto.getDocument() );
         user.setPhone( createUserDto.getPhone() );
-        user.setActive( createUserDto.isActive() );
-        user.setAcceptTerms( createUserDto.isAcceptTerms() );
-        user.setPostalCode( createUserDto.getPostalCode() );
-        user.setAddressName( createUserDto.getAddressName() );
         user.setPixKey( createUserDto.getPixKey() );
 
         return user;

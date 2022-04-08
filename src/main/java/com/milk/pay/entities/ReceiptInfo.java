@@ -34,12 +34,6 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "ID", nullable = false, precision = 0, scale = -127)
     private Integer id;
 
-    @Column(name = "TX_ID")
-    private String txId;
-
-    @Column(name = "EXTERNAL_TX_ID")
-    private String externalTxId;
-
     @Column(name = "AUTHENTICATION")
     private String authentication;
 
@@ -48,14 +42,6 @@ public class ReceiptInfo extends DafeEntity {
 
     @Column(name = "AMOUNT")
     private BigDecimal amount;
-
-    @Column(name = "PAID_AMOUNT")
-    private BigDecimal paidAmount;
-
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "PAID_AT")
-    private Date paidAt;
 
     @Column(name = "PAYER_NAME")
     private String payerName;
@@ -111,6 +97,11 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "EXTERNAL_AUTH_SECOND_BLOCK")
     private String externalAuthSecondBlock;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "PAID_AT")
+    private Date paidAt;
+
     @Column(name = "MOVEMENT_CODE")
     @Enumerated(EnumType.STRING)
     private EnumMovementCode movementCode;
@@ -128,22 +119,6 @@ public class ReceiptInfo extends DafeEntity {
     @Override
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getTxId() {
-        return txId;
-    }
-
-    public void setTxId(String txId) {
-        this.txId = txId;
-    }
-
-    public String getExternalTxId() {
-        return externalTxId;
-    }
-
-    public void setExternalTxId(String externalTxId) {
-        this.externalTxId = externalTxId;
     }
 
     public String getLastAuthentication() {
@@ -328,14 +303,6 @@ public class ReceiptInfo extends DafeEntity {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public BigDecimal getPaidAmount() {
-        return paidAmount;
-    }
-
-    public void setPaidAmount(BigDecimal paidAmount) {
-        this.paidAmount = paidAmount;
     }
 
 }

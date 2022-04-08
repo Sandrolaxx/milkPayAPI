@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
-import com.milk.pay.entities.PixPayment;
+import com.milk.pay.entities.Payment;
 import com.milk.pay.entities.ReceiptInfo;
 import com.milk.pay.entities.enums.EnumMovementCode;
 import com.milk.pay.mapper.IPixMapper;
@@ -43,12 +43,9 @@ public class PixService {
     @Transactional
     public void persistPixPaymentResponse(Integer entityId, PixPaymentResponseDto dto) {
 
-        PixPayment pixPayment = PixPayment.findById(entityId);
+        Payment pixPayment = Payment.findById(entityId);
 
         pixPayment.setExternalTxId(dto.getTxId());
-        pixPayment.setResponseCode(dto.getCode());
-        pixPayment.setResponseSlip(dto.getSlip());
-        pixPayment.setResponseSlipAuth(dto.getSlipAuth());
 
         pixPayment.persistAndFlush();
 
@@ -57,7 +54,7 @@ public class PixService {
     @Transactional
     public void savePixPaymentCashOutError(Integer entityId) {
 
-        PixPayment pixPayment = PixPayment.findById(entityId);
+        Payment pixPayment = Payment.findById(entityId);
 
         pixPayment.setLiquidated(false);
 
@@ -72,11 +69,9 @@ public class PixService {
         var lastReceipt = ReceiptInfo.findLastReceipt();
         var milkPayDebitParty = requestUtil.getMilkPayDebitParty();
 
-        receiptPix.setTxId(paymentDto.getTxId());
         receiptPix.setLastAuthentication(lastReceipt != null ? lastReceipt.getAuthentication() : "GENESIS_BLOCK");
         receiptPix.setEndToEndId(paymentDto.getEndToEndId());
         receiptPix.setMovementCode(EnumMovementCode.TRANSF_INTERBANCARIA_PIX);
-        receiptPix.setExternalTxId(responseDto.getTxId().toString());
         receiptPix.setAmount(BigDecimal.valueOf(paymentDto.getAmount()));
         receiptPix.setExternalAuth(responseDto.getSlipAuth());
 

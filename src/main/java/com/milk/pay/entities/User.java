@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.jboss.aerogear.security.otp.api.Base32;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
@@ -54,6 +55,9 @@ public class User extends PanacheEntityBase {
     @Column(name = "PIX_KEY")
     private String pixKey;
 
+    @Column(name = "SECRET")
+    private String secret;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
     private List<Title> listTitle;
@@ -72,6 +76,8 @@ public class User extends PanacheEntityBase {
         return find("id", userId).firstResult();
     }
     public User() {
+        super();
+        this.secret = Base32.random();
     }
 
     public UUID getId() {
@@ -152,6 +158,13 @@ public class User extends PanacheEntityBase {
 
     public void setListTitle(List<Title> listTitle) {
         this.listTitle = listTitle;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
 }

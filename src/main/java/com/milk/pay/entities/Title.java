@@ -3,13 +3,16 @@ package com.milk.pay.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,43 +42,44 @@ public class Title extends DafeEntity {
 
     @Column(name = "BALANCE")
     private Double balance;
+
+    @Column(name = "DAYLI_FINE")
+    private Double dailyFine;
+
+    @Column(name = "EXTERNAL_TX_ID")
+    private Integer externalTxId;
     
     @Column(name = "DUE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dueDate;
 
-    @Column(name = "PAY_DATE")
+    @Column(name = "PAID_AT")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date paidDate;
+    private Date paidAt;
 
-    @Column(name = "TX_ID")
-    private String txId;
-
-    @Column(name = "COMPANY_ID")
-    private Integer companyId;
-    
     @Column(name = "LIQUIDATED")
     private boolean liquidated;
-
-    @Column(name = "DAYLI_FINE")
-    private Double dailyFine;
-
-    @ManyToOne()
-    @JoinColumn(name = "ID_USER", referencedColumnName = "ID")
-    private User user;
+    
+    @Column(name = "NF_NUMBER")
+    private String nfNumber;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_AT")
     private Date createdAt;
-
+    
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UPDATED_AT")
     private Date updatedAt;
 
-    public Title() {
-    }
+    @ManyToOne()
+    @JoinColumn(name = "ID_USER", referencedColumnName = "ID")
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PAYMENT")
+    private List<Payment> listPayment;
 
     public static Title findByTxId(String txId) {
         return find("txId", txId).firstResult();
@@ -83,10 +87,6 @@ public class Title extends DafeEntity {
 
     public static Title findById(Integer id) {
         return find("id", id).firstResult();
-    }
-
-    public static List<Title> listByCompanyId(Integer companyId) {
-        return find("companyId", companyId).list();
     }
 
     public static List<Title> listByUserId(Integer userId) {
@@ -119,15 +119,6 @@ public class Title extends DafeEntity {
         this.balance = balance;
     }
 
-
-    public String getTxId() {
-        return txId;
-    }
-
-    public void setTxId(String txId) {
-        this.txId = txId;
-    }
-    
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -142,14 +133,6 @@ public class Title extends DafeEntity {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
     }
 
     public User getUser() {
@@ -184,12 +167,36 @@ public class Title extends DafeEntity {
         this.dueDate = dueDate;
     }
 
-    public Date getPaidDate() {
-        return paidDate;
+    public Integer getExternalTxId() {
+        return externalTxId;
     }
 
-    public void setPaidDate(Date paidDate) {
-        this.paidDate = paidDate;
+    public void setExternalTxId(Integer externalTxId) {
+        this.externalTxId = externalTxId;
+    }
+
+    public Date getPaidAt() {
+        return paidAt;
+    }
+
+    public void setPaidAt(Date paidAt) {
+        this.paidAt = paidAt;
+    }
+
+    public String getNfNumber() {
+        return nfNumber;
+    }
+
+    public void setNfNumber(String nfNumber) {
+        this.nfNumber = nfNumber;
+    }
+
+    public List<Payment> getListPayment() {
+        return listPayment;
+    }
+
+    public void setListPayment(List<Payment> listPayment) {
+        this.listPayment = listPayment;
     }
 
 }

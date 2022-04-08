@@ -1,6 +1,5 @@
 package com.milk.pay.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +11,6 @@ import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.entities.Title;
 import com.milk.pay.entities.User;
 import com.milk.pay.mapper.ITitleMapper;
-import com.milk.pay.utils.ListUtil;
 
 @ApplicationScoped
 public class TitleService {
@@ -23,16 +21,6 @@ public class TitleService {
     public List<TitleDto> findAll(Integer companyId, Integer userId) {
 
         if (companyId != null) {
-            var companyTitles = Title.listByCompanyId(companyId);
-
-            if (!ListUtil.isNullOrEmpty(companyTitles)) {
-                return companyTitles.stream()
-                    .map(p -> titleMapper.titleToTitleDto(p))
-                    .collect(Collectors.toList());
-            } else {
-                return new ArrayList<>();
-            }
-
         }
 
         var userTitles = Title.listByUserId(userId);

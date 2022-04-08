@@ -55,9 +55,6 @@ public class TokenOAuth2 extends DafeEntity {
     @Column(name = "EXPIRATION_DATE", nullable = false)
     private Date expirationDate;
 
-    public TokenOAuth2() {
-    }
-
     @Override
     public Integer getId() {
         return id;

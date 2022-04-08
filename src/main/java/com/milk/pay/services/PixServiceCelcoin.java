@@ -145,7 +145,6 @@ public class PixServiceCelcoin {
         if (total == title.getBalance()) {
             title.setBalance(0.0d);
             title.setLiquidated(true);
-            title.setPaidDate(new Date());
         } else {
             title.setBalance(title.getBalance() - total);
         }

@@ -1,10 +1,12 @@
 package com.milk.pay.entities.enums;
 
+import com.milk.pay.utils.Utils;
+
 /**
  *
  * @author SRamos
  */
-public enum EnumInitiationType {
+public enum EnumInitiationType implements IEnum {
 
     MANUAL("MANUAL"),    
     DICT("DICT"),    
@@ -22,13 +24,15 @@ public enum EnumInitiationType {
         return key;
     }
 
-    public static EnumInitiationType strToEnum(String key) {
-        for (EnumInitiationType enumValue : EnumInitiationType.values()) {
-            if (enumValue.getKey().equalsIgnoreCase(key)) {
-                return enumValue;
-            }
-        }
-        return null;
+    @Override
+    public boolean containsInEnum(String key) {
+        return parseByKey(key) != null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Enum<T>> T parseByKey(String key) {
+        return (T) Utils.parseByKey(EnumInitiationType.class, key);
     }
 
 }

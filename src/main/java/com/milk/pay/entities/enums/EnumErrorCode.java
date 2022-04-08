@@ -6,7 +6,7 @@ import org.apache.http.HttpStatus;
  *
  * @author SRamos
  */
-public enum EnumErrorCode {
+public enum EnumErrorCode implements IEnum {
 
     // Erros API
     JWT_NAO_INFORMADO("001", "Token não informado!", HttpStatus.SC_UNAUTHORIZED),
@@ -53,26 +53,13 @@ public enum EnumErrorCode {
         return httpStatus;
     }
 
-    public static EnumErrorCode parseByKey(String key) {
-        if (key != null && !key.trim().isEmpty()) {
-            for (EnumErrorCode error : EnumErrorCode.values()) {
-                if (error.getKey().equalsIgnoreCase(key)) {
-                    return error;
-                }
-            }
-        }
-        return null;
+    @Override
+    public boolean containsInEnum(String key) {
+        return parseByKey(key) != null;
     }
 
-    public static EnumErrorCode parseByName(String name) {
-        if (name != null && !name.trim().isEmpty()) {
-            for (EnumErrorCode error : EnumErrorCode.values()) {
-                if (error.name().equalsIgnoreCase(name)) {
-                    return error;
-                }
-            }
-        }
-        return null;
+    public EnumErrorCode parseByKey(String key) {
+        return IEnum.parseByKey(EnumErrorCode.class, key);
     }
 
 }

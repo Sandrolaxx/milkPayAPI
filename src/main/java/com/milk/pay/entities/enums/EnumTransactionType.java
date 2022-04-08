@@ -1,10 +1,12 @@
 package com.milk.pay.entities.enums;
 
+import com.milk.pay.utils.Utils;
+
 /**
  *
  * @author SRamos
  */
-public enum EnumTransactionType {
+public enum EnumTransactionType implements IEnum  {
 
     RECEIVEPIX("RECEIVEPIX"),    
     PIXREVERSAL("PIXREVERSAL"),//APROVAÇÃO DE RECEBIMENTO DE DEVOLUÇÃO    
@@ -20,15 +22,13 @@ public enum EnumTransactionType {
     public String getKey() {
         return key;
     }
- 
-    public static Boolean containsProvider(String provider) {
-        
-        for (EnumTransactionType enumValue : EnumTransactionType.values()) {
-            if (enumValue.getKey().equalsIgnoreCase(provider)) {
-                return true;
-            }
-        }
-        
+
+    @Override
+    public boolean containsInEnum(String key) {
         return false;
     }
+
+    public 
+
+
 }
