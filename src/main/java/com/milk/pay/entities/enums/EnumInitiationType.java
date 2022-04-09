@@ -20,6 +20,7 @@ public enum EnumInitiationType implements IEnum {
         this.key = key;
     }
 
+    @Override
     public String getKey() {
         return key;
     }
@@ -29,10 +30,8 @@ public enum EnumInitiationType implements IEnum {
         return parseByKey(key) != null;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Enum<T>> T parseByKey(String key) {
-        return (T) Utils.parseByKey(EnumInitiationType.class, key);
+    public static EnumInitiationType parseByKey(String key) {
+        return (EnumInitiationType) Utils.parseByKey(EnumInitiationType.class, key);
     }
 
 }

@@ -19,16 +19,18 @@ public enum EnumTransactionType implements IEnum  {
         this.key = key;
     }
 
+    @Override
     public String getKey() {
         return key;
     }
 
     @Override
     public boolean containsInEnum(String key) {
-        return false;
+        return parseByKey(key) != null;
     }
 
-    public 
-
+    public static EnumTransactionType parseByKey(String key) {
+        return (EnumTransactionType) Utils.parseByKey(EnumTransactionType.class, key);
+    }
 
 }

@@ -1,12 +1,14 @@
 package com.milk.pay.dto.user;
 
+import java.util.UUID;
+
 /**
  *
  * @author SRamos
  */
 public class ListUserDto {
 
-    private Integer id;
+    private UUID id;
 
     private String name;
 
@@ -32,11 +34,11 @@ public class ListUserDto {
 
     private String updatedAt;
 
-    public Integer getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

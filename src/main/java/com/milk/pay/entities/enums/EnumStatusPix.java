@@ -19,6 +19,7 @@ public enum EnumStatusPix implements IEnum {
         this.key = key;
     }
 
+    @Override
     public String getKey() {
         return key;
     }
@@ -28,10 +29,8 @@ public enum EnumStatusPix implements IEnum {
         return parseByKey(key) != null;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Enum<T>> T parseByKey(String key) {
-        return (T) Utils.parseByKey(EnumStatusPix.class, key);
+    public static EnumStatusPix parseByKey(String key) {
+        return (EnumStatusPix) Utils.parseByKey(EnumStatusPix.class, key);
     }
 
 }

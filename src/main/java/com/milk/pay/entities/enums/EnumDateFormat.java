@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.milk.pay.utils.Utils;
-
 /**
  *
  * @author SRamos
@@ -55,13 +53,12 @@ public enum EnumDateFormat implements IEnum {
 
     @Override
     public boolean containsInEnum(String key) {
-        return parseByKey(key) != null;
+        return false;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Enum<T>> T parseByKey(String key) {
-        return (T) Utils.parseByKey(EnumDateFormat.class, key);
+    public String getKey() {
+        return null;
     }
 
 }

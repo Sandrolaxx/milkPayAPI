@@ -16,7 +16,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "cdi", imports = {Arrays.class})
 public interface IUserMapper {
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     public User listUserDtoToUser(ListUserDto dto);

@@ -50,6 +50,7 @@ public enum EnumMovementCode implements IEnum {
         this.codFebrabanCredito = codFebrabanCredito;
     }
 
+    @Override
     public String getKey() {
         return key;
     }
@@ -71,10 +72,8 @@ public enum EnumMovementCode implements IEnum {
         return parseByKey(key) != null;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Enum<T>> T parseByKey(String key) {
-        return (T) Utils.parseByKey(EnumMovementCode.class, key);
+    public static EnumMovementCode parseByKey(String key) {
+        return (EnumMovementCode) Utils.parseByKey(EnumMovementCode.class, key);
     }
     
 }

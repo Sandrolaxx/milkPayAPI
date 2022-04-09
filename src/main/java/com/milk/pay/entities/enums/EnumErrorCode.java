@@ -1,5 +1,7 @@
 package com.milk.pay.entities.enums;
 
+import com.milk.pay.utils.Utils;
+
 import org.apache.http.HttpStatus;
 
 /**
@@ -40,7 +42,8 @@ public enum EnumErrorCode implements IEnum {
         this.erro = error;
         this.httpStatus = httpStatus;
     }
-
+    
+    @Override
     public String getKey() {
         return key;
     }
@@ -58,8 +61,8 @@ public enum EnumErrorCode implements IEnum {
         return parseByKey(key) != null;
     }
 
-    public EnumErrorCode parseByKey(String key) {
-        return IEnum.parseByKey(EnumErrorCode.class, key);
+    public static EnumErrorCode parseByKey(String key) {
+        return (EnumErrorCode) Utils.parseByKey(EnumErrorCode.class, key);
     }
-
+    
 }

@@ -18,6 +18,7 @@ public enum EnumAccountType implements IEnum {
 
     private String value;
 
+    @Override
     public String getKey() {
         return key;
     }
@@ -31,10 +32,8 @@ public enum EnumAccountType implements IEnum {
         return parseByKey(key) != null;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends Enum<T>> T parseByKey(String key) {
-        return (T) Utils.parseByKey(EnumAccountType.class, key);
+    public static EnumAccountType parseByKey(String key) {
+        return (EnumAccountType) Utils.parseByKey(EnumAccountType.class, key);
     }
 
 }
