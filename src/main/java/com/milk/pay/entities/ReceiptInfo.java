@@ -7,9 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -105,6 +108,10 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "MOVEMENT_CODE")
     @Enumerated(EnumType.STRING)
     private EnumMovementCode movementCode;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ISPB_CODE", referencedColumnName = "ID")
+    private IspbCode ispbCode;
 
     public static ReceiptInfo findLastReceipt() {
         return find("select dri from ReceiptInfo dri where dri.id = (select max(id) from ReceiptInfo)")
@@ -303,6 +310,14 @@ public class ReceiptInfo extends DafeEntity {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public IspbCode getIspbCode() {
+        return ispbCode;
+    }
+
+    public void setIspbCode(IspbCode ispbCode) {
+        this.ispbCode = ispbCode;
     }
 
 }

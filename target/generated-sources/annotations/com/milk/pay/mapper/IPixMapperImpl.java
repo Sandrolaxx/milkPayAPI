@@ -9,8 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-09T17:35:28-0300",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
+    date = "2022-04-11T21:43:41-0300",
+    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
 public class IPixMapperImpl implements IPixMapper {
@@ -26,8 +26,8 @@ public class IPixMapperImpl implements IPixMapper {
         pixPaymentCelcoinDto.setCreditParty( pixPaymentDtoToPixPaymentCreditPartyCelcoinDto( dto ) );
         pixPaymentCelcoinDto.setAmount( dto.getAmount() );
         pixPaymentCelcoinDto.setEndToEndId( dto.getEndToEndId() );
-        pixPaymentCelcoinDto.setTxId( dto.getTxId() );
         pixPaymentCelcoinDto.setInitiationType( dto.getInitiationType() );
+        pixPaymentCelcoinDto.setTxId( dto.getTxId() );
 
         return pixPaymentCelcoinDto;
     }

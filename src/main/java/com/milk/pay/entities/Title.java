@@ -32,8 +32,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Title extends DafeEntity {
 
     @Id
-    @SequenceGenerator(name = "ID_MILK__TITLE", sequenceName = "GEN_MILK__TITLE", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_MILK__TITLE")
+    @SequenceGenerator(name = "ID_MILK_TITLE", sequenceName = "GEN_MILK_TITLE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_MILK_TITLE")
     @Column(name = "ID", nullable = false, precision = 0, scale = -127)
     private Integer id;
 
@@ -78,7 +78,7 @@ public class Title extends DafeEntity {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PAYMENT")
+    @JoinColumn(name = "ID_TITLE")
     private List<Payment> listPayment;
 
     public static Title findByTxId(String txId) {

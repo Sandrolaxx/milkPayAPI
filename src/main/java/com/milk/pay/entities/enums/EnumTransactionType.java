@@ -9,8 +9,8 @@ import com.milk.pay.utils.Utils;
 public enum EnumTransactionType implements IEnum  {
 
     RECEIVEPIX("RECEIVEPIX"),    
-    PIXREVERSAL("PIXREVERSAL"),//APROVAÇÃO DE RECEBIMENTO DE DEVOLUÇÃO    
-    REVERTPIX("REVERTPIXL"),//DEVOLUÇÕES DE RECEBIMENTO    
+    PIXREVERSAL("PIXREVERSAL"),   
+    REVERTPIX("REVERTPIXL"),   
     PAYMENT("PAYMENT");    
     
     private final String key;

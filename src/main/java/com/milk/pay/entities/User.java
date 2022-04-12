@@ -12,9 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.milk.pay.utils.EncryptUtil;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -78,6 +81,16 @@ public class User extends PanacheEntityBase {
     public User() {
         super();
         this.secret = Base32.random();
+    }
+
+    @PrePersist
+    private void encryptSensitiveData() {
+        this.document = EncryptUtil.textEncrypt(this.name, secret);
+        this.document = EncryptUtil.textEncrypt(this.email, secret);
+        this.document = EncryptUtil.textEncrypt(this.password, secret);
+        this.document = EncryptUtil.textEncrypt(this.document, secret);
+        this.document = EncryptUtil.textEncrypt(this.phone, secret);
+        this.document = EncryptUtil.textEncrypt(this.pixKey, secret);
     }
 
     public UUID getId() {

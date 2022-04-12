@@ -6,11 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -42,8 +44,14 @@ public class Payment extends DafeEntity {
     @Column(name = "AMOUNT")
     private Double amount;
 
-    @Column(name = "TITLE_FINE")
-    private Double titleFine;
+    @Column(name = "INTEREST_PERCENTAGE")
+    private Double interestPercentage;
+
+    @Column(name = "INTEREST_VALUE")
+    private Double interestValue;
+
+    @Column(name = "PIX_KEY")
+    private String pixKey;
 
     @Column(name = "END_TO_END_ID", unique = true)
     private String endToEndId;
@@ -81,6 +89,10 @@ public class Payment extends DafeEntity {
     @JoinColumn(name = "ID_TITLE", referencedColumnName = "ID")
     private Title title;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "RECEIPT_ID", referencedColumnName = "ID")
+    private ReceiptInfo receipt;
+
     public static Payment findByTxId(Long txId) {
         return find("txId", txId).firstResult();
     }
@@ -109,14 +121,6 @@ public class Payment extends DafeEntity {
 
     public void setExternalTxId(Long externalTxId) {
         this.externalTxId = externalTxId;
-    }
-
-    public Double getTitleFine() {
-        return titleFine;
-    }
-
-    public void setTitleFine(Double titleFine) {
-        this.titleFine = titleFine;
     }
 
     public String getEndToEndId() {
@@ -197,6 +201,38 @@ public class Payment extends DafeEntity {
 
     public void setTitle(Title title) {
         this.title = title;
+    }
+
+    public Double getInterestPercentage() {
+        return interestPercentage;
+    }
+
+    public void setInterestPercentage(Double interestPercentage) {
+        this.interestPercentage = interestPercentage;
+    }
+
+    public Double getInterestValue() {
+        return interestValue;
+    }
+
+    public void setInterestValue(Double interestValue) {
+        this.interestValue = interestValue;
+    }
+
+    public String getPixKey() {
+        return pixKey;
+    }
+
+    public void setPixKey(String pixKey) {
+        this.pixKey = pixKey;
+    }
+
+    public ReceiptInfo getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(ReceiptInfo receipt) {
+        this.receipt = receipt;
     }
 
 }
