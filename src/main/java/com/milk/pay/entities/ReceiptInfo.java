@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.milk.pay.entities.enums.EnumAccountType;
 import com.milk.pay.entities.enums.EnumMovementCode;
 import com.milk.pay.entities.pattern.DafeEntity;
 
@@ -65,7 +66,8 @@ public class ReceiptInfo extends DafeEntity {
     private String payerAccountBranch;
 
     @Column(name = "PAYER_ACCOUNT_TYPE")
-    private String payerAccountType;
+    @Enumerated(EnumType.STRING)
+    private EnumAccountType payerAccountType;
 
     @Column(name = "RECEIVER_NAME")
     private String receiverName;
@@ -86,7 +88,8 @@ public class ReceiptInfo extends DafeEntity {
     private String receiverAccountBranch;
 
     @Column(name = "RECEIVER_ACCOUNT_TYPE")
-    private String receiverAccountType;
+    @Enumerated(EnumType.STRING)
+    private EnumAccountType receiverAccountType;
 
     @Column(name = "END_TO_END_ID")
     private String endToEndId;
@@ -200,11 +203,11 @@ public class ReceiptInfo extends DafeEntity {
         this.payerAccountBranch = payerAccountBranch;
     }
 
-    public String getPayerAccountType() {
+    public EnumAccountType getPayerAccountType() {
         return payerAccountType;
     }
 
-    public void setPayerAccountType(String payerAccountType) {
+    public void setPayerAccountType(EnumAccountType payerAccountType) {
         this.payerAccountType = payerAccountType;
     }
 
@@ -256,11 +259,11 @@ public class ReceiptInfo extends DafeEntity {
         this.receiverAccountBranch = receiverAccountBranch;
     }
 
-    public String getReceiverAccountType() {
+    public EnumAccountType getReceiverAccountType() {
         return receiverAccountType;
     }
 
-    public void setReceiverAccountType(String receiverAccountType) {
+    public void setReceiverAccountType(EnumAccountType receiverAccountType) {
         this.receiverAccountType = receiverAccountType;
     }
 

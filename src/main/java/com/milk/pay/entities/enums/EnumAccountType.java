@@ -7,16 +7,20 @@ import com.milk.pay.utils.Utils;
  * @author SRamos
  */
 public enum EnumAccountType implements IEnum {
-    
-    CACC("CACC", "Conta Salário");
 
-    private EnumAccountType(String key, String value) {
-        
-    }
+    SLRY("SLRY", "Conta Salário"),
+    SVGS("SVGS", "Conta Poupança"),
+    TRAN("TRAN", "Conta de Pagamentos"),
+    CACC("CACC", "Conta Corrente");
 
     private String key;
 
     private String value;
+
+    private EnumAccountType(String key, String value) {
+        this.key = key;
+        this.value = value;
+    }
 
     @Override
     public String getKey() {

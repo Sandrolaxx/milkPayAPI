@@ -1,8 +1,6 @@
 package com.milk.pay.dto.pix;
 
-import javax.json.bind.annotation.JsonbProperty;
-
-import com.milk.pay.entities.enums.EnumInitiationType;
+import com.milk.pay.entities.enums.EnumAccountType;
 
 /**
  *
@@ -12,113 +10,102 @@ public class PixPaymentDto {
 
     private Double amount;
 
+    private Integer titleId;
+
     private String endToEndId;
 
-    private String creditAccountKey;
+    private String receiverKey;
 
-    private String creditAccountBank;
+    private String receiverBank;
 
-    private String creditAccount;
+    private String receiverAccount;
 
-    private Integer creditAccountBranch;
+    private Integer receiverBranch;
 
-    private String creditAccountTaxId;
+    private String receiverDocument;
 
-    private String creditAccountType;
+    private EnumAccountType receiverAccountType;
 
-    private String creditAccountName;
-
-    private EnumInitiationType initiationType;
-
-    @JsonbProperty("transactionIdentification")
-    private String txId;
+    private String receiverName;
 
     public Double getAmount() {
-        return this.amount;
+        return amount;
     }
 
     public void setAmount(Double amount) {
         this.amount = amount;
     }
 
+    public Integer getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(Integer titleId) {
+        this.titleId = titleId;
+    }
+
     public String getEndToEndId() {
-        return this.endToEndId;
+        return endToEndId;
     }
 
     public void setEndToEndId(String endToEndId) {
         this.endToEndId = endToEndId;
     }
 
-    public String getCreditAccountKey() {
-        return this.creditAccountKey;
+    public String getReceiverKey() {
+        return receiverKey;
     }
 
-    public void setCreditAccountKey(String creditAccountKey) {
-        this.creditAccountKey = creditAccountKey;
+    public void setReceiverKey(String receiverKey) {
+        this.receiverKey = receiverKey;
     }
 
-    public String getCreditAccountBank() {
-        return this.creditAccountBank;
+    public String getReceiverBank() {
+        return receiverBank;
     }
 
-    public void setCreditAccountBank(String creditAccountBank) {
-        this.creditAccountBank = creditAccountBank;
+    public void setReceiverBank(String receiverBank) {
+        this.receiverBank = receiverBank;
     }
 
-    public String getCreditAccount() {
-        return this.creditAccount;
+    public String getReceiverAccount() {
+        return receiverAccount;
     }
 
-    public void setCreditAccount(String creditAccount) {
-        this.creditAccount = creditAccount;
+    public void setReceiverAccount(String receiverAccount) {
+        this.receiverAccount = receiverAccount;
     }
 
-    public Integer getCreditAccountBranch() {
-        return this.creditAccountBranch;
+    public Integer getReceiverBranch() {
+        return receiverBranch;
     }
 
-    public void setCreditAccountBranch(Integer creditAccountBranch) {
-        this.creditAccountBranch = creditAccountBranch;
+    public void setReceiverBranch(Integer receiverBranch) {
+        this.receiverBranch = receiverBranch;
     }
 
-    public String getCreditAccountTaxId() {
-        return this.creditAccountTaxId;
+    public String getReceiverDocument() {
+        return receiverDocument;
     }
 
-    public void setCreditAccountTaxId(String creditAccountTaxId) {
-        this.creditAccountTaxId = creditAccountTaxId;
+    public void setReceiverDocument(String receiverDocument) {
+        this.receiverDocument = receiverDocument;
     }
 
-    public String getCreditAccountType() {
-        return this.creditAccountType;
+    public EnumAccountType getReceiverAccountType() {
+        return receiverAccountType;
     }
 
-    public void setCreditAccountType(String creditAccountType) {
-        this.creditAccountType = creditAccountType;
+    public void setReceiverAccountType(EnumAccountType receiverAccountType) {
+        this.receiverAccountType = receiverAccountType;
     }
 
-    public String getCreditAccountName() {
-        return this.creditAccountName;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setCreditAccountName(String creditAccountName) {
-        this.creditAccountName = creditAccountName;
-    }
-
-    public EnumInitiationType getInitiationType() {
-        return initiationType;
-    }
-
-    public void setInitiationType(EnumInitiationType initiationType) {
-        this.initiationType = initiationType;
-    }
-
-    public String getTxId() {
-        return txId;
-    }
-
-    public void setTxId(String txId) {
-        this.txId = txId;
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
 }

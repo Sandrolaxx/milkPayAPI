@@ -9,7 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-11T21:43:41-0300",
+    date = "2022-04-12T20:36:03-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -26,8 +26,6 @@ public class IPixMapperImpl implements IPixMapper {
         pixPaymentCelcoinDto.setCreditParty( pixPaymentDtoToPixPaymentCreditPartyCelcoinDto( dto ) );
         pixPaymentCelcoinDto.setAmount( dto.getAmount() );
         pixPaymentCelcoinDto.setEndToEndId( dto.getEndToEndId() );
-        pixPaymentCelcoinDto.setInitiationType( dto.getInitiationType() );
-        pixPaymentCelcoinDto.setTxId( dto.getTxId() );
 
         return pixPaymentCelcoinDto;
     }
@@ -40,9 +38,9 @@ public class IPixMapperImpl implements IPixMapper {
 
         Payment payment = new Payment();
 
+        payment.setPixKey( dto.getReceiverKey() );
         payment.setAmount( dto.getAmount() );
         payment.setEndToEndId( dto.getEndToEndId() );
-        payment.setInitiationType( dto.getInitiationType() );
 
         return payment;
     }
@@ -54,13 +52,15 @@ public class IPixMapperImpl implements IPixMapper {
 
         PixPaymentCreditPartyCelcoinDto pixPaymentCreditPartyCelcoinDto = new PixPaymentCreditPartyCelcoinDto();
 
-        pixPaymentCreditPartyCelcoinDto.setKey( pixPaymentDto.getCreditAccountKey() );
-        pixPaymentCreditPartyCelcoinDto.setBank( pixPaymentDto.getCreditAccountBank() );
-        pixPaymentCreditPartyCelcoinDto.setAccount( pixPaymentDto.getCreditAccount() );
-        pixPaymentCreditPartyCelcoinDto.setBranch( pixPaymentDto.getCreditAccountBranch() );
-        pixPaymentCreditPartyCelcoinDto.setTaxId( pixPaymentDto.getCreditAccountTaxId() );
-        pixPaymentCreditPartyCelcoinDto.setAccountType( pixPaymentDto.getCreditAccountType() );
-        pixPaymentCreditPartyCelcoinDto.setName( pixPaymentDto.getCreditAccountName() );
+        pixPaymentCreditPartyCelcoinDto.setKey( pixPaymentDto.getReceiverKey() );
+        pixPaymentCreditPartyCelcoinDto.setBank( pixPaymentDto.getReceiverBank() );
+        pixPaymentCreditPartyCelcoinDto.setAccount( pixPaymentDto.getReceiverAccount() );
+        pixPaymentCreditPartyCelcoinDto.setBranch( pixPaymentDto.getReceiverBranch() );
+        pixPaymentCreditPartyCelcoinDto.setTaxId( pixPaymentDto.getReceiverDocument() );
+        if ( pixPaymentDto.getReceiverAccountType() != null ) {
+            pixPaymentCreditPartyCelcoinDto.setAccountType( pixPaymentDto.getReceiverAccountType().name() );
+        }
+        pixPaymentCreditPartyCelcoinDto.setName( pixPaymentDto.getReceiverName() );
 
         return pixPaymentCreditPartyCelcoinDto;
     }

@@ -20,10 +20,6 @@ public class StringUtil {
         return str == null || str.trim().isEmpty() || str.equalsIgnoreCase("null");
     }
 
-    public static boolean isNotNullOrEmpty(String str) {
-        return !isNullOrEmpty(str);
-    }
-
     public static String numbers(String str) {
         final String n = Utils.nvl(str, "");
         return n.replaceAll("[^0-9]", "");

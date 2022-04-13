@@ -11,6 +11,8 @@ import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
 import com.milk.pay.entities.Payment;
 import com.milk.pay.entities.ReceiptInfo;
+import com.milk.pay.entities.Title;
+import com.milk.pay.entities.enums.EnumInitiationType;
 import com.milk.pay.entities.enums.EnumMovementCode;
 import com.milk.pay.mapper.IPixMapper;
 import com.milk.pay.utils.ReceiptUtil;
@@ -27,27 +29,31 @@ public class PixService {
     @Inject
     RequestUtil requestUtil;
 
-    public PixPaymentCelcoinDto createCelcoinDto(PixPaymentDto paymentDto, String clientCode) {
+    public PixPaymentCelcoinDto createCelcoinDto(PixPaymentDto paymentDto, Integer clientCode) {
 
         var pixPaymentCelcoinDto = pixMapper.pixPaymentDtoToPixPaymentCelcoinDto(paymentDto);
         var milkPayDebitParty = requestUtil.getMilkPayDebitParty();
 
-        pixPaymentCelcoinDto.setClientCode(clientCode);
+        pixPaymentCelcoinDto.setClientCode(clientCode.toString());
         pixPaymentCelcoinDto.setDebitParty(milkPayDebitParty);
-        pixPaymentCelcoinDto.setInitiationType(paymentDto.getInitiationType());
+        pixPaymentCelcoinDto.setInitiationType(EnumInitiationType.DICT);
 
         return pixPaymentCelcoinDto;
 
     }
 
     @Transactional
-    public void persistPixPaymentResponse(Integer entityId, PixPaymentResponseDto dto) {
+    public Payment persistPixPayment(PixPaymentDto dto) {
 
-        Payment pixPayment = Payment.findById(entityId);
+        var pixPayment = pixMapper.pixPaymentDtoToPixPaymentEntity(dto);
+        var title = Title.findById(dto.getTitleId());
 
-        pixPayment.setExternalTxId(dto.getTxId());
+        pixPayment.setTitle(title);
+        pixPayment.setInitiationType(EnumInitiationType.DICT);
 
         pixPayment.persistAndFlush();
+
+        return pixPayment;
 
     }
 
@@ -75,13 +81,13 @@ public class PixService {
         receiptPix.setAmount(BigDecimal.valueOf(paymentDto.getAmount()));
         receiptPix.setExternalAuth(responseDto.getSlipAuth());
 
-        receiptPix.setReceiverName(paymentDto.getCreditAccountName());
-        receiptPix.setReceiverDocument(paymentDto.getCreditAccountTaxId());
-        receiptPix.setReceiverAccountType(paymentDto.getCreditAccountType());
-        receiptPix.setReceiverAccountKey(paymentDto.getCreditAccountKey());
-        receiptPix.setReceiverAccountBank(paymentDto.getCreditAccountBank());
-        receiptPix.setReceiverAccountBranch(paymentDto.getCreditAccountBranch().toString());
-        receiptPix.setReceiverAccount(paymentDto.getCreditAccount());
+        receiptPix.setReceiverName(paymentDto.getReceiverName());
+        receiptPix.setReceiverAccountKey(paymentDto.getReceiverKey());
+        receiptPix.setReceiverDocument(paymentDto.getReceiverDocument());
+        receiptPix.setReceiverAccount(paymentDto.getReceiverAccount());
+        receiptPix.setReceiverAccountType(paymentDto.getReceiverAccountType());
+        receiptPix.setReceiverAccountBank(paymentDto.getReceiverBank());
+        receiptPix.setReceiverAccountBranch(paymentDto.getReceiverBranch().toString());
 
         receiptPix.setPayerName(milkPayDebitParty.getName().toUpperCase());
         receiptPix.setPayerDocument(milkPayDebitParty.getTaxId());
@@ -100,6 +106,7 @@ public class PixService {
         receiptPix.persistAndFlush();
 
         return receipt;
+        
     }
 
 }

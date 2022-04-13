@@ -89,4 +89,8 @@ public class NumericUtil {
         return 0;
     }
 
+    public static boolean isNullOrZero(final Number value) {
+        return value == null || value.equals(0.0);
+    }
+
 }

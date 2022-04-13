@@ -19,7 +19,7 @@ public enum EnumErrorCode implements IEnum {
     VALOR_PAGAMENTO_INVALIDO("006", "Valor de pagamento informado: {0} inválido. O Valor deve ser maior do que zero e menor do que 9999999,99.", HttpStatus.SC_BAD_REQUEST),
     INFORMACAO_PAGAMENTO_INVALIDA("007", "Não foram encontradas as informações para realização do pagamento.", HttpStatus.SC_BAD_REQUEST),
     PARAMETROS_INVALIDOS("008", "Um ou mais parâmetros obrigatórios não foram informados! Parâmetros: {0}", HttpStatus.SC_BAD_REQUEST),
-    CAMPO_PAGAMENTO_PIX_INVALIDO("0009", "{0} Pagamento Pix inválido!", HttpStatus.SC_BAD_REQUEST),
+    CAMPO_PAGAMENTO_PIX_INVALIDO("009", "{0} informado no Pagamento Pix é inválido!", HttpStatus.SC_BAD_REQUEST),
     CHAVE_PIX_NAO_INFORMADA("011", "Chave Pix não informada!", HttpStatus.SC_BAD_REQUEST),
     ERRO_PERSISTIR_PAGAMENTO_PIX("012", "Erro persistir pagamento Pix!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_SALVAR_COMPROVANTE("013", "Erro ao salvar comprovante!", HttpStatus.SC_INTERNAL_SERVER_ERROR),

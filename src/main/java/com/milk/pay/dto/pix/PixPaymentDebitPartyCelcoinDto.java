@@ -1,5 +1,7 @@
 package com.milk.pay.dto.pix;
 
+import com.milk.pay.entities.enums.EnumAccountType;
+
 /**
  *
  * @author SRamos
@@ -12,7 +14,7 @@ public class PixPaymentDebitPartyCelcoinDto  {
 
     private String taxId;
 
-    private String accountType;
+    private EnumAccountType accountType;
 
     private String name;
 
@@ -42,11 +44,11 @@ public class PixPaymentDebitPartyCelcoinDto  {
         this.taxId = taxId;
     }
 
-    public String getAccountType() {
+    public EnumAccountType getAccountType() {
         return this.accountType;
     }
 
-    public void setAccountType(String accountType) {
+    public void setAccountType(EnumAccountType accountType) {
         this.accountType = accountType;
     }
 

@@ -9,11 +9,9 @@ import javax.ws.rs.WebApplicationException;
 
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
-import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
 import com.milk.pay.entities.Title;
 import com.milk.pay.entities.enums.EnumErrorCode;
-import com.milk.pay.entities.enums.EnumInitiationType;
 import com.milk.pay.mapper.IPixMapper;
 import com.milk.pay.pattern.rest.RestClientPixCelcoin;
 import com.milk.pay.utils.DateUtil;
@@ -46,89 +44,28 @@ public class PixServiceCelcoin {
     public PixKeyConsultResponseCelcoinDto consultKey(String key) throws MilkPayException {
 
         try {
-
-            var token = tokenService.tokenDto();
-
-            var responseCelcoin = restClientPix.consultKey(token, key);
-
-            if (responseCelcoin == null) {
-                throw new MilkPayException(EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX_CELCOIN);
-            }
-
-            return responseCelcoin;
-
+            return restClientPix.consultKey(tokenService.tokenDto(), key);
         } catch (WebApplicationException wae) {
-
             if (wae.getResponse() != null && wae.getResponse().getStatus() == 404) {
                 throw new MilkPayException(EnumErrorCode.CHAVE_CONSULTADA_INEXISTENTE);
             }
 
-            final PixKeyConsultResponseCelcoinDto resp = WebApplicationExceptionConverter.convertExceptionToObject(wae, PixKeyConsultResponseCelcoinDto.class);
-
-            if (resp != null && resp.getError() != null) {
-                throw new MilkPayException(
-                        resp.getError().getDescription(),
-                        resp.getError().getCode()
-                );
-            }
-        } catch (Exception e) {
-            throw new MilkPayException(EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX_CELCOIN);
+            throw handlException(wae, EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX_CELCOIN);
         }
-
-        throw new MilkPayException(EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX_CELCOIN);
     }
 
     public PixPaymentResponseDto makePayment(PixPaymentCelcoinDto dto) {
 
         try {
-
-            var token = tokenService.tokenDto();
-
-            var responseCelcoin = restClientPix.makePayment(token, dto);
-
-            if (responseCelcoin == null) {
-                throw new MilkPayException(EnumErrorCode.ERRO_TRASNF_CHAVE_PIX_CELCOIN);
-            }
-            
-            responseCelcoin.setAmount(dto.getAmount());
-            
-            return responseCelcoin;
-
+            return restClientPix.makePayment(tokenService.tokenDto(), dto);
         } catch (WebApplicationException wae) {
-            final PixPaymentResponseDto resp = WebApplicationExceptionConverter.convertExceptionToObject(wae, PixPaymentResponseDto.class);
-
-            if (resp != null) {
-                throw new MilkPayException(
-                        resp.getMessage() != null ? resp.getMessage() : resp.getDescription(),
-                        StringUtil.toString(resp.getErrorCode())
-                );
-            }
-            
-        } catch(Exception e) {
-            throw new MilkPayException(EnumErrorCode.ERRO_TRASNF_CHAVE_PIX_CELCOIN);
+            throw handlException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX_CELCOIN);
         }
-
-        throw new MilkPayException(EnumErrorCode.ERRO_TRASNF_CHAVE_PIX_CELCOIN);
-    }
-
-    public PixPaymentDto setKeyInfo(PixPaymentDto pixPayment, PixKeyConsultResponseCelcoinDto keyConsult) {
-
-        pixPayment.setCreditAccountKey(keyConsult.getKey());
-        pixPayment.setCreditAccount(keyConsult.getAccount().getAccountNumber());
-        pixPayment.setCreditAccountBank(keyConsult.getAccount().getParticipant());
-        pixPayment.setCreditAccountBranch(keyConsult.getAccount().getBranch());
-        pixPayment.setCreditAccountType(keyConsult.getAccount().getAccountType());
-        pixPayment.setCreditAccountTaxId(keyConsult.getOwner().getTaxIdNumber());
-        pixPayment.setCreditAccountName(keyConsult.getOwner().getName());
-        pixPayment.setEndToEndId(keyConsult.getEndToEndId());
-        pixPayment.setInitiationType(EnumInitiationType.DICT);
-
-        return pixPayment;
 
     }
 
     public Double resolverAmount(Double total, Date dueDate, Double dailyFine) {
-        var numberOfDays =  DateUtil.numberOfDaysBetweenDates(new Date(), dueDate);
+        var numberOfDays = DateUtil.numberOfDaysBetweenDates(new Date(), dueDate);
 
         if (numberOfDays == 0) {
             return total;
@@ -150,6 +87,19 @@ public class PixServiceCelcoin {
         }
 
         title.persistAndFlush();
+    }
+
+    public MilkPayException handlException(WebApplicationException wae, EnumErrorCode defaultError) {
+        final PixPaymentResponseDto resp = WebApplicationExceptionConverter.convertExceptionToObject(wae,
+                PixPaymentResponseDto.class);
+
+        if (resp != null) {
+            return new MilkPayException(
+                    resp.getMessage() != null ? resp.getMessage() : resp.getDescription(),
+                    StringUtil.toString(resp.getErrorCode()));
+        } else {
+            return new MilkPayException(defaultError);
+        }
     }
 
 }

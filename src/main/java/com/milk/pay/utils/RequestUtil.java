@@ -5,6 +5,7 @@ import java.util.Base64;
 import javax.enterprise.context.ApplicationScoped;
 
 import com.milk.pay.dto.pix.PixPaymentDebitPartyCelcoinDto;
+import com.milk.pay.entities.enums.EnumAccountType;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -23,9 +24,6 @@ public class RequestUtil {
 
     @ConfigProperty(name = "dafe.taxId")
     String milkPayTaxId;
-
-    @ConfigProperty(name = "dafe.accountType")
-    String milkPayAccountType;
 
     @ConfigProperty(name = "dafe.name")
     String milkPayName;
@@ -56,7 +54,7 @@ public class RequestUtil {
         var milkPayDebitParty = new PixPaymentDebitPartyCelcoinDto();
 
         milkPayDebitParty.setAccount(milkPayAccount);
-        milkPayDebitParty.setAccountType(milkPayAccountType);
+        milkPayDebitParty.setAccountType(EnumAccountType.CACC);
         milkPayDebitParty.setBranch(milkPayBranch);
         milkPayDebitParty.setName(milkPayName);
         milkPayDebitParty.setTaxId(milkPayTaxId);

@@ -9,12 +9,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
+import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.services.PixService;
 import com.milk.pay.services.PixServiceCelcoin;
 import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
+import com.milk.pay.utils.ValidateUtil;
 
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -64,22 +66,23 @@ public class PixController {
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @POST
     @Path("/payment")
-    public PixPaymentResponseDto payment() {
+    public PixPaymentResponseDto payment(PixPaymentDto paymentDto) {
 
-        // var paymentDto = celcoinPixService.getPixTransferDto(dto);
-        // var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto, dto.getTitleId().toString());
-        // var responseDto = celcoinPixService.makePayment(paymentCelcoinDto);
+        ValidateUtil.validatePixPaymentDto(paymentDto);
 
-        // if (responseDto == null
-        //     || responseDto.getEndToEndId() == null) {
-        //     throw new MilkPayException(EnumErrorCode.ERRO_PAGAMENTO_PIX_CELCOIN);
-        // }
+        var persistedPayment = pixService.persistPixPayment(paymentDto);
+        var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto, persistedPayment.getId());
+        var responseDto = celcoinPixService.makePayment(paymentCelcoinDto);
 
-        // responseDto.setSlip(pixService.savePaymentReceipt(responseDto, paymentDto));
-        // celcoinPixService.finishTitle(responseDto, dto.getAmount(), dto.getTitleId());
+        if (responseDto == null
+            || responseDto.getEndToEndId() == null) {
+            throw new MilkPayException(EnumErrorCode.ERRO_PAGAMENTO_PIX_CELCOIN);
+        }
 
-        // return responseDto;
-        return null;
+        responseDto.setSlip(pixService.savePaymentReceipt(responseDto, paymentDto));
+        celcoinPixService.finishTitle(responseDto, paymentDto.getAmount(), paymentDto.getTitleId());
+
+        return responseDto;
 
     }
 
