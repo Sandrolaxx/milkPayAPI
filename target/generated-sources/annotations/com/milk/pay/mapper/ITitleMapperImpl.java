@@ -11,8 +11,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-12T19:41:28-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
+    date = "2022-04-13T07:15:51-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
 )
 @ApplicationScoped
 public class ITitleMapperImpl implements ITitleMapper {
@@ -78,6 +78,7 @@ public class ITitleMapperImpl implements ITitleMapper {
         createUserDto.setPassword( user.getPassword() );
         createUserDto.setDocument( user.getDocument() );
         createUserDto.setPhone( user.getPhone() );
+        createUserDto.setActive( user.isActive() );
         createUserDto.setPixKey( user.getPixKey() );
 
         return createUserDto;
@@ -96,6 +97,7 @@ public class ITitleMapperImpl implements ITitleMapper {
         user.setDocument( createUserDto.getDocument() );
         user.setPhone( createUserDto.getPhone() );
         user.setPixKey( createUserDto.getPixKey() );
+        user.setActive( createUserDto.isActive() );
 
         return user;
     }

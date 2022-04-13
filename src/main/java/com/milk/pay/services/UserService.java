@@ -14,6 +14,7 @@ import com.milk.pay.dto.user.ListUserDto;
 import com.milk.pay.entities.User;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.IUserMapper;
+import com.milk.pay.utils.EncryptUtil;
 import com.milk.pay.utils.MilkPayException;
 
 /**
@@ -35,13 +36,14 @@ public class UserService {
 
     @Transactional()
     public User persistUser(CreateUserDto dto) {
-        
-        User newUser = userMapper.createUserDtoToUser(dto);
 
+        var newUser = userMapper.createUserDtoToUser(dto);
+
+        newUser.setActive(true);
         newUser.persistAndFlush();
-        
+
         saveUserKeycloak(newUser);
-        
+
         return newUser;
 
     }
@@ -52,16 +54,16 @@ public class UserService {
         var newCredencial = new CreateUserKeycloakCredentialsDto();
         var credencialList = new ArrayList<CreateUserKeycloakCredentialsDto>();
 
-        newUserKeycloak.setUsername(newUser.getEmail());
+        newUserKeycloak.setUsername(EncryptUtil.textDecrypt(newUser.getEmail(), newUser.getSecret()));
         newUserKeycloak.setEnabled(true);
 
         newCredencial.setTemporary(false);
-        newCredencial.setValue(newUser.getPassword());
+        newCredencial.setValue(EncryptUtil.textDecrypt(newUser.getPassword(), newUser.getSecret()));
 
         credencialList.add(newCredencial);
-        
+
         newUserKeycloak.setCredentials(credencialList);
-        newUserKeycloak.setAttributes(Map.of("userId",newUser.getName()));
+        newUserKeycloak.setAttributes(Map.of("userId", newUser.getId().toString()));
 
         try {
             keycloakService.createUserKeycloak(newUserKeycloak);

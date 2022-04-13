@@ -10,8 +10,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-12T19:41:27-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
+    date = "2022-04-13T07:15:52-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
 )
 @ApplicationScoped
 public class IUserMapperImpl implements IUserMapper {
@@ -31,6 +31,7 @@ public class IUserMapperImpl implements IUserMapper {
         user.setDocument( dto.getDocument() );
         user.setPhone( dto.getPhone() );
         user.setPixKey( dto.getPixKey() );
+        user.setActive( dto.getActive() );
 
         return user;
     }
@@ -49,6 +50,7 @@ public class IUserMapperImpl implements IUserMapper {
         user.setDocument( dto.getDocument() );
         user.setPhone( dto.getPhone() );
         user.setPixKey( dto.getPixKey() );
+        user.setActive( dto.isActive() );
 
         return user;
     }
@@ -73,6 +75,7 @@ public class IUserMapperImpl implements IUserMapper {
         listUserDto.setPassword( user.getPassword() );
         listUserDto.setDocument( user.getDocument() );
         listUserDto.setPhone( user.getPhone() );
+        listUserDto.setActive( user.isActive() );
         listUserDto.setPixKey( user.getPixKey() );
 
         return listUserDto;

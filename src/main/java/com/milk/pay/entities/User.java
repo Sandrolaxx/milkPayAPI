@@ -61,6 +61,9 @@ public class User extends PanacheEntityBase {
     @Column(name = "SECRET")
     private String secret;
 
+    @Column(name = "ACTIVE")
+    private boolean active;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
     private List<Title> listTitle;
@@ -85,12 +88,12 @@ public class User extends PanacheEntityBase {
 
     @PrePersist
     private void encryptSensitiveData() {
-        this.document = EncryptUtil.textEncrypt(this.name, secret);
-        this.document = EncryptUtil.textEncrypt(this.email, secret);
-        this.document = EncryptUtil.textEncrypt(this.password, secret);
+        this.name = EncryptUtil.textEncrypt(this.name, secret);
+        this.email = EncryptUtil.textEncrypt(this.email, secret);
+        this.password = EncryptUtil.textEncrypt(this.password, secret);
         this.document = EncryptUtil.textEncrypt(this.document, secret);
-        this.document = EncryptUtil.textEncrypt(this.phone, secret);
-        this.document = EncryptUtil.textEncrypt(this.pixKey, secret);
+        this.phone = EncryptUtil.textEncrypt(this.phone, secret);
+        this.pixKey = EncryptUtil.textEncrypt(this.pixKey, secret);
     }
 
     public UUID getId() {
@@ -178,6 +181,12 @@ public class User extends PanacheEntityBase {
     }
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
 }

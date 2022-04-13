@@ -6,25 +6,19 @@ package com.milk.pay.dto.user;
  */
 public class CreateUserDto {
 
-    private String name;
+    private String document;
 
     private String email;
 
-    private String password;
+    private String name;
 
-    private String document;
+    private String password;
 
     private String phone;
 
     private boolean active;
 
-    private boolean acceptTerms;
-
     private String pixKey;
-
-    private String postalCode;
-
-    private String addressName;
 
     public String getName() {
         return this.name;
@@ -72,30 +66,6 @@ public class CreateUserDto {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public boolean isAcceptTerms() {
-        return this.acceptTerms;
-    }
-
-    public void setAcceptTerms(boolean acceptTerms) {
-        this.acceptTerms = acceptTerms;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getAddressName() {
-        return addressName;
-    }
-
-    public void setAddressName(String addressName) {
-        this.addressName = addressName;
     }
 
     public String getPixKey() {
