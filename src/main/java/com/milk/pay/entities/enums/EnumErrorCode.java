@@ -21,11 +21,12 @@ public enum EnumErrorCode implements IEnum {
     PARAMETROS_INVALIDOS("008", "Um ou mais parâmetros obrigatórios não foram informados! Parâmetros: {0}", HttpStatus.SC_BAD_REQUEST),
     CAMPO_PAGAMENTO_PIX_INVALIDO("009", "{0} informado no Pagamento Pix é inválido!", HttpStatus.SC_BAD_REQUEST),
     CHAVE_PIX_NAO_INFORMADA("011", "Chave Pix não informada!", HttpStatus.SC_BAD_REQUEST),
-    ERRO_PERSISTIR_PAGAMENTO_PIX("012", "Erro persistir pagamento Pix!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
+    ERRO_SALVAR_PAGAMENTO_PIX("012", "Erro persistir pagamento Pix!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_SALVAR_COMPROVANTE("013", "Erro ao salvar comprovante!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_AO_CADASTRAR_USUARIO("014", "Ocorreu um erro interno e não foi possível cadastrar o usuário!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     USUARIO_SEM_CREDENCIAIS("015", "Rota não disponível para as credenciais informadas.", HttpStatus.SC_UNAUTHORIZED),
     PAGAMENTO_PIX_JA_REALIZADO("016", "Já realizado Pagamento Pix para o end-to-end informado! Consulte novamente a Chave Pix.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
+    ERRO_SALVAR_TIT_USUARIO_INVALIDO("017", "Não foi possível salvar o título! usuário não encontrado para o documento informado.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     //Erros externos
     ERRO_COMUNICACAO_CELCOIN("050", "A requisição enviada a Celcoin retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
     ERRO_PARSE_JSON_CELCOIN("052", "Erro ao realizar o parse do Json de resposta da Celcoin!", HttpStatus.SC_INTERNAL_SERVER_ERROR),

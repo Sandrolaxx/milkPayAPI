@@ -1,5 +1,6 @@
 package com.milk.pay.mapper;
 
+import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.entities.Title;
 
@@ -14,6 +15,6 @@ public interface ITitleMapper {
 
     public TitleDto titleToTitleDto(Title entity);
 
-    public Title titleDtoToEntity(TitleDto resDto);
+    public Title titleDtoToEntity(TitleCreateDto dto);
 
 }

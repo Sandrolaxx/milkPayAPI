@@ -8,13 +8,16 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.entities.Payment;
 import com.milk.pay.entities.Title;
 import com.milk.pay.entities.User;
+import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.ITitleMapper;
 import com.milk.pay.utils.DateUtil;
 import com.milk.pay.utils.ListUtil;
+import com.milk.pay.utils.MilkPayException;
 
 @ApplicationScoped
 public class TitleService {
@@ -36,17 +39,21 @@ public class TitleService {
     }
 
     @Transactional()
-    public void persistTitle(TitleDto dto) {
+    public void persistTitle(TitleCreateDto newTitleDto) {
         var defaultDailyFine = 0.2D;
 
-        if (dto.getDailyFine() == null) {
-            dto.setDailyFine(defaultDailyFine);
+        if (newTitleDto.getDailyFine() == null) {
+            newTitleDto.setDailyFine(defaultDailyFine);
         }
 
-        dto.setBalance(dto.getAmount());
+        newTitleDto.setBalance(newTitleDto.getAmount());
 
-        var newTitle = titleMapper.titleDtoToEntity(dto);
-        var user = User.findUserById(dto.getUserId());
+        var newTitle = titleMapper.titleDtoToEntity(newTitleDto);
+        var user = User.findUserByDocument(newTitleDto.getUserDocument());
+
+        if (user == null) {
+            throw new MilkPayException(EnumErrorCode.ERRO_SALVAR_TIT_USUARIO_INVALIDO);
+        }
 
         newTitle.setUser(user);
 

@@ -1,7 +1,5 @@
 package com.milk.pay.dto.title;
 
-import com.milk.pay.dto.user.CreateUserDto;
-
 /**
  *
  * @author SRamos
@@ -10,7 +8,7 @@ public class TitleDto {
 
     private Integer id;
     
-    private Integer userId;
+    private String userId;
 
     private Double amount;
 
@@ -28,17 +26,15 @@ public class TitleDto {
 
     private String responseSlip;
 
-    private CreateUserDto user;
-
     private boolean liquidated;
     
     private Double dailyFine;
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -104,14 +100,6 @@ public class TitleDto {
 
     public void setResponseSlip(String responseSlip) {
         this.responseSlip = responseSlip;
-    }
-
-    public CreateUserDto getUser() {
-        return user;
-    }
-
-    public void setUser(CreateUserDto user) {
-        this.user = user;
     }
 
     public Integer getId() {
