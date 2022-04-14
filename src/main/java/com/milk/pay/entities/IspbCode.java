@@ -1,13 +1,10 @@
 package com.milk.pay.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -42,8 +39,9 @@ public class IspbCode extends PanacheEntityBase {
     @Column(name = "ISPB_CODE")
     private String ispbCode;
 
-    @OneToOne(mappedBy = "ispbCode", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private ReceiptInfo receipt;
+    public static IspbCode findByCode(String ispbCode) {
+        return IspbCode.find("ispbCode", ispbCode).firstResult();
+    }
 
     public Integer getId() {
         return id;
@@ -91,14 +89,6 @@ public class IspbCode extends PanacheEntityBase {
 
     public void setIspbCode(String ispbCode) {
         this.ispbCode = ispbCode;
-    }
-
-    public ReceiptInfo getReceipt() {
-        return receipt;
-    }
-
-    public void setReceipt(ReceiptInfo receipt) {
-        this.receipt = receipt;
     }
     
 }

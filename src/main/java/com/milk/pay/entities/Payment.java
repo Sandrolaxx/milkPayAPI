@@ -39,7 +39,7 @@ public class Payment extends DafeEntity {
     private Integer id;
     
     @Column(name = "EXTERNAL_TX_ID", unique = true)
-    private Long externalTxId;
+    private String externalTxId;
 
     @Column(name = "AMOUNT")
     private Double amount;
@@ -115,11 +115,11 @@ public class Payment extends DafeEntity {
         this.amount = amount;
     }
 
-    public Long getExternalTxId() {
+    public String getExternalTxId() {
         return externalTxId;
     }
 
-    public void setExternalTxId(Long externalTxId) {
+    public void setExternalTxId(String externalTxId) {
         this.externalTxId = externalTxId;
     }
 

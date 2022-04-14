@@ -25,6 +25,7 @@ public enum EnumErrorCode implements IEnum {
     ERRO_SALVAR_COMPROVANTE("013", "Erro ao salvar comprovante!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_AO_CADASTRAR_USUARIO("014", "Ocorreu um erro interno e não foi possível cadastrar o usuário!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     USUARIO_SEM_CREDENCIAIS("015", "Rota não disponível para as credenciais informadas.", HttpStatus.SC_UNAUTHORIZED),
+    PAGAMENTO_PIX_JA_REALIZADO("016", "Já realizado Pagamento Pix para o end-to-end informado! Consulte novamente a Chave Pix.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     //Erros externos
     ERRO_COMUNICACAO_CELCOIN("050", "A requisição enviada a Celcoin retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
     ERRO_PARSE_JSON_CELCOIN("052", "Erro ao realizar o parse do Json de resposta da Celcoin!", HttpStatus.SC_INTERNAL_SERVER_ERROR),

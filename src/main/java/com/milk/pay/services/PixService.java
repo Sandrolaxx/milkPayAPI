@@ -4,17 +4,21 @@ import java.math.BigDecimal;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 
 import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
+import com.milk.pay.entities.IspbCode;
 import com.milk.pay.entities.Payment;
 import com.milk.pay.entities.ReceiptInfo;
 import com.milk.pay.entities.Title;
+import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.entities.enums.EnumInitiationType;
 import com.milk.pay.entities.enums.EnumMovementCode;
 import com.milk.pay.mapper.IPixMapper;
+import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.ReceiptUtil;
 import com.milk.pay.utils.RequestUtil;
 
@@ -29,12 +33,12 @@ public class PixService {
     @Inject
     RequestUtil requestUtil;
 
-    public PixPaymentCelcoinDto createCelcoinDto(PixPaymentDto paymentDto, Integer clientCode) {
+    public PixPaymentCelcoinDto createCelcoinDto(PixPaymentDto paymentDto) {
 
         var pixPaymentCelcoinDto = pixMapper.pixPaymentDtoToPixPaymentCelcoinDto(paymentDto);
         var milkPayDebitParty = requestUtil.getMilkPayDebitParty();
 
-        pixPaymentCelcoinDto.setClientCode(clientCode.toString());
+        pixPaymentCelcoinDto.setClientCode(paymentDto.getTxId().toString());    
         pixPaymentCelcoinDto.setDebitParty(milkPayDebitParty);
         pixPaymentCelcoinDto.setInitiationType(EnumInitiationType.DICT);
 
@@ -51,7 +55,11 @@ public class PixService {
         pixPayment.setTitle(title);
         pixPayment.setInitiationType(EnumInitiationType.DICT);
 
-        pixPayment.persistAndFlush();
+        try {
+            pixPayment.persistAndFlush();
+        } catch (PersistenceException e) {
+            throw new MilkPayException(EnumErrorCode.PAGAMENTO_PIX_JA_REALIZADO);
+        }
 
         return pixPayment;
 
@@ -69,24 +77,27 @@ public class PixService {
     }
     
     @Transactional
-    public String savePaymentReceipt(PixPaymentResponseDto responseDto, PixPaymentDto paymentDto) {
+    public ReceiptInfo savePaymentReceipt(PixPaymentResponseDto responseDto, PixPaymentDto paymentDto) {
 
         var receiptPix = new ReceiptInfo();
         var lastReceipt = ReceiptInfo.findLastReceipt();
         var milkPayDebitParty = requestUtil.getMilkPayDebitParty();
+        var ispb = IspbCode.findByCode(paymentDto.getReceiverBank());
 
         receiptPix.setLastAuthentication(lastReceipt != null ? lastReceipt.getAuthentication() : "GENESIS_BLOCK");
         receiptPix.setEndToEndId(paymentDto.getEndToEndId());
         receiptPix.setMovementCode(EnumMovementCode.TRANSF_INTERBANCARIA_PIX);
         receiptPix.setAmount(BigDecimal.valueOf(paymentDto.getAmount()));
         receiptPix.setExternalAuth(responseDto.getSlipAuth());
+        receiptPix.setTxId(paymentDto.getTxId());
+        receiptPix.setIspbCode(ispb);
 
         receiptPix.setReceiverName(paymentDto.getReceiverName());
         receiptPix.setReceiverAccountKey(paymentDto.getReceiverKey());
         receiptPix.setReceiverDocument(paymentDto.getReceiverDocument());
         receiptPix.setReceiverAccount(paymentDto.getReceiverAccount());
         receiptPix.setReceiverAccountType(paymentDto.getReceiverAccountType());
-        receiptPix.setReceiverAccountBank(paymentDto.getReceiverBank());
+        receiptPix.setReceiverAccountBank(resolveIspbBank(ispb));
         receiptPix.setReceiverAccountBranch(paymentDto.getReceiverBranch().toString());
 
         receiptPix.setPayerName(milkPayDebitParty.getName().toUpperCase());
@@ -96,17 +107,21 @@ public class PixService {
         receiptPix.setPayerAccountBranch(milkPayDebitParty.getBranch());
         receiptPix.setPayerAccount(milkPayDebitParty.getAccount());
 
-        var receipt = ReceiptUtil.createReceiptPix(receiptPix);
-        var authentication = DigestUtils.md5Hex(receipt);
+        var receiptResume = ReceiptUtil.createReceiptPix(receiptPix);
+        var authentication = DigestUtils.md5Hex(receiptResume);
+        receiptResume = ReceiptUtil.addReceiptAuth(receiptResume, authentication.toUpperCase());
 
+        receiptPix.setReceiptResume(receiptResume);
         receiptPix.setAuthentication(authentication.toUpperCase());
-
-        receipt = ReceiptUtil.addReceiptAuth(receipt, authentication.toUpperCase());
 
         receiptPix.persistAndFlush();
 
-        return receipt;
+        return receiptPix;
         
+    }
+
+    public String resolveIspbBank(IspbCode ispb) {
+        return ispb != null ? ispb.getName() : "INSTITUIÇÃO NÃO IDENTIFICADA";
     }
 
 }

@@ -37,6 +37,9 @@ public class ReceiptInfo extends DafeEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_MILK_RECEIPT_INFO")
     @Column(name = "ID", nullable = false, precision = 0, scale = -127)
     private Integer id;
+        
+    @Column(name = "TX_ID")
+    private Integer txId;
 
     @Column(name = "AUTHENTICATION")
     private String authentication;
@@ -102,6 +105,9 @@ public class ReceiptInfo extends DafeEntity {
 
     @Column(name = "EXTERNAL_AUTH_SECOND_BLOCK")
     private String externalAuthSecondBlock;
+    
+    @Column(name = "RECEIPT_RESUME", length = 1500)
+    private String receiptResume;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -129,6 +135,14 @@ public class ReceiptInfo extends DafeEntity {
     @Override
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getTxId() {
+        return txId;
+    }
+
+    public void setTxId(Integer txId) {
+        this.txId = txId;
     }
 
     public String getLastAuthentication() {
@@ -321,6 +335,14 @@ public class ReceiptInfo extends DafeEntity {
 
     public void setIspbCode(IspbCode ispbCode) {
         this.ispbCode = ispbCode;
+    }
+
+    public String getReceiptResume() {
+        return receiptResume;
+    }
+
+    public void setReceiptResume(String receiptResume) {
+        this.receiptResume = receiptResume;
     }
 
 }

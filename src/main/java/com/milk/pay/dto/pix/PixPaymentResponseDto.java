@@ -11,8 +11,6 @@ public class PixPaymentResponseDto {
     @JsonbProperty("transactionId")
     private Long txId;
 
-    private String code;
-
     private String slip;
 
     private String slipAuth;
@@ -33,14 +31,6 @@ public class PixPaymentResponseDto {
 
     public void setTxId(Long txId) {
         this.txId = txId;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getSlip() {

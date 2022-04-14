@@ -28,6 +28,8 @@ public class PixPaymentDto {
 
     private String receiverName;
 
+    private Integer txId;
+
     public Double getAmount() {
         return amount;
     }
@@ -106,6 +108,14 @@ public class PixPaymentDto {
 
     public void setReceiverName(String receiverName) {
         this.receiverName = receiverName;
+    }
+
+    public Integer getTxId() {
+        return txId;
+    }
+
+    public void setTxId(Integer txId) {
+        this.txId = txId;
     }
 
 }

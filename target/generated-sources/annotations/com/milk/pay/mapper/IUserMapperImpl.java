@@ -10,8 +10,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-13T07:15:52-0300",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
+    date = "2022-04-13T21:23:19-0300",
+    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.50.v20210914-1429, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
 public class IUserMapperImpl implements IUserMapper {
@@ -24,14 +24,14 @@ public class IUserMapperImpl implements IUserMapper {
 
         User user = new User();
 
+        user.setActive( dto.getActive() );
+        user.setDocument( dto.getDocument() );
+        user.setEmail( dto.getEmail() );
         user.setId( dto.getId() );
         user.setName( dto.getName() );
-        user.setEmail( dto.getEmail() );
         user.setPassword( dto.getPassword() );
-        user.setDocument( dto.getDocument() );
         user.setPhone( dto.getPhone() );
         user.setPixKey( dto.getPixKey() );
-        user.setActive( dto.getActive() );
 
         return user;
     }
@@ -44,13 +44,13 @@ public class IUserMapperImpl implements IUserMapper {
 
         User user = new User();
 
-        user.setName( dto.getName() );
-        user.setEmail( dto.getEmail() );
-        user.setPassword( dto.getPassword() );
+        user.setActive( dto.isActive() );
         user.setDocument( dto.getDocument() );
+        user.setEmail( dto.getEmail() );
+        user.setName( dto.getName() );
+        user.setPassword( dto.getPassword() );
         user.setPhone( dto.getPhone() );
         user.setPixKey( dto.getPixKey() );
-        user.setActive( dto.isActive() );
 
         return user;
     }
@@ -69,13 +69,13 @@ public class IUserMapperImpl implements IUserMapper {
         if ( user.getUpdatedAt() != null ) {
             listUserDto.setUpdatedAt( new SimpleDateFormat( "dd/MM/yyyy HH:mm:ss" ).format( user.getUpdatedAt() ) );
         }
+        listUserDto.setActive( user.isActive() );
+        listUserDto.setDocument( user.getDocument() );
+        listUserDto.setEmail( user.getEmail() );
         listUserDto.setId( user.getId() );
         listUserDto.setName( user.getName() );
-        listUserDto.setEmail( user.getEmail() );
         listUserDto.setPassword( user.getPassword() );
-        listUserDto.setDocument( user.getDocument() );
         listUserDto.setPhone( user.getPhone() );
-        listUserDto.setActive( user.isActive() );
         listUserDto.setPixKey( user.getPixKey() );
 
         return listUserDto;

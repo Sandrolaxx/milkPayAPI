@@ -25,10 +25,10 @@ public class ReceiptUtil {
     }
 
     public static String replaceDefaultFields(String receiptLayout, ReceiptInfo receiptInfo) {
-       
+        
         var calendar = DateUtil.dateToCalendar(new Date());
 
-        receiptLayout = receiptLayout.replace("{protocolo}", StringUtil.addBlankLeftPad(receiptInfo.getId().toString(), 31));
+        receiptLayout = receiptLayout.replace("{protocolo}", StringUtil.addBlankLeftPad(receiptInfo.getTxId().toString(), 31));
         receiptLayout = receiptLayout.replace("{data-atual}", DateUtil.formatDDMMYYYY(new Date()));
         receiptLayout = receiptLayout.replace("{hora-atual}", StringUtil.addBlankLeftPad((calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)),30));
         receiptLayout = receiptLayout.replace("{tipo-movimento}", receiptInfo.getMovementCode().getValue().length() > 32 ? 

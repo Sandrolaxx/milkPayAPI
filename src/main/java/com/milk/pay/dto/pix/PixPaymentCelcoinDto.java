@@ -1,7 +1,5 @@
 package com.milk.pay.dto.pix;
 
-import javax.json.bind.annotation.JsonbProperty;
-
 import com.milk.pay.entities.enums.EnumInitiationType;
 
 /**
@@ -19,9 +17,6 @@ public class PixPaymentCelcoinDto {
     private PixPaymentDebitPartyCelcoinDto debitParty;
 
     private PixPaymentCreditPartyCelcoinDto creditParty;
-
-    @JsonbProperty("transactionIdentification")
-    private String txId;
 
     private EnumInitiationType initiationType;
 
@@ -65,14 +60,6 @@ public class PixPaymentCelcoinDto {
 
     public void setCreditParty(PixPaymentCreditPartyCelcoinDto creditParty) {
         this.creditParty = creditParty;
-    }
-
-    public String getTxId() {
-        return txId;
-    }
-
-    public void setTxId(String txId) {
-        this.txId = txId;
     }
 
     public EnumInitiationType getInitiationType() {

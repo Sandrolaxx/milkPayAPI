@@ -14,6 +14,7 @@ import com.milk.pay.dto.pix.PixPaymentResponseDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.services.PixService;
 import com.milk.pay.services.PixServiceCelcoin;
+import com.milk.pay.services.TitleService;
 import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
 import com.milk.pay.utils.ValidateUtil;
@@ -39,6 +40,9 @@ public class PixController {
 
     @Inject
     PixService pixService;
+
+    @Inject
+    TitleService titleService;
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna Chave Pix consultada.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
@@ -71,7 +75,10 @@ public class PixController {
         ValidateUtil.validatePixPaymentDto(paymentDto);
 
         var persistedPayment = pixService.persistPixPayment(paymentDto);
-        var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto, persistedPayment.getId());
+
+        paymentDto.setTxId(persistedPayment.getId());
+
+        var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto);
         var responseDto = celcoinPixService.makePayment(paymentCelcoinDto);
 
         if (responseDto == null
@@ -79,8 +86,12 @@ public class PixController {
             throw new MilkPayException(EnumErrorCode.ERRO_PAGAMENTO_PIX_CELCOIN);
         }
 
-        responseDto.setSlip(pixService.savePaymentReceipt(responseDto, paymentDto));
-        celcoinPixService.finishTitle(responseDto, paymentDto.getAmount(), paymentDto.getTitleId());
+        var receipt = pixService.savePaymentReceipt(responseDto, paymentDto);
+        persistedPayment.setReceipt(receipt);
+
+        // titleService.finishTitle(persistedPayment, paymentDto.getTitleId());
+        
+        responseDto.setSlip(receipt.getReceiptResume());
 
         return responseDto;
 
