@@ -95,7 +95,6 @@ public class User extends PanacheEntityBase {
         this.name = EncryptUtil.textEncrypt(this.name, secret);
         this.email = EncryptUtil.textEncrypt(this.email, secret);
         this.password = EncryptUtil.textEncrypt(this.password, secret);
-        this.document = EncryptUtil.textEncrypt(this.document, secret);
         this.phone = EncryptUtil.textEncrypt(this.phone, secret);
         this.pixKey = EncryptUtil.textEncrypt(this.pixKey, secret);
     }

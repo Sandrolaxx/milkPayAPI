@@ -43,10 +43,11 @@ public class TitleController {
         return titleService.findAll(null, userId);        
     }
     
-    @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Chave Pix consultada.")
+    @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Status 201 - CREATED.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @POST
     public Response create(TitleCreateDto newTitle) {
+        titleService.persistTitle(newTitle);
 
         return Response.status(Status.CREATED).build();
     }

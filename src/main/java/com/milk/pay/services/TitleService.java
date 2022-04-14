@@ -38,15 +38,13 @@ public class TitleService {
 
     }
 
-    @Transactional()
+    @Transactional()//TODO corrigir formatação de data do DTO
     public void persistTitle(TitleCreateDto newTitleDto) {
         var defaultDailyFine = 0.2D;
 
         if (newTitleDto.getDailyFine() == null) {
             newTitleDto.setDailyFine(defaultDailyFine);
         }
-
-        newTitleDto.setBalance(newTitleDto.getAmount());
 
         var newTitle = titleMapper.titleDtoToEntity(newTitleDto);
         var user = User.findUserByDocument(newTitleDto.getUserDocument());
@@ -55,6 +53,7 @@ public class TitleService {
             throw new MilkPayException(EnumErrorCode.ERRO_SALVAR_TIT_USUARIO_INVALIDO);
         }
 
+        newTitle.setBalance(newTitleDto.getAmount());
         newTitle.setUser(user);
 
         newTitle.persistAndFlush();

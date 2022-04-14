@@ -1,5 +1,9 @@
 package com.milk.pay.dto.title;
 
+import java.sql.Date;
+
+import javax.json.bind.annotation.JsonbDateFormat;
+
 /**
  *
  * @author SRamos
@@ -12,13 +16,13 @@ public class TitleCreateDto {
 
     private Double amount;
 
-    private Double balance;
-
     private Double dailyFine;
 
-    private String dueDate;
-
-    private String inclusionDate;
+    @JsonbDateFormat(value = "dd/MM/yyyy", locale = "Locale.ENGLISH")
+    private Date dueDate;
+    
+    @JsonbDateFormat(value = "dd/MM/yyyy", locale = "Locale.ENGLISH")
+    private Date inclusionDate;
 
     private String nfNumber;
 
@@ -46,14 +50,6 @@ public class TitleCreateDto {
         this.amount = amount;
     }
 
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
     public Double getDailyFine() {
         return dailyFine;
     }
@@ -62,19 +58,19 @@ public class TitleCreateDto {
         this.dailyFine = dailyFine;
     }
 
-    public String getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 
-    public String getInclusionDate() {
+    public Date getInclusionDate() {
         return inclusionDate;
     }
 
-    public void setInclusionDate(String inclusionDate) {
+    public void setInclusionDate(Date inclusionDate) {
         this.inclusionDate = inclusionDate;
     }
 
