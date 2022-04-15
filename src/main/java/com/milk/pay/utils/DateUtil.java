@@ -138,26 +138,21 @@ public class DateUtil {
     }
 
     public static String getDateToday() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date(System.currentTimeMillis());
-        return formatter.format(date);
-
+        return DDMMYYYY.format(new Date(System.currentTimeMillis()));
     }
 
     public static String getDateTodayInit() {
-
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy 00:00:00");
         Date date = new Date(System.currentTimeMillis());
-        return formatter.format(date);
 
+        return formatter.format(date);
     }
 
     public static String getDateTodayEnd() {
-
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy 23:59:59");
         Date date = new Date(System.currentTimeMillis());
-        return formatter.format(date);
 
+        return formatter.format(date);
     }
 
     public static Calendar resetTime(Calendar calendar) {
@@ -252,10 +247,20 @@ public class DateUtil {
     }
 
     public static Date DDMMYYYYToDate(String value) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date data = null;
         try {
-            data = formatter.parse(value);
+            data = DDMMYYYY.parse(value);
+        } catch (ParseException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return data;
+    }
+
+    public static Date DDMMYYYYHHMMSSToDate(String value) {
+        Date data = null;
+        try {
+            data = DDMMYYYYHHMMSS.parse(value);
         } catch (ParseException ex) {
             throw new RuntimeException(ex);
         }
@@ -264,10 +269,9 @@ public class DateUtil {
     }
 
     public static Calendar DDMMYYYYToCalendar(String value) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date data = null;
         try {
-            data = formatter.parse(value);
+            data = DDMMYYYY.parse(value);
         } catch (ParseException ex) {
             throw new RuntimeException(ex);
         }
@@ -276,10 +280,9 @@ public class DateUtil {
     }
 
     public static Calendar DDMMYYYYHHMMSSToCalendar(String value) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date data = null;
         try {
-            data = formatter.parse(value);
+            data = DDMMYYYYHHMMSS.parse(value);
         } catch (ParseException ex) {
             throw new RuntimeException(ex);
         }

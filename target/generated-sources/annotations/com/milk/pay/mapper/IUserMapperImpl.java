@@ -10,8 +10,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-14T06:27:58-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
+    date = "2022-04-15T11:13:37-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
 )
 @ApplicationScoped
 public class IUserMapperImpl implements IUserMapper {

@@ -43,7 +43,6 @@ public class PixControllerTest {
         .contentType(ContentType.JSON).header(new Header("Authorization", "Bearer " + token));
     }
 
-
     @Test
     @DataSet("cenario-testCase02.json")
     public void testConsultPix() {

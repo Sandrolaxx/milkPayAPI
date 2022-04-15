@@ -9,7 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-14T06:31:12-0300",
+    date = "2022-04-15T12:10:35-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -47,8 +47,10 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         title.setAmount( dto.getAmount() );
         title.setDailyFine( dto.getDailyFine() );
-        title.setDueDate( dto.getDueDate() );
         title.setNfNumber( dto.getNfNumber() );
+
+        title.setDueDate( parseDate(dto.getDueDate()) );
+        title.setInclusionDate( parseDate(dto.getInclusionDate()) );
 
         return title;
     }

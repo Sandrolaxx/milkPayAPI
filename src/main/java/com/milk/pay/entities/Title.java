@@ -2,6 +2,7 @@ package com.milk.pay.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,6 +54,10 @@ public class Title extends DafeEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dueDate;
 
+    @Column(name = "INCLUSION_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date inclusionDate;
+
     @Column(name = "PAID_AT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date paidAt;
@@ -89,7 +94,7 @@ public class Title extends DafeEntity {
         return find("id", id).firstResult();
     }
 
-    public static List<Title> listByUserId(Integer userId) {
+    public static List<Title> listByUserId(UUID userId) {
         return find("user.id", userId).list();
     }
 
@@ -197,6 +202,14 @@ public class Title extends DafeEntity {
 
     public void setListPayment(List<Payment> listPayment) {
         this.listPayment = listPayment;
+    }
+
+    public Date getInclusionDate() {
+        return inclusionDate;
+    }
+
+    public void setInclusionDate(Date inclusionDate) {
+        this.inclusionDate = inclusionDate;
     }
 
 }

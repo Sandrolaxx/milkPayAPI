@@ -17,6 +17,9 @@ import com.milk.pay.mapper.IUserMapper;
 import com.milk.pay.utils.EncryptUtil;
 import com.milk.pay.utils.MilkPayException;
 
+import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
+import io.quarkus.security.identity.SecurityIdentity;
+
 /**
  *
  * @author SRamos
@@ -71,6 +74,12 @@ public class UserService {
             throw new MilkPayException(EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
         }
 
+    }
+
+    public String resolveUserId(SecurityIdentity identity) {
+        var tokenInfo = (OidcJwtCallerPrincipal) identity.getPrincipal();
+
+        return (String) tokenInfo.getClaim("userId");
     }
 
 }

@@ -2,6 +2,7 @@ package com.milk.pay.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -25,12 +26,8 @@ public class TitleService {
     @Inject
     ITitleMapper titleMapper;
 
-    public List<TitleDto> findAll(Integer companyId, Integer userId) {
-
-        if (companyId != null) {
-        }
-
-        var userTitles = Title.listByUserId(userId);
+    public List<TitleDto> findAll(String userId) {
+        var userTitles = Title.listByUserId(UUID.fromString(userId));
 
         return userTitles.stream()
                        .map(p -> titleMapper.titleToTitleDto(p))
@@ -38,7 +35,7 @@ public class TitleService {
 
     }
 
-    @Transactional()//TODO corrigir formatação de data do DTO
+    @Transactional()
     public void persistTitle(TitleCreateDto newTitleDto) {
         var defaultDailyFine = 0.2D;
 
