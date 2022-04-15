@@ -19,6 +19,7 @@ import com.milk.pay.entities.enums.EnumInitiationType;
 import com.milk.pay.entities.enums.EnumMovementCode;
 import com.milk.pay.mapper.IPixMapper;
 import com.milk.pay.utils.MilkPayException;
+import com.milk.pay.utils.NumericUtil;
 import com.milk.pay.utils.ReceiptUtil;
 import com.milk.pay.utils.RequestUtil;
 
@@ -52,8 +53,17 @@ public class PixService {
         var pixPayment = pixMapper.pixPaymentDtoToPixPaymentEntity(dto);
         var title = Title.findById(dto.getTitleId());
 
+        if (title == null) {
+            throw new MilkPayException(EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
+        }
+
+        //TODO criar enum erro título não encontrato e padronizar nomenclarutra tax
+        var finePercentage = NumericUtil.getFinePercentage(title.getDueDate(), title.getDailyFine());
+
         pixPayment.setTitle(title);
         pixPayment.setInitiationType(EnumInitiationType.DICT);
+        pixPayment.setInterestPercentage(finePercentage);
+        pixPayment.setInterestPercentage(NumericUtil.getFineAmount(dto.getAmount(), finePercentage));
 
         try {
             pixPayment.persistAndFlush();

@@ -47,9 +47,6 @@ public class Title extends DafeEntity {
     @Column(name = "DAYLI_FINE")
     private Double dailyFine;
 
-    @Column(name = "EXTERNAL_TX_ID")
-    private Integer externalTxId;
-    
     @Column(name = "DUE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dueDate;
@@ -85,10 +82,6 @@ public class Title extends DafeEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TITLE")
     private List<Payment> listPayment;
-
-    public static Title findByTxId(String txId) {
-        return find("txId", txId).firstResult();
-    }
 
     public static Title findById(Integer id) {
         return find("id", id).firstResult();
@@ -170,14 +163,6 @@ public class Title extends DafeEntity {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public Integer getExternalTxId() {
-        return externalTxId;
-    }
-
-    public void setExternalTxId(Integer externalTxId) {
-        this.externalTxId = externalTxId;
     }
 
     public Date getPaidAt() {

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -93,4 +94,17 @@ public class NumericUtil {
         return value == null || value.equals(0.0);
     }
 
+    public static Double getFineAmount(Double total, Double finePercentage) {
+        return  (finePercentage * total) / 100;
+    }
+
+    public static Double getFinePercentage(Date dueDate, Double dailyFine) {
+        var numberOfDays = DateUtil.numberOfDaysBetweenDates(new Date(), dueDate);
+
+        if (numberOfDays == 0) {
+            return 0d;
+        }
+
+        return numberOfDays * dailyFine;
+    }
 }

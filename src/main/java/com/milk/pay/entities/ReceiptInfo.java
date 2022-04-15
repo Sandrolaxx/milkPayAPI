@@ -37,7 +37,7 @@ public class ReceiptInfo extends DafeEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_MILK_RECEIPT_INFO")
     @Column(name = "ID", nullable = false, precision = 0, scale = -127)
     private Integer id;
-        
+
     @Column(name = "TX_ID")
     private Integer txId;
 
@@ -55,9 +55,6 @@ public class ReceiptInfo extends DafeEntity {
 
     @Column(name = "PAYER_DOCUMENT")
     private String payerDocument;
-
-    @Column(name = "PAYER_KEY")
-    private String payerAccountKey;
 
     @Column(name = "PAYER_BANK")
     private String payerAccountBank;
@@ -100,12 +97,12 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "EXTERNAL_AUTH")
     private String externalAuth;
 
-    @Column(name = "EXTERNAL_AUTH_FIRST_BLOCK")
-    private String externalAuthFirstBlock;
+    @Column(name = "EXTERNAL_RECEIPT")
+    private String externalReceipt;
 
-    @Column(name = "EXTERNAL_AUTH_SECOND_BLOCK")
-    private String externalAuthSecondBlock;
-    
+    @Column(name = "EXTERNAL_TX_ID")
+    private String externalTxid;
+
     @Column(name = "RECEIPT_RESUME", length = 1500)
     private String receiptResume;
 
@@ -124,7 +121,7 @@ public class ReceiptInfo extends DafeEntity {
 
     public static ReceiptInfo findLastReceipt() {
         return find("select dri from ReceiptInfo dri where dri.id = (select max(id) from ReceiptInfo)")
-                    .firstResult();
+                .firstResult();
     }
 
     @Override
@@ -183,14 +180,6 @@ public class ReceiptInfo extends DafeEntity {
 
     public void setPayerDocument(String payerDocument) {
         this.payerDocument = payerDocument;
-    }
-
-    public String getPayerAccountKey() {
-        return payerAccountKey;
-    }
-
-    public void setPayerAccountKey(String payerAccountKey) {
-        this.payerAccountKey = payerAccountKey;
     }
 
     public String getPayerAccountBank() {
@@ -297,20 +286,20 @@ public class ReceiptInfo extends DafeEntity {
         this.externalAuth = externalAuth;
     }
 
-    public String getExternalAuthFirstBlock() {
-        return externalAuthFirstBlock;
+    public String getExternalReceipt() {
+        return externalReceipt;
     }
 
-    public void setExternalAuthFirstBlock(String externalAuthFirstBlock) {
-        this.externalAuthFirstBlock = externalAuthFirstBlock;
+    public void setExternalReceipt(String externalReceipt) {
+        this.externalReceipt = externalReceipt;
     }
 
-    public String getExternalAuthSecondBlock() {
-        return externalAuthSecondBlock;
+    public String getExternalTxid() {
+        return externalTxid;
     }
 
-    public void setExternalAuthSecondBlock(String externalAuthSecondBlock) {
-        this.externalAuthSecondBlock = externalAuthSecondBlock;
+    public void setExternalTxid(String externalTxid) {
+        this.externalTxid = externalTxid;
     }
 
     public EnumMovementCode getMovementCode() {

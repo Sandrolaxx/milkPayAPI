@@ -74,9 +74,7 @@ public class PixController {
 
         ValidateUtil.validatePixPaymentDto(paymentDto);
 
-        var persistedPayment = pixService.persistPixPayment(paymentDto);
-
-        paymentDto.setTxId(persistedPayment.getId());
+        paymentDto.setTxId(pixService.persistPixPayment(paymentDto).getId());
 
         var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto);
         var responseDto = celcoinPixService.makePayment(paymentCelcoinDto);
@@ -87,9 +85,8 @@ public class PixController {
         }
 
         var receipt = pixService.savePaymentReceipt(responseDto, paymentDto);
-        persistedPayment.setReceipt(receipt);
 
-        // titleService.finishTitle(persistedPayment, paymentDto.getTitleId());
+        titleService.finishTitle(receipt, paymentDto.getTitleId());
         
         responseDto.setSlip(receipt.getReceiptResume());
 

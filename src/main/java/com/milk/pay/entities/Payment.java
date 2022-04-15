@@ -38,9 +38,6 @@ public class Payment extends DafeEntity {
     @Column(name = "ID", nullable = false, precision = 0, scale = -127)
     private Integer id;
     
-    @Column(name = "EXTERNAL_TX_ID", unique = true)
-    private String externalTxId;
-
     @Column(name = "AMOUNT")
     private Double amount;
 
@@ -55,9 +52,6 @@ public class Payment extends DafeEntity {
 
     @Column(name = "END_TO_END_ID", unique = true)
     private String endToEndId;
-
-    @Column(name = "EXTERNAL_RECEIPT")
-    private String externalReceipt;
 
     @Column(name = "RECEIPT_IMAGE")
     private String receiptImage;
@@ -93,8 +87,8 @@ public class Payment extends DafeEntity {
     @JoinColumn(name = "RECEIPT_ID", referencedColumnName = "ID")
     private ReceiptInfo receipt;
 
-    public static Payment findByTxId(Long txId) {
-        return find("txId", txId).firstResult();
+    public static Payment findById(Integer id) {
+        return find("id", id).firstResult();
     }
 
     @Override
@@ -115,28 +109,12 @@ public class Payment extends DafeEntity {
         this.amount = amount;
     }
 
-    public String getExternalTxId() {
-        return externalTxId;
-    }
-
-    public void setExternalTxId(String externalTxId) {
-        this.externalTxId = externalTxId;
-    }
-
     public String getEndToEndId() {
         return endToEndId;
     }
 
     public void setEndToEndId(String endToEndId) {
         this.endToEndId = endToEndId;
-    }
-
-    public String getExternalReceipt() {
-        return externalReceipt;
-    }
-
-    public void setExternalReceipt(String externalReceipt) {
-        this.externalReceipt = externalReceipt;
     }
 
     public String getReceiptImage() {
