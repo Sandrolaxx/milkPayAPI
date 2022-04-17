@@ -124,6 +124,10 @@ public class ReceiptInfo extends DafeEntity {
                 .firstResult();
     }
 
+    public static ReceiptInfo findById(Integer id) {
+        return find("id", id).firstResult();
+    }
+
     @Override
     public Integer getId() {
         return id;

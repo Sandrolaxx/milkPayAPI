@@ -53,7 +53,7 @@ public class Payment extends DafeEntity {
     @Column(name = "END_TO_END_ID", unique = true)
     private String endToEndId;
 
-    @Column(name = "RECEIPT_IMAGE")
+    @Column(name = "RECEIPT_IMAGE", length = 1500)
     private String receiptImage;
 
     @Column(name = "LIQUIDATED")
