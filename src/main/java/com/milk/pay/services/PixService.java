@@ -54,16 +54,15 @@ public class PixService {
         var title = Title.findById(dto.getTitleId());
 
         if (title == null) {
-            throw new MilkPayException(EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
+            throw new MilkPayException(EnumErrorCode.ERRO_AO_ENCONTRAR_TITULO);
         }
 
-        //TODO criar enum erro título não encontrato e padronizar nomenclarutra tax
-        var finePercentage = NumericUtil.getFinePercentage(title.getDueDate(), title.getDailyFine());
+        var interestPercentage = NumericUtil.getInterestPercentage(title.getDueDate(), title.getDailyInterest());
 
         pixPayment.setTitle(title);
         pixPayment.setInitiationType(EnumInitiationType.DICT);
-        pixPayment.setInterestPercentage(finePercentage);
-        pixPayment.setInterestPercentage(NumericUtil.getFineAmount(dto.getAmount(), finePercentage));
+        pixPayment.setInterestPercentage(interestPercentage);
+        pixPayment.setInterestPercentage(NumericUtil.getInterestAmount(dto.getAmount(), interestPercentage));
 
         try {
             pixPayment.persistAndFlush();

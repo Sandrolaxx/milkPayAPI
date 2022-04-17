@@ -94,17 +94,13 @@ public class NumericUtil {
         return value == null || value.equals(0.0);
     }
 
-    public static Double getFineAmount(Double total, Double finePercentage) {
-        return  (finePercentage * total) / 100;
+    public static Double getInterestAmount(Double total, Double interestPercentage) {
+        return  (interestPercentage * total) / 100;
     }
 
-    public static Double getFinePercentage(Date dueDate, Double dailyFine) {
+    public static Double getInterestPercentage(Date dueDate, Double dailyInterest) {
         var numberOfDays = DateUtil.numberOfDaysBetweenDates(new Date(), dueDate);
 
-        if (numberOfDays == 0) {
-            return 0d;
-        }
-
-        return numberOfDays * dailyFine;
+        return numberOfDays * dailyInterest;
     }
 }

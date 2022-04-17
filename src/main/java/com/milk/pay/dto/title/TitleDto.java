@@ -28,7 +28,7 @@ public class TitleDto {
 
     private boolean liquidated;
     
-    private Double dailyFine;
+    private Double dailyInterest;
 
     public String getUserId() {
         return userId;
@@ -118,12 +118,12 @@ public class TitleDto {
         this.liquidated = liquidated;
     }
 
-    public Double getDailyFine() {
-        return dailyFine;
+    public Double getDailyInterest() {
+        return dailyInterest;
     }
 
-    public void setDailyFine(Double dailyFine) {
-        this.dailyFine = dailyFine;
+    public void setDailyInterest(Double dailyInterest) {
+        this.dailyInterest = dailyInterest;
     }
 
 }

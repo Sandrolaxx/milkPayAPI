@@ -44,8 +44,8 @@ public class Title extends DafeEntity {
     @Column(name = "BALANCE")
     private Double balance;
 
-    @Column(name = "DAYLI_FINE")
-    private Double dailyFine;
+    @Column(name = "DAYLI_INTEREST")
+    private Double dailyInterest;
 
     @Column(name = "DUE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
@@ -149,12 +149,12 @@ public class Title extends DafeEntity {
         this.liquidated = liquidated;
     }
 
-    public Double getDailyFine() {
-        return dailyFine;
+    public Double getDailyInterest() {
+        return dailyInterest;
     }
 
-    public void setDailyFine(Double dailyFine) {
-        this.dailyFine = dailyFine;
+    public void setDailyInterest(Double dailyInterest) {
+        this.dailyInterest = dailyInterest;
     }
 
     public Date getDueDate() {

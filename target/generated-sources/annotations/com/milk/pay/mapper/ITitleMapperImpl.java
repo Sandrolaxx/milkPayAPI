@@ -9,7 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-15T12:28:51-0300",
+    date = "2022-04-17T06:25:36-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -25,7 +25,6 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         titleDto.setAmount( entity.getAmount() );
         titleDto.setBalance( entity.getBalance() );
-        titleDto.setDailyFine( entity.getDailyFine() );
         if ( entity.getDueDate() != null ) {
             titleDto.setDueDate( new SimpleDateFormat().format( entity.getDueDate() ) );
         }
@@ -33,6 +32,7 @@ public class ITitleMapperImpl implements ITitleMapper {
             titleDto.setId( entity.getId() );
         }
         titleDto.setLiquidated( entity.isLiquidated() );
+        titleDto.setDailyInterest( entity.getDailyInterest() );
 
         return titleDto;
     }
@@ -46,7 +46,7 @@ public class ITitleMapperImpl implements ITitleMapper {
         Title title = new Title();
 
         title.setAmount( dto.getAmount() );
-        title.setDailyFine( dto.getDailyFine() );
+        title.setDailyInterest( dto.getDailyInterest() );
         title.setNfNumber( dto.getNfNumber() );
 
         title.setDueDate( parseDate(dto.getDueDate()) );

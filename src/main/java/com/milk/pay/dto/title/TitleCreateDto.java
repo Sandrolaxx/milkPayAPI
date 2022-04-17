@@ -12,7 +12,7 @@ public class TitleCreateDto {
 
     private Double amount;
 
-    private Double dailyFine;
+    private Double dailyInterest;
 
     private String dueDate;
     
@@ -43,13 +43,13 @@ public class TitleCreateDto {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-
-    public Double getDailyFine() {
-        return dailyFine;
+    
+    public Double getDailyInterest() {
+        return dailyInterest;
     }
 
-    public void setDailyFine(Double dailyFine) {
-        this.dailyFine = dailyFine;
+    public void setDailyInterest(Double dailyInterest) {
+        this.dailyInterest = dailyInterest;
     }
 
     public String getDueDate() {

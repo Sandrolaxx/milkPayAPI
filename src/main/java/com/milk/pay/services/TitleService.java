@@ -37,10 +37,10 @@ public class TitleService {
 
     @Transactional()
     public void persistTitle(TitleCreateDto newTitleDto) {
-        var defaultDailyFine = 0.2D;
+        var defaultDailyInterest = 0.2D;
 
-        if (newTitleDto.getDailyFine() == null) {
-            newTitleDto.setDailyFine(defaultDailyFine);
+        if (newTitleDto.getDailyInterest() == null) {
+            newTitleDto.setDailyInterest(defaultDailyInterest);
         }
 
         var newTitle = titleMapper.titleDtoToEntity(newTitleDto);
