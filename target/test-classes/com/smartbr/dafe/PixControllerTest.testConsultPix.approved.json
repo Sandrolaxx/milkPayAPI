@@ -1,0 +1,9 @@
+{
+  "amount": 4.0,
+  "endToEndId": "E08744817202108101254LZXLTQRKKAS",
+  "liquidatedDigitalAccount": true,
+  "paymentDate": "2021-06-30 16:23:05",
+  "status": "PAID",
+  "transactionType": "RECEIVEPIX",
+  "txId": "1"
+}

@@ -28,6 +28,8 @@ public enum EnumErrorCode implements IEnum {
     PAGAMENTO_PIX_JA_REALIZADO("016", "Já realizado Pagamento Pix para o end-to-end informado! Consulte novamente a Chave Pix.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_SALVAR_TIT_USUARIO_INVALIDO("017", "Não foi possível salvar o título! usuário não encontrado para o documento informado.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_AO_ENCONTRAR_TITULO("018", "Não foi possível encontrar o título informado.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
+    CAMPO_OBRIGATORIO("019", "Campo {0} é obrigatório, favor informar.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
+    DATA_VENCIMENTO_INVALIDA("020", "A data de vencimento informada não pode ser menor que a data do dia de amanhã.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     //Erros externos
     ERRO_COMUNICACAO_CELCOIN("050", "A requisição enviada a Celcoin retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
     ERRO_PARSE_JSON_CELCOIN("052", "Erro ao realizar o parse do Json de resposta da Celcoin!", HttpStatus.SC_INTERNAL_SERVER_ERROR),

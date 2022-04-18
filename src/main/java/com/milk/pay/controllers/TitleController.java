@@ -17,6 +17,7 @@ import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.services.TitleService;
 import com.milk.pay.services.UserService;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
+import com.milk.pay.utils.ValidateUtil;
 
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -55,6 +56,8 @@ public class TitleController {
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @POST
     public Response create(TitleCreateDto newTitle) {
+        ValidateUtil.validateNewTitleDto(newTitle);
+
         titleService.persistTitle(newTitle);
 
         return Response.status(Status.CREATED).build();
