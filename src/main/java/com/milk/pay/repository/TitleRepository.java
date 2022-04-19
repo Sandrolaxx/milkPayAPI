@@ -15,11 +15,11 @@ public class TitleRepository implements PanacheRepository<Title> {
     public List<Title> findByUserIdBetwenDates(Map<String, Object> params) {
         var query = new StringBuilder();
 
-        query.append("user.id = ?1 and liquidated = ?2");
+        query.append("user.id = :userId and liquidated = :liquidated ");
 
         if (params.get("offset") != null
-                && params.get("offset") != null) {
-            query.append("and dueDate > ?3 and dueDate <= ?4");
+                && params.get("limit") != null) {
+            query.append("and dueDate >= :offset and dueDate <= :limit");
         }
 
         return list(query.toString(), params);

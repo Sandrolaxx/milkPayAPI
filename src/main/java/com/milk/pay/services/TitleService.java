@@ -1,8 +1,8 @@
 package com.milk.pay.services;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,6 +22,7 @@ import com.milk.pay.repository.TitleRepository;
 import com.milk.pay.utils.DateUtil;
 import com.milk.pay.utils.ListUtil;
 import com.milk.pay.utils.MilkPayException;
+import com.milk.pay.utils.StringUtil;
 
 @ApplicationScoped
 public class TitleService {
@@ -34,10 +35,16 @@ public class TitleService {
 
     public List<TitleDto> findAll(String userId, boolean liquidated, String offset, String limit) {
 
-        Map<String, Object> params = Map.of(
-            "liquidated", liquidated, "userId", UUID.fromString(userId), 
-            "offset", DateUtil.DDMMYYYYToDate(offset), "limit", DateUtil.DDMMYYYYToDate(limit)
-        );
+        var params = new HashMap<String, Object>();
+        
+        params.put("userId", UUID.fromString(userId));
+        params.put("liquidated", liquidated);
+
+        if (!StringUtil.isNullOrEmpty(offset)
+                && !StringUtil.isNullOrEmpty(limit)) {
+            params.put("offset", DateUtil.DDMMYYYYToDate(offset));
+            params.put("limit", DateUtil.DDMMYYYYToDate(limit));
+        }
 
         var userTitles = repository.findByUserIdBetwenDates(params);
 
