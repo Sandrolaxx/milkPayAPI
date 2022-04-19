@@ -23,6 +23,8 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
+import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 import io.quarkus.security.identity.SecurityIdentity;
 
@@ -48,8 +50,9 @@ public class TitleController {
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os titulos do usuário.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @GET
-    public List<TitleDto> listByUser() {
-        return titleService.findAll(userService.resolveUserId(identity));        
+    public List<TitleDto> listByUser(@HeaderParam boolean liquidated, @QueryParam String offset, 
+        @QueryParam String limit) {
+        return titleService.findAll(userService.resolveUserId(identity), liquidated, offset, limit);        
     }
     
     @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Status 201 - CREATED.")

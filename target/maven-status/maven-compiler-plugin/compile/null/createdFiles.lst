@@ -1,7 +1,6 @@
 com/milk/pay/mapper/IUserMapperImpl.class
 com/milk/pay/utils/StringUtil.class
 com/milk/pay/dto/pix/PixPaymentResponseDto.class
-com/milk/pay/entities/enums/EnumErrorCode.class
 com/milk/pay/dto/pix/PixKeyAccountCelcoinDto.class
 com/milk/pay/dto/pix/PixKeyOwnerResponseCelcoinDto.class
 com/milk/pay/utils/Utils.class
@@ -10,7 +9,6 @@ com/milk/pay/dto/pix/PixPaymentCreditPartyCelcoinDto.class
 com/milk/pay/entities/enums/EnumStatusPix.class
 com/milk/pay/entities/enums/EnumTransactionType.class
 com/milk/pay/pattern/rest/RestClientKeycloak.class
-com/milk/pay/services/UserService.class
 com/milk/pay/services/PixServiceCelcoin.class
 com/milk/pay/utils/EnumUtil.class
 com/milk/pay/services/KeycloakService.class

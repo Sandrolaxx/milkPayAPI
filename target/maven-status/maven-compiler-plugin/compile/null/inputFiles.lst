@@ -59,6 +59,7 @@
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/pattern/DafeEntity.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/EnumUtil.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/enums/EnumTransactionType.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/repository/TitleRepository.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/Utils.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/ListUtil.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/ValidateUtil.java

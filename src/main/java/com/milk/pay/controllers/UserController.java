@@ -15,6 +15,7 @@ import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.services.UserService;
 import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
+import com.milk.pay.utils.ValidateUtil;
 
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -52,6 +53,8 @@ public class UserController {
         if (!isAdmin) {
             throw new MilkPayException(EnumErrorCode.USUARIO_SEM_CREDENCIAIS);
         }
+
+        ValidateUtil.validateNewUser(dto);
 
         userService.persistUser(dto);
         

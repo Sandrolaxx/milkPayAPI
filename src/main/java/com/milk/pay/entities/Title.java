@@ -2,7 +2,6 @@ package com.milk.pay.entities;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -85,10 +84,6 @@ public class Title extends DafeEntity {
 
     public static Title findById(Integer id) {
         return find("id", id).firstResult();
-    }
-
-    public static List<Title> listByUserId(UUID userId) {
-        return find("user.id", userId).list();
     }
 
     @Override

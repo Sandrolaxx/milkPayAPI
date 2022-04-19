@@ -2,6 +2,7 @@ package com.milk.pay.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,8 @@ import com.milk.pay.entities.Title;
 import com.milk.pay.entities.User;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.ITitleMapper;
+import com.milk.pay.repository.TitleRepository;
+import com.milk.pay.utils.DateUtil;
 import com.milk.pay.utils.ListUtil;
 import com.milk.pay.utils.MilkPayException;
 
@@ -26,8 +29,17 @@ public class TitleService {
     @Inject
     ITitleMapper titleMapper;
 
-    public List<TitleDto> findAll(String userId) {
-        var userTitles = Title.listByUserId(UUID.fromString(userId));
+    @Inject
+    TitleRepository repository;
+
+    public List<TitleDto> findAll(String userId, boolean liquidated, String offset, String limit) {
+
+        Map<String, Object> params = Map.of(
+            "liquidated", liquidated, "userId", UUID.fromString(userId), 
+            "offset", DateUtil.DDMMYYYYToDate(offset), "limit", DateUtil.DDMMYYYYToDate(limit)
+        );
+
+        var userTitles = repository.findByUserIdBetwenDates(params);
 
         return userTitles.stream()
                        .map(p -> titleMapper.titleToTitleDto(p))

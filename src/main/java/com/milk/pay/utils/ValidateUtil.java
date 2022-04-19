@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.title.TitleCreateDto;
+import com.milk.pay.dto.user.CreateUserDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
 
 /**
@@ -83,6 +84,18 @@ public class ValidateUtil {
 
         if (dueDate.before(tomorrow)) {
             throw new MilkPayException(EnumErrorCode.DATA_VENCIMENTO_INVALIDA);
+        }
+
+    }
+
+    public static void validateNewUser(CreateUserDto dto) {
+
+        if (StringUtil.isNullOrEmpty(dto.getDocument())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Documento");
+        }
+
+        if (StringUtil.isNullOrEmpty(dto.getPassword())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Senha");
         }
 
     }
