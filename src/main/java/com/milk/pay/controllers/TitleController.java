@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.title.TitleDto;
+import com.milk.pay.dto.title.TotalizersDto;
 import com.milk.pay.services.TitleService;
 import com.milk.pay.services.UserService;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
@@ -46,6 +47,14 @@ public class TitleController {
 
     @Inject
     SecurityIdentity identity;
+
+    @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os totalizadores.")
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @GET
+    @Path("/totalizers")
+    public TotalizersDto fetchTotalizers() {
+        return titleService.fetchTotalizers(userService.resolveUserId(identity));        
+    }
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os titulos do usuário.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))

@@ -42,6 +42,7 @@
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/EncryptUtil.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/services/TokenServiceCelcoin.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/enums/EnumErrorCode.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/title/TotalizersDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/RequestUtil.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/DateUtil.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/pattern/DafeRepository.java

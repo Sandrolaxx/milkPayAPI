@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.title.TitleDto;
+import com.milk.pay.dto.title.TotalizersDto;
 import com.milk.pay.entities.Payment;
 import com.milk.pay.entities.ReceiptInfo;
 import com.milk.pay.entities.Title;
@@ -23,6 +24,7 @@ import com.milk.pay.utils.DateUtil;
 import com.milk.pay.utils.ListUtil;
 import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.StringUtil;
+import com.milk.pay.utils.Utils;
 
 @ApplicationScoped
 public class TitleService {
@@ -51,6 +53,24 @@ public class TitleService {
         return userTitles.stream()
                        .map(p -> titleMapper.titleToTitleDto(p))
                        .collect(Collectors.toList());
+
+    }
+
+    public TotalizersDto fetchTotalizers(String userId) {
+
+        var listAllTitles = repository.findAllByUserId(UUID.fromString(userId));
+        var totalizers = new TotalizersDto();
+
+        if (ListUtil.isNullOrEmpty(listAllTitles)) {
+            return totalizers;
+        }
+        
+        totalizers.setAmountReceived(Utils.getTotal(listAllTitles, true).toString());
+        totalizers.setAmountToReceive(Utils.getTotal(listAllTitles, false).toString());
+        totalizers.setTitlesReceived(Utils.countTotal(listAllTitles, true).intValue());
+        totalizers.setTitlesToReceive(Utils.countTotal(listAllTitles, false).intValue());
+
+        return totalizers;
 
     }
 

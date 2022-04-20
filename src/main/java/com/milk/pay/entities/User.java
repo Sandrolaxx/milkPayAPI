@@ -78,10 +78,6 @@ public class User extends PanacheEntityBase {
     @Column(name = "UPDATED_AT")
     private Date updatedAt;
 
-    public static User findUserById(String userId) {
-        return find("id", userId.toString()).firstResult();
-    }
-
     public static User findUserByDocument(String document) {
         return find("document", document).firstResult();
     }

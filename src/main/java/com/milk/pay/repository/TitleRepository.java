@@ -2,6 +2,7 @@ package com.milk.pay.repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -23,6 +24,10 @@ public class TitleRepository implements PanacheRepository<Title> {
         }
 
         return list(query.toString(), params);
+    }
+
+    public List<Title> findAllByUserId(UUID userId) {
+        return list("user.id", userId);
     }
 
 }

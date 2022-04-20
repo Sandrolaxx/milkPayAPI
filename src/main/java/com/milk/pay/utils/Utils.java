@@ -1,12 +1,16 @@
 package com.milk.pay.utils;
 
+import java.util.List;
+
+import com.milk.pay.entities.Title;
+
 /**
  *
  * @author SRamos
  */
 public class Utils {
 
-    @SuppressWarnings("unchecked") 
+    @SuppressWarnings("unchecked")
     public static <T> T nvl(Object arg0, T arg1) {
         if (arg0 instanceof String) {
             String a = (String) arg0;
@@ -17,7 +21,7 @@ public class Utils {
         return (T) ((arg0 == null) ? arg1 : arg0);
     }
 
-    @SuppressWarnings("unchecked") 
+    @SuppressWarnings("unchecked")
     public static <T extends Enum<T>> T parseByKey(Class<T> enumValue, String key) {
         try {
             if (key != null && !key.trim().isEmpty()) {
@@ -32,6 +36,19 @@ public class Utils {
         }
 
         return null;
+    }
+
+    public static Double getTotal(List<Title> listTitle, boolean isLiquidated) {
+        return listTitle.stream()
+                .filter(tit -> tit.isLiquidated() == isLiquidated)
+                .mapToDouble(Title::getAmount)
+                .sum();
+    }
+
+    public static Long countTotal(List<Title> listTitle, boolean isLiquidated) {
+        return listTitle.stream()
+                .filter(tit -> tit.isLiquidated() == isLiquidated)
+                .count();
     }
 
 }
