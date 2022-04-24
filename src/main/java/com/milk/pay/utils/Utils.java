@@ -1,6 +1,6 @@
 package com.milk.pay.utils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.milk.pay.entities.Title;
@@ -55,7 +55,7 @@ public class Utils {
     public static Double getTotalNextDays(List<Title> listTitle, Integer nextDays) {
         return listTitle.stream()
                 .filter(tit -> !tit.isLiquidated()
-                        && tit.getDueDate().before(DateUtil.sumDays(new Date(), nextDays)))
+                        && tit.getDueDate().isBefore(LocalDateTime.now().plusDays(nextDays)))
                 .mapToDouble(Title::getAmount)
                 .sum();
     }
@@ -63,7 +63,7 @@ public class Utils {
     public static Long countTotalNextDays(List<Title> listTitle, Integer nextDays) {
         return listTitle.stream()
                 .filter(tit -> !tit.isLiquidated()
-                        && tit.getDueDate().before(DateUtil.sumDays(new Date(), nextDays)))
+                        && tit.getDueDate().isBefore(LocalDateTime.now().plusDays(nextDays)))
                 .count();
     }
 

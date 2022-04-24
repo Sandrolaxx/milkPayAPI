@@ -1,6 +1,6 @@
 package com.milk.pay.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.milk.pay.entities.enums.EnumInitiationType;
 import com.milk.pay.entities.pattern.DafeEntity;
@@ -67,14 +65,15 @@ public class Payment extends DafeEntity {
     private EnumInitiationType initiationType;
     
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_AT")
-    private Date createdAt;
+    private LocalDateTime createdAt;
     
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UPDATED_AT")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
+
+    @Column(name = "PAID_AT")
+    private LocalDateTime paidAt;
     
     @Column(name = "ERROR_MESSAGE")
     private String errorMessage;
@@ -149,19 +148,19 @@ public class Payment extends DafeEntity {
         this.initiationType = initiationType;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 

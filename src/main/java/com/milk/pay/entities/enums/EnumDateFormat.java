@@ -1,8 +1,8 @@
 package com.milk.pay.entities.enums;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
@@ -11,44 +11,40 @@ import java.util.Locale;
  */
 public enum EnumDateFormat implements IEnum {
 
-    DDMM(new SimpleDateFormat("dd/MM")),
-    DDMMYY(new SimpleDateFormat("dd/MM/yy")),
-    DDMMYYYY(new SimpleDateFormat("dd/MM/yyyy")),
-    DDMMYYHHMM(new SimpleDateFormat("dd/MM/yy HH:mm")),
-    DDMMYYYYHHMM(new SimpleDateFormat("dd/MM/yyyy HH:mm")),
-    DDMMYYYYHHMMSS(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")),
-    YYYYMMDD(new SimpleDateFormat("yyyy-MM-dd")),
-    YYYYMMDDHHMMSS(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")),
-    YYYYMMDDTHHMMSS(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")),
-    MMYY(new SimpleDateFormat("MM/yy")),
-    MMYYYY(new SimpleDateFormat("MM/yyyy")),
-    EXTENSO(new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy")),
-    FULLEXTENSO(new SimpleDateFormat("EEEE',' dd 'de' MMMMM 'de' yyyy 'as' HH:mm:ss")),
-    EXTENSODIAMES(new SimpleDateFormat("dd 'de' MMMMM")),
-    MMMDYYYYHHMMSSAAAEN_US(new SimpleDateFormat("MMM d',' yyyy hh:mm:ss a", Locale.ENGLISH)),
-    MMMDDYYYYHHMMSSAAAEN_US(new SimpleDateFormat("MMM dd',' yyyy hh:mm:ss a", Locale.ENGLISH)),
-    HHMM(new SimpleDateFormat("HH:mm"));
+    DDMM(DateTimeFormatter.ofPattern("dd/MM")),
+    DDMMYY(DateTimeFormatter.ofPattern("dd/MM/yy")),
+    DDMMYYYY(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+    DDMMYYHHMM(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")),
+    DDMMYYYYHHMM(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
+    DDMMYYYYHHMMSS(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
+    YYYYMMDD(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+    YYYYMMDDHHMMSS(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+    YYYYMMDDTHHMMSS(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
+    MMYY(DateTimeFormatter.ofPattern("MM/yy")),
+    MMYYYY(DateTimeFormatter.ofPattern("MM/yyyy")),
+    EXTENSO(DateTimeFormatter.ofPattern("dd 'de' MMMMM 'de' yyyy")),
+    FULLEXTENSO(DateTimeFormatter.ofPattern("EEEE',' dd 'de' MMMMM 'de' yyyy 'as' HH:mm:ss")),
+    EXTENSODIAMES(DateTimeFormatter.ofPattern("dd 'de' MMMMM")),
+    MMMDYYYYHHMMSSAAAEN_US(DateTimeFormatter.ofPattern("MMM d',' yyyy hh:mm:ss a", Locale.ENGLISH)),
+    MMMDDYYYYHHMMSSAAAEN_US(DateTimeFormatter.ofPattern("MMM dd',' yyyy hh:mm:ss a", Locale.ENGLISH)),
+    HHMM(DateTimeFormatter.ofPattern("HH:mm"));
 
-    private final SimpleDateFormat dateFormat;
+    private final DateTimeFormatter dateFormat;
 
-    private EnumDateFormat(SimpleDateFormat dateFormat) {
+    private EnumDateFormat(DateTimeFormatter dateFormat) {
         this.dateFormat = dateFormat;
     }
 
-    public SimpleDateFormat getFormat() {
+    public DateTimeFormatter getFormat() {
         return dateFormat;
     }
 
-    public final String format(Date date) {
+    public final String format(LocalDate date) {
         return dateFormat.format(date);
     }
 
-    public Date parse(String source) throws ParseException {
-        return dateFormat.parse(source);
-    }
-
-    public String toPattern() {
-        return dateFormat.toPattern();
+    public LocalDate parse(String source) throws ParseException {
+        return LocalDate.parse(source);
     }
 
     @Override

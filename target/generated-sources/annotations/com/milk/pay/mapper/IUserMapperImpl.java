@@ -3,15 +3,15 @@ package com.milk.pay.mapper;
 import com.milk.pay.dto.user.CreateUserDto;
 import com.milk.pay.dto.user.ListUserDto;
 import com.milk.pay.entities.User;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import javax.annotation.processing.Generated;
 import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-20T20:19:27-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
+    date = "2022-04-24T15:35:38-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
 )
 @ApplicationScoped
 public class IUserMapperImpl implements IUserMapper {
@@ -64,10 +64,10 @@ public class IUserMapperImpl implements IUserMapper {
         ListUserDto listUserDto = new ListUserDto();
 
         if ( user.getCreatedAt() != null ) {
-            listUserDto.setCreatedAt( new SimpleDateFormat( "dd/MM/yyyy HH:mm:ss" ).format( user.getCreatedAt() ) );
+            listUserDto.setCreatedAt( DateTimeFormatter.ofPattern( "dd/MM/yyyy HH:mm:ss" ).format( user.getCreatedAt() ) );
         }
         if ( user.getUpdatedAt() != null ) {
-            listUserDto.setUpdatedAt( new SimpleDateFormat( "dd/MM/yyyy HH:mm:ss" ).format( user.getUpdatedAt() ) );
+            listUserDto.setUpdatedAt( DateTimeFormatter.ofPattern( "dd/MM/yyyy HH:mm:ss" ).format( user.getUpdatedAt() ) );
         }
         listUserDto.setId( user.getId() );
         listUserDto.setName( user.getName() );

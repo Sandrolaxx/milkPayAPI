@@ -1,6 +1,6 @@
 package com.milk.pay.services;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -44,8 +44,8 @@ public class TitleService {
 
         if (!StringUtil.isNullOrEmpty(offset)
                 && !StringUtil.isNullOrEmpty(limit)) {
-            params.put("offset", DateUtil.DDMMYYYYToDate(offset));
-            params.put("limit", DateUtil.DDMMYYYYToDate(limit));
+            params.put("offset", DateUtil.DDMMYYYYToLocalDate(offset));
+            params.put("limit", DateUtil.DDMMYYYYToLocalDate(limit));
         }
 
         var userTitles = repository.findByUserIdBetwenDates(params);
@@ -103,7 +103,7 @@ public class TitleService {
         if (payment.getAmount().equals(title.getBalance())) {
             title.setBalance(0.0d);
             title.setLiquidated(true);
-            title.setPaidAt(new Date());
+            title.setPaidAt(LocalDateTime.now());
         } else {
             title.setBalance(title.getBalance() - payment.getAmount());
         }

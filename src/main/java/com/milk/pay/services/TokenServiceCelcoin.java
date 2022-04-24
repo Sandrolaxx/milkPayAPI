@@ -4,7 +4,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Form;
 
-import com.milk.pay.pattern.rest.RestClientTokenCelcoin;
+import com.milk.pay.restClient.RestClientTokenCelcoin;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;

@@ -1,7 +1,7 @@
 package com.milk.pay.utils;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.milk.pay.entities.ReceiptInfo;
 
@@ -26,11 +26,11 @@ public class ReceiptUtil {
 
     public static String replaceDefaultFields(String receiptLayout, ReceiptInfo receiptInfo) {
         
-        var calendar = DateUtil.dateToCalendar(new Date());
+        var dateTime = LocalDateTime.now();
 
         receiptLayout = receiptLayout.replace("{protocolo}", StringUtil.addBlankLeftPad(receiptInfo.getTxId().toString(), 31));
-        receiptLayout = receiptLayout.replace("{data-atual}", DateUtil.formatDDMMYYYY(new Date()));
-        receiptLayout = receiptLayout.replace("{hora-atual}", StringUtil.addBlankLeftPad((calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)),30));
+        receiptLayout = receiptLayout.replace("{data-atual}", DateUtil.formatDDMMYYYY(LocalDate.now()));
+        receiptLayout = receiptLayout.replace("{hora-atual}", StringUtil.addBlankLeftPad(dateTime.getHour() + ":" + dateTime.getMinute(),30));
         receiptLayout = receiptLayout.replace("{tipo-movimento}", receiptInfo.getMovementCode().getValue().length() > 32 ? 
             receiptInfo.getMovementCode().getValue().toUpperCase().substring(0, 32) : receiptInfo.getMovementCode().getValue().toUpperCase());
         receiptLayout = receiptLayout.replace("{nome-pagador}", StringUtil.addBlankLeftPad(receiptInfo.getPayerName(), 35));
@@ -40,7 +40,7 @@ public class ReceiptUtil {
         receiptLayout = receiptLayout.replace("{conta-pagador}", StringUtil.addBlankLeftPad(receiptInfo.getPayerAccount(), 34));
         receiptLayout = receiptLayout.replace("{nome-recebedor}", StringUtil.addBlankLeftPad(receiptInfo.getReceiverName(), 35));
         receiptLayout = receiptLayout.replace("{doc-recebedor}", StringUtil.addBlankLeftPad(receiptInfo.getReceiverDocument(), 31));
-        receiptLayout = receiptLayout.replace("{data-pgto}", StringUtil.addBlankLeftPad(DateUtil.formatDDMMYYYY(new Date()), 22));
+        receiptLayout = receiptLayout.replace("{data-pgto}", StringUtil.addBlankLeftPad(DateUtil.formatDDMMYYYY(LocalDate.now()), 22));
         receiptLayout = receiptLayout.replace("{autenticacao-anterior}", receiptInfo.getLastAuthentication());
 
         return receiptLayout;

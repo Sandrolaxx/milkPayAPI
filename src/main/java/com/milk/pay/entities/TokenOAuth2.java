@@ -1,7 +1,6 @@
 package com.milk.pay.entities;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.milk.pay.entities.pattern.DafeEntity;
 
@@ -47,13 +44,11 @@ public class TokenOAuth2 extends DafeEntity {
     @Column(name = "TOKEN_TYPE")
     private String tokenType;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
-    private Date creationDate;
+    private LocalDateTime creationDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "EXPIRATION_DATE", nullable = false)
-    private Date expirationDate;
+    private LocalDateTime expirationDate;
 
     @Override
     public Integer getId() {
@@ -113,24 +108,24 @@ public class TokenOAuth2 extends DafeEntity {
         this.tokenType = tokenType;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getExpirationDate() {
+    public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 
     public boolean isExpired() {
-        return Calendar.getInstance().getTime().after(this.expirationDate);
+        return LocalDateTime.now().isAfter(this.expirationDate);
     }
 
 }

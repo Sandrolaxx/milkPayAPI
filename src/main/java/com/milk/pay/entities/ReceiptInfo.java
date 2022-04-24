@@ -1,7 +1,7 @@
 package com.milk.pay.entities;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.milk.pay.entities.enums.EnumAccountType;
 import com.milk.pay.entities.enums.EnumMovementCode;
@@ -107,9 +105,8 @@ public class ReceiptInfo extends DafeEntity {
     private String receiptResume;
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "PAID_AT")
-    private Date paidAt;
+    private LocalDateTime paidAt;
 
     @Column(name = "MOVEMENT_CODE")
     @Enumerated(EnumType.STRING)
@@ -162,11 +159,11 @@ public class ReceiptInfo extends DafeEntity {
         this.authentication = authentication;
     }
 
-    public Date getPaidAt() {
+    public LocalDateTime getPaidAt() {
         return paidAt;
     }
 
-    public void setPaidAt(Date paidAt) {
+    public void setPaidAt(LocalDateTime paidAt) {
         this.paidAt = paidAt;
     }
 

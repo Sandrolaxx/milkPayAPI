@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 
 import com.milk.pay.dto.user.CreateUserKeycloakDto;
 import com.milk.pay.dto.user.TokenResponseDto;
-import com.milk.pay.pattern.rest.RestClientKeycloak;
+import com.milk.pay.restClient.RestClientKeycloak;
 import com.milk.pay.utils.RequestUtil;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;

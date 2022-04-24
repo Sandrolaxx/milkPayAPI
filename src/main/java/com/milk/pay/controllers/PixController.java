@@ -50,19 +50,11 @@ public class PixController {
     @Path("/key")
     public PixKeyConsultResponseCelcoinDto consultKey(@HeaderParam String key) {
 
-        var responseDto = new PixKeyConsultResponseCelcoinDto();
-
         if (key == null) {
             throw new MilkPayException(EnumErrorCode.CHAVE_PIX_NAO_INFORMADA);
         }
 
-        responseDto = celcoinPixService.consultKey(key);
-
-        if (responseDto == null) {
-            throw new MilkPayException(EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX_CELCOIN);
-        }
-
-        return responseDto;
+        return celcoinPixService.consultKey(key);
 
     }
 

@@ -1,4 +1,4 @@
-package com.milk.pay.pattern.rest;
+package com.milk.pay.restClient;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

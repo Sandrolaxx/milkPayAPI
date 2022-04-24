@@ -1,6 +1,6 @@
 package com.milk.pay.utils;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -24,7 +24,7 @@ public class ErrorResponseExceptionMapper implements ExceptionMapper<MilkPayExce
         int httpStatus;
         var error = EnumErrorCode.parseByKey(ex.getErrorCode());
 
-        var formattedDate = DateUtil.formatISO8601(Calendar.getInstance().getTime());
+        var formattedDate = DateUtil.formatISO8601(LocalDateTime.now());
         MilkPayExceptionResponseDto exceptionResponse = new MilkPayExceptionResponseDto();
 
         exceptionResponse.setError(ex.getMessage());

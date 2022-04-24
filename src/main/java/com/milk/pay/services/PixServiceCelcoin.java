@@ -9,7 +9,7 @@ import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.IPixMapper;
-import com.milk.pay.pattern.rest.RestClientPixCelcoin;
+import com.milk.pay.restClient.RestClientPixCelcoin;
 import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.StringUtil;
 import com.milk.pay.utils.WebApplicationExceptionConverter;

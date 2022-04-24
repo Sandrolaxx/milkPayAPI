@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 /**
@@ -98,8 +98,8 @@ public class NumericUtil {
         return  (interestPercentage * total) / 100;
     }
 
-    public static Double getInterestPercentage(Date dueDate, Double dailyInterest) {
-        var numberOfDays = DateUtil.numberOfDaysBetweenDates(new Date(), dueDate);
+    public static Double getInterestPercentage(LocalDateTime dueDate, Double dailyInterest) {
+        var numberOfDays = DateUtil.numberOfDaysBetweenDates(LocalDateTime.now(), dueDate);
 
         return numberOfDays * dailyInterest;
     }

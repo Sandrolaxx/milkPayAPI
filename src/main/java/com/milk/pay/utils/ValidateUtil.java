@@ -1,7 +1,8 @@
 package com.milk.pay.utils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.user.CreateUserDto;
@@ -79,10 +80,10 @@ public class ValidateUtil {
             throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Data vencimento(dueDate)");
         }
 
-        var dueDate = DateUtil.DDMMYYYYHHMMSSToDate(dto.getDueDate());
-        var tomorrow = DateUtil.sumDays(new Date(), 1);
+        var dueDate = DateUtil.DDMMYYYYHHMMSSToLocalDateTime(dto.getDueDate());
+        var tomorrow = LocalDateTime.now().plusDays(1);
 
-        if (dueDate.before(tomorrow)) {
+        if (dueDate.isBefore(tomorrow)) {
             throw new MilkPayException(EnumErrorCode.DATA_VENCIMENTO_INVALIDA);
         }
 
@@ -96,6 +97,15 @@ public class ValidateUtil {
 
         if (StringUtil.isNullOrEmpty(dto.getPassword())) {
             throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Senha");
+        }
+
+    }
+
+    public static void validateConsultTitle(BankSlipConsultDto dto) {
+
+        if (StringUtil.isNullOrEmpty(dto.getBarcode())
+                && StringUtil.isNullOrEmpty(dto.getDigitable())) {
+            throw new MilkPayException(EnumErrorCode.BARCODE_DIGITABLE_NAO_INFORMADOS);
         }
 
     }

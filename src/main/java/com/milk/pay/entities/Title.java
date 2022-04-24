@@ -1,6 +1,6 @@
 package com.milk.pay.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.milk.pay.entities.pattern.DafeEntity;
 
@@ -47,16 +45,13 @@ public class Title extends DafeEntity {
     private Double dailyInterest;
 
     @Column(name = "DUE_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dueDate;
+    private LocalDateTime dueDate;
 
     @Column(name = "INCLUSION_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date inclusionDate;
+    private LocalDateTime inclusionDate;
 
     @Column(name = "PAID_AT")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date paidAt;
+    private LocalDateTime paidAt;
 
     @Column(name = "LIQUIDATED")
     private boolean liquidated;
@@ -65,14 +60,12 @@ public class Title extends DafeEntity {
     private String nfNumber;
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_AT")
-    private Date createdAt;
+    private LocalDateTime createdAt;
     
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UPDATED_AT")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @ManyToOne()
     @JoinColumn(name = "ID_USER", referencedColumnName = "ID")
@@ -112,19 +105,67 @@ public class Title extends DafeEntity {
         this.balance = balance;
     }
 
-    public Date getCreatedAt() {
+    public Double getDailyInterest() {
+        return dailyInterest;
+    }
+
+    public void setDailyInterest(Double dailyInterest) {
+        this.dailyInterest = dailyInterest;
+    }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public LocalDateTime getInclusionDate() {
+        return inclusionDate;
+    }
+
+    public void setInclusionDate(LocalDateTime inclusionDate) {
+        this.inclusionDate = inclusionDate;
+    }
+
+    public LocalDateTime getPaidAt() {
+        return paidAt;
+    }
+
+    public void setPaidAt(LocalDateTime paidAt) {
+        this.paidAt = paidAt;
+    }
+
+    public boolean isLiquidated() {
+        return liquidated;
+    }
+
+    public void setLiquidated(boolean liquidated) {
+        this.liquidated = liquidated;
+    }
+
+    public String getNfNumber() {
+        return nfNumber;
+    }
+
+    public void setNfNumber(String nfNumber) {
+        this.nfNumber = nfNumber;
+    }
+
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -136,60 +177,12 @@ public class Title extends DafeEntity {
         this.user = user;
     }
 
-    public boolean isLiquidated() {
-        return liquidated;
-    }
-
-    public void setLiquidated(boolean liquidated) {
-        this.liquidated = liquidated;
-    }
-
-    public Double getDailyInterest() {
-        return dailyInterest;
-    }
-
-    public void setDailyInterest(Double dailyInterest) {
-        this.dailyInterest = dailyInterest;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public Date getPaidAt() {
-        return paidAt;
-    }
-
-    public void setPaidAt(Date paidAt) {
-        this.paidAt = paidAt;
-    }
-
-    public String getNfNumber() {
-        return nfNumber;
-    }
-
-    public void setNfNumber(String nfNumber) {
-        this.nfNumber = nfNumber;
-    }
-
     public List<Payment> getListPayment() {
         return listPayment;
     }
 
     public void setListPayment(List<Payment> listPayment) {
         this.listPayment = listPayment;
-    }
-
-    public Date getInclusionDate() {
-        return inclusionDate;
-    }
-
-    public void setInclusionDate(Date inclusionDate) {
-        this.inclusionDate = inclusionDate;
     }
 
 }

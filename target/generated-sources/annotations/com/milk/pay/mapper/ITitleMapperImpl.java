@@ -3,14 +3,14 @@ package com.milk.pay.mapper;
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.entities.Title;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import javax.annotation.processing.Generated;
 import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-20T20:19:27-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
+    date = "2022-04-24T15:35:38-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
 )
 @ApplicationScoped
 public class ITitleMapperImpl implements ITitleMapper {
@@ -26,7 +26,7 @@ public class ITitleMapperImpl implements ITitleMapper {
         titleDto.setAmount( entity.getAmount() );
         titleDto.setBalance( entity.getBalance() );
         if ( entity.getDueDate() != null ) {
-            titleDto.setDueDate( new SimpleDateFormat().format( entity.getDueDate() ) );
+            titleDto.setDueDate( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getDueDate() ) );
         }
         if ( entity.hasId() ) {
             titleDto.setId( entity.getId() );

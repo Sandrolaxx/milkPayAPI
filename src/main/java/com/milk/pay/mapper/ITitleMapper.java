@@ -1,6 +1,6 @@
 package com.milk.pay.mapper;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.title.TitleDto;
@@ -26,8 +26,8 @@ public interface ITitleMapper {
     })
     public Title titleDtoToEntity(TitleCreateDto dto);
 
-    default Date parseDate(String strDate) {
-        return DateUtil.DDMMYYYYHHMMSSToDate(strDate);
+    default LocalDateTime parseDate(String strDate) {
+        return DateUtil.DDMMYYYYHHMMSSToLocalDateTime(strDate);
     }
 
 }
