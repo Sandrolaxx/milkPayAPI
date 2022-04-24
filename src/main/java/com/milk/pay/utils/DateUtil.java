@@ -35,33 +35,23 @@ public class DateUtil {
 
     public static final DateTimeFormatter YYYYMMDDTHHMMSS = EnumDateFormat.YYYYMMDDTHHMMSS.getFormat();
 
-    public static final DateTimeFormatter ISO8601 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-
-    public static LocalDateTime parseISO8601(String data) throws ParseException {
-        return LocalDateTime.from(ISO8601.parse(data));
-    }
-
-    public static String formatISO8601(LocalDateTime data) {
-        return ISO8601.format(data);
-    }
-
     public static String formatYYYYMMDD(LocalDate date) {
         return date != null ? EnumDateFormat.YYYYMMDD.format(date) : "";
     }
 
-    public static String formatYYYYMMDDHHMMSS(LocalDate date) {
+    public static String formatYYYYMMDDHHMMSS(LocalDateTime date) {
         return date != null ? YYYYMMDDHHMMSS.format(date) : "";
     }
 
-    public static String formatYYYYMMDDTHHMMSS(LocalDate date) {
+    public static String formatYYYYMMDDTHHMMSS(LocalDateTime date) {
         return date != null ? YYYYMMDDTHHMMSS.format(date) : "";
     }
 
-    public static String formatDDMMYYYYHHMMSS(LocalDate date) {
+    public static String formatDDMMYYYYHHMMSS(LocalDateTime date) {
         return date != null ? DDMMYYYYHHMMSS.format(date) : "";
     }
 
-    public static String formatDDMMYYYYHHMM(LocalDate date) {
+    public static String formatDDMMYYYYHHMM(LocalDateTime date) {
         return date != null ? DDMMYYYYHHMM.format(date) : "";
     }
 
@@ -144,7 +134,11 @@ public class DateUtil {
     }
 
     public static LocalDate DDMMYYYYToLocalDate(String value) {
-        return  LocalDate.from(DDMMYYYY.parse(value));
+        return LocalDate.from(DDMMYYYY.parse(value));
+    }
+
+    public static LocalDateTime DDMMYYYYToLocalDateTime(String value) {
+        return LocalDateTime.from(DDMMYYYYToLocalDate(value).atStartOfDay());
     }
 
     public static LocalDateTime DDMMYYYYHHMMSSToLocalDateTime(String value) {

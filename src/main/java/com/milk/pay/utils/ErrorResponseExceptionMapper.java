@@ -24,7 +24,7 @@ public class ErrorResponseExceptionMapper implements ExceptionMapper<MilkPayExce
         int httpStatus;
         var error = EnumErrorCode.parseByKey(ex.getErrorCode());
 
-        var formattedDate = DateUtil.formatISO8601(LocalDateTime.now());
+        var formattedDate = DateUtil.formatDDMMYYYYHHMMSS(LocalDateTime.now());
         MilkPayExceptionResponseDto exceptionResponse = new MilkPayExceptionResponseDto();
 
         exceptionResponse.setError(ex.getMessage());
