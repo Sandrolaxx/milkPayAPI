@@ -36,9 +36,6 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "ID", nullable = false, precision = 0, scale = -127)
     private Integer id;
 
-    @Column(name = "TX_ID")
-    private Integer txId;
-
     @Column(name = "AUTHENTICATION")
     private String authentication;
 
@@ -101,9 +98,6 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "EXTERNAL_AUTH")
     private String externalAuth;
 
-    @Column(name = "EXTERNAL_RECEIPT")
-    private String externalReceipt;
-
     @Column(name = "EXTERNAL_TX_ID")
     private String externalTxid;
 
@@ -117,6 +111,10 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "MOVEMENT_CODE")
     @Enumerated(EnumType.STRING)
     private EnumMovementCode movementCode;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID")
+    private Payment payment;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ISPB_CODE", referencedColumnName = "ID")
@@ -139,14 +137,6 @@ public class ReceiptInfo extends DafeEntity {
     @Override
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getTxId() {
-        return txId;
-    }
-
-    public void setTxId(Integer txId) {
-        this.txId = txId;
     }
 
     public String getLastAuthentication() {
@@ -293,14 +283,6 @@ public class ReceiptInfo extends DafeEntity {
         this.externalAuth = externalAuth;
     }
 
-    public String getExternalReceipt() {
-        return externalReceipt;
-    }
-
-    public void setExternalReceipt(String externalReceipt) {
-        this.externalReceipt = externalReceipt;
-    }
-
     public String getExternalTxid() {
         return externalTxid;
     }
@@ -355,6 +337,14 @@ public class ReceiptInfo extends DafeEntity {
 
     public void setDigitable(String digitable) {
         this.digitable = digitable;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
 }

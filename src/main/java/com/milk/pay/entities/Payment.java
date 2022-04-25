@@ -2,6 +2,7 @@ package com.milk.pay.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -57,9 +58,6 @@ public class Payment extends DafeEntity {
     @Column(name = "DIGITABLE")
     private String digitable;
 
-    @Column(name = "RECEIPT_IMAGE", length = 1500)
-    private String receiptImage;
-
     @Column(name = "LIQUIDATED")
     private boolean liquidated = true;
 
@@ -84,12 +82,11 @@ public class Payment extends DafeEntity {
     @Column(name = "ERROR_MESSAGE")
     private String errorMessage;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TITLE", referencedColumnName = "ID")
     private Title title;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "RECEIPT_ID", referencedColumnName = "ID")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "payment")
     private ReceiptInfo receipt;
 
     public static Payment findById(Integer id) {
@@ -144,14 +141,6 @@ public class Payment extends DafeEntity {
 
     public void setPaidAt(LocalDateTime paidAt) {
         this.paidAt = paidAt;
-    }
-
-    public String getReceiptImage() {
-        return receiptImage;
-    }
-
-    public void setReceiptImage(String receiptImage) {
-        this.receiptImage = receiptImage;
     }
 
     public boolean isLiquidated() {

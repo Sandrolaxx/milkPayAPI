@@ -28,7 +28,7 @@ public class ReceiptUtil {
         
         var dateTime = LocalDateTime.now();
 
-        receiptLayout = receiptLayout.replace("{protocolo}", StringUtil.addBlankLeftPad(receiptInfo.getTxId().toString(), 31));
+        receiptLayout = receiptLayout.replace("{protocolo}", StringUtil.addBlankLeftPad(receiptInfo.getPayment().getId().toString(), 31));
         receiptLayout = receiptLayout.replace("{data-atual}", DateUtil.formatDDMMYYYY(LocalDate.now()));
         receiptLayout = receiptLayout.replace("{hora-atual}", StringUtil.addBlankLeftPad(dateTime.getHour() + ":" + dateTime.getMinute(),30));
         receiptLayout = receiptLayout.replace("{tipo-movimento}", receiptInfo.getMovementCode().getValue().length() > 32 ? 

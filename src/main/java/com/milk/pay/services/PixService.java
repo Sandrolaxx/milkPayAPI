@@ -92,14 +92,15 @@ public class PixService {
         var lastReceipt = ReceiptInfo.findLastReceipt();
         var milkPayDebitParty = requestUtil.getMilkPayDebitParty();
         var ispb = IspbCode.findByCode(paymentDto.getReceiverBank());
+        var payment = Payment.findById(paymentDto.getTxId());
 
         receiptPix.setLastAuthentication(lastReceipt != null ? lastReceipt.getAuthentication() : "GENESIS_BLOCK");
         receiptPix.setEndToEndId(paymentDto.getEndToEndId());
         receiptPix.setMovementCode(EnumMovementCode.TRANSF_INTERBANCARIA_PIX);
         receiptPix.setAmount(BigDecimal.valueOf(paymentDto.getAmount()));
         receiptPix.setExternalAuth(responseDto.getSlipAuth());
-        receiptPix.setTxId(paymentDto.getTxId());
         receiptPix.setIspbCode(ispb);
+        receiptPix.setPayment(payment);
         receiptPix.setExternalAuth(responseDto.getSlip());
         receiptPix.setExternalTxid(responseDto.getTxId().toString());
 

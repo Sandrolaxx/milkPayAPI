@@ -78,7 +78,7 @@ public class PixController {
 
         var receipt = pixService.savePaymentReceipt(responseDto, paymentDto);
 
-        titleService.finishTitle(receipt, paymentDto.getTitleId());
+        titleService.finishTitle(receipt.getPayment());
         
         responseDto.setSlip(receipt.getReceiptResume());
 
