@@ -1,5 +1,7 @@
 package com.milk.pay.dto.title;
 
+import com.milk.pay.entities.enums.EnumPaymentType;
+
 /**
  *
  * @author SRamos
@@ -19,6 +21,12 @@ public class TitleCreateDto {
     private String inclusionDate;
 
     private String nfNumber;
+
+    private EnumPaymentType paymentType;
+
+    private String barcode;
+
+    private String digitabe;
 
     public Integer getExternalId() {
         return externalId;
@@ -74,6 +82,30 @@ public class TitleCreateDto {
 
     public void setNfNumber(String nfNumber) {
         this.nfNumber = nfNumber;
+    }
+
+    public EnumPaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(EnumPaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getDigitabe() {
+        return digitabe;
+    }
+
+    public void setDigitabe(String digitabe) {
+        this.digitabe = digitabe;
     }
 
 }

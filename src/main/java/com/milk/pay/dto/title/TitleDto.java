@@ -14,15 +14,17 @@ public class TitleDto {
 
     private Double balance;
     
-    private String paidDate;
+    private String paidAt;
 
     private String dueDate;
 
     private String txId;
 
-    private Integer companyId;
-    
     private String endToEndId;
+
+    private String barcode;
+
+    private String digitabe;
 
     private String responseSlip;
 
@@ -54,14 +56,6 @@ public class TitleDto {
         this.balance = balance;
     }
 
-    public String getPaidDate() {
-        return paidDate;
-    }
-
-    public void setPaidDate(String paidDate) {
-        this.paidDate = paidDate;
-    }
-
     public String getDueDate() {
         return dueDate;
     }
@@ -78,20 +72,36 @@ public class TitleDto {
         this.txId = txId;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
     public String getEndToEndId() {
         return endToEndId;
     }
 
     public void setEndToEndId(String endToEndId) {
         this.endToEndId = endToEndId;
+    }
+
+    public String getPaidAt() {
+        return paidAt;
+    }
+
+    public void setPaidAt(String paidAt) {
+        this.paidAt = paidAt;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getDigitabe() {
+        return digitabe;
+    }
+
+    public void setDigitabe(String digitabe) {
+        this.digitabe = digitabe;
     }
 
     public String getResponseSlip() {

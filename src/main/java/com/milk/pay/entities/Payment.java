@@ -51,6 +51,12 @@ public class Payment extends DafeEntity {
     @Column(name = "END_TO_END_ID", unique = true)
     private String endToEndId;
 
+    @Column(name = "BARCODE")
+    private String barcode;
+
+    @Column(name = "DIGITABLE")
+    private String digitable;
+
     @Column(name = "RECEIPT_IMAGE", length = 1500)
     private String receiptImage;
 
@@ -114,6 +120,30 @@ public class Payment extends DafeEntity {
 
     public void setEndToEndId(String endToEndId) {
         this.endToEndId = endToEndId;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getDigitable() {
+        return digitable;
+    }
+
+    public void setDigitable(String digitable) {
+        this.digitable = digitable;
+    }
+
+    public LocalDateTime getPaidAt() {
+        return paidAt;
+    }
+
+    public void setPaidAt(LocalDateTime paidAt) {
+        this.paidAt = paidAt;
     }
 
     public String getReceiptImage() {

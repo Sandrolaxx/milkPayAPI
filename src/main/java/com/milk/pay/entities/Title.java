@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.milk.pay.entities.enums.EnumPaymentType;
 import com.milk.pay.entities.pattern.DafeEntity;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -66,6 +69,10 @@ public class Title extends DafeEntity {
     @UpdateTimestamp
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
+
+    @Column(name = "PAYMENT_TYPE")
+    @Enumerated(EnumType.STRING)
+    private EnumPaymentType paymentType;
 
     @ManyToOne()
     @JoinColumn(name = "ID_USER", referencedColumnName = "ID")
@@ -163,6 +170,14 @@ public class Title extends DafeEntity {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public EnumPaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(EnumPaymentType paymentType) {
+        this.paymentType = paymentType;
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {

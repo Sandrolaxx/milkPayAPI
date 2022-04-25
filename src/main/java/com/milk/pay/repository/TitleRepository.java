@@ -10,6 +10,10 @@ import com.milk.pay.entities.Title;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
+/**
+ *
+ * @author SRamos
+ */
 @ApplicationScoped
 public class TitleRepository implements PanacheRepository<Title> {
 

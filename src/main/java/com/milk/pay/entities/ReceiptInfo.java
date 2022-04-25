@@ -92,6 +92,12 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "END_TO_END_ID")
     private String endToEndId;
 
+    @Column(name = "BARCODE")
+    private String barcode;
+
+    @Column(name = "DIGITABLE")
+    private String digitable;
+
     @Column(name = "EXTERNAL_AUTH")
     private String externalAuth;
 
@@ -333,6 +339,22 @@ public class ReceiptInfo extends DafeEntity {
 
     public void setReceiptResume(String receiptResume) {
         this.receiptResume = receiptResume;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getDigitable() {
+        return digitable;
+    }
+
+    public void setDigitable(String digitable) {
+        this.digitable = digitable;
     }
 
 }
