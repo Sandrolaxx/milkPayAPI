@@ -1,5 +1,7 @@
 package com.milk.pay.entities.enums;
 
+import com.milk.pay.utils.Utils;
+
 /**
  *
  * @author SRamos
@@ -7,7 +9,7 @@ package com.milk.pay.entities.enums;
 public enum EnumPaymentType implements IEnum {
 
     PIX("PIX", "PIX - Pagamentos Instantaneoes"),
-    BANKSLIP("BANKSLIP", "Boleto Bancário");
+    BANKSLIP("BOLETO", "Boleto Bancário");
 
     private EnumPaymentType(String key, String value) {
         this.key = key;
@@ -30,6 +32,10 @@ public enum EnumPaymentType implements IEnum {
     @Override
     public boolean containsInEnum(String key) {
         return false;
+    }
+
+    public static EnumPaymentType parseByKey(String key) {
+        return (EnumPaymentType) Utils.parseByKey(EnumPaymentType.class, key);
     }
 
 }

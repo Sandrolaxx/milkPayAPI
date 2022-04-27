@@ -1,6 +1,9 @@
 package com.milk.pay.dto.title;
 
+import javax.json.bind.annotation.JsonbTypeAdapter;
+
 import com.milk.pay.entities.enums.EnumPaymentType;
+import com.milk.pay.utils.EnumPaymentTypeAdapter;
 
 /**
  *
@@ -22,6 +25,7 @@ public class TitleCreateDto {
 
     private String nfNumber;
 
+    @JsonbTypeAdapter(EnumPaymentTypeAdapter.class)
     private EnumPaymentType paymentType;
 
     private String barcode;

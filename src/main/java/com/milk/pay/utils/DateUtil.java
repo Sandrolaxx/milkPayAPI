@@ -183,5 +183,11 @@ public class DateUtil {
     public static Integer numberOfDaysBetweenDates(LocalDateTime initialDate, LocalDateTime finalDate) {
         return (int) ChronoUnit.DAYS.between(initialDate, finalDate);
     }
+    
+    public static LocalDateTime getTodayZeroHour() {
+        var now = LocalDateTime.now();
+
+        return LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 0, 0, 0);
+    }
 
 }

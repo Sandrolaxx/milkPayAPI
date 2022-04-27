@@ -9,7 +9,7 @@ import java.util.Locale;
  *
  * @author SRamos
  */
-public enum EnumDateFormat implements IEnum {
+public enum EnumDateFormat {
 
     DDMM(DateTimeFormatter.ofPattern("dd/MM")),
     DDMMYY(DateTimeFormatter.ofPattern("dd/MM/yy")),
@@ -45,16 +45,6 @@ public enum EnumDateFormat implements IEnum {
 
     public LocalDate parse(String source) throws ParseException {
         return LocalDate.parse(source);
-    }
-
-    @Override
-    public boolean containsInEnum(String key) {
-        return false;
-    }
-
-    @Override
-    public String getKey() {
-        return null;
     }
 
 }

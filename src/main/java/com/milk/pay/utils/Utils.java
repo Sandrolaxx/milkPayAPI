@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.milk.pay.entities.Title;
+import com.milk.pay.entities.enums.IEnum;
 
 /**
  *
@@ -22,13 +23,12 @@ public class Utils {
         return (T) ((arg0 == null) ? arg1 : arg0);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T extends Enum<T>> T parseByKey(Class<T> enumValue, String key) {
+    public static <T extends IEnum> T parseByKey(Class<T> enumValue, String key) {
         try {
             if (key != null && !key.trim().isEmpty()) {
-                for (var enumStatusPix : enumValue.getDeclaringClass().getEnumConstants()) {
-                    if (enumStatusPix.getClass().getField("key").toString().equalsIgnoreCase(key)) {
-                        return (T) enumStatusPix;
+                for (var value : enumValue.getEnumConstants()) {
+                    if (value.getKey().equalsIgnoreCase(key)) {
+                        return value;
                     }
                 }
             }
