@@ -101,7 +101,6 @@ public class PixService {
         receiptPix.setExternalAuth(responseDto.getSlipAuth());
         receiptPix.setIspbCode(ispb);
         receiptPix.setPayment(payment);
-        receiptPix.setExternalAuth(responseDto.getSlip());
         receiptPix.setExternalTxid(responseDto.getTxId().toString());
 
         receiptPix.setReceiverName(paymentDto.getReceiverName());

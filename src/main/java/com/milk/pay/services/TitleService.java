@@ -14,6 +14,7 @@ import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.dto.title.TotalizersDto;
 import com.milk.pay.entities.Payment;
+import com.milk.pay.entities.Title;
 import com.milk.pay.entities.User;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.ITitleMapper;
@@ -95,7 +96,7 @@ public class TitleService {
 
     @Transactional
     public void finishTitle(Payment payment) {
-        var title = payment.getTitle();
+        var title = Title.findById(payment.getTitle().getId());
 
         if (payment.getAmount().equals(title.getBalance())) {
             title.setBalance(0.0d);
@@ -103,12 +104,6 @@ public class TitleService {
             title.setPaidAt(LocalDateTime.now());
         } else {
             title.setBalance(title.getBalance() - payment.getAmount());
-        }
-
-        if (ListUtil.isNullOrEmpty(title.getListPayment())) {
-            title.setListPayment(List.of(payment));
-        } else {
-            title.getListPayment().add(payment);
         }
 
         title.persistAndFlush();
