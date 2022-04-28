@@ -23,8 +23,6 @@ public class PixPaymentResponseDto {
 
     private String description;
 
-    private Double amount;
-
     public Long getTxId() {
         return this.txId;
     }
@@ -79,14 +77,6 @@ public class PixPaymentResponseDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
     }
 
 }

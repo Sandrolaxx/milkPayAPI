@@ -1,5 +1,7 @@
 package com.milk.pay.dto.pix;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author SRamos
@@ -8,7 +10,7 @@ public class PixReversalCelcoinDto {
 
     private Long transactionIdentification;
 
-    private Double amount;
+    private BigDecimal amount;
 
     private String reason;
 
@@ -22,11 +24,11 @@ public class PixReversalCelcoinDto {
         this.transactionIdentification = transactionIdentification;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return this.amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

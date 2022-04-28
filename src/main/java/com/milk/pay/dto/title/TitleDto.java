@@ -1,5 +1,9 @@
 package com.milk.pay.dto.title;
 
+import java.math.BigDecimal;
+
+import com.milk.pay.entities.enums.EnumPaymentType;
+
 /**
  *
  * @author SRamos
@@ -10,9 +14,9 @@ public class TitleDto {
     
     private String userId;
 
-    private Double amount;
+    private BigDecimal amount;
 
-    private Double balance;
+    private BigDecimal balance;
     
     private String paidAt;
 
@@ -30,7 +34,9 @@ public class TitleDto {
 
     private boolean liquidated;
     
-    private Double dailyInterest;
+    private BigDecimal dailyInterest;
+    
+    private EnumPaymentType paymentType;
 
     public String getUserId() {
         return userId;
@@ -40,19 +46,19 @@ public class TitleDto {
         this.userId = userId;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -128,12 +134,20 @@ public class TitleDto {
         this.liquidated = liquidated;
     }
 
-    public Double getDailyInterest() {
+    public BigDecimal getDailyInterest() {
         return dailyInterest;
     }
 
-    public void setDailyInterest(Double dailyInterest) {
+    public void setDailyInterest(BigDecimal dailyInterest) {
         this.dailyInterest = dailyInterest;
+    }
+
+    public EnumPaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(EnumPaymentType paymentType) {
+        this.paymentType = paymentType;
     }
 
 }

@@ -66,19 +66,16 @@ public class PixController {
 
         ValidateUtil.validatePixPaymentDto(paymentDto);
 
-        paymentDto.setTxId(pixService.persistPixPayment(paymentDto).getId());
+        var payment = pixService.persistPayment(paymentDto);
+
+        paymentDto.setAmount(payment.getAmount());
+        paymentDto.setTxId(payment.getId());
 
         var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto);
         var responseDto = celcoinPixService.makePayment(paymentCelcoinDto);
-
-        if (responseDto == null
-            || responseDto.getEndToEndId() == null) {
-            throw new MilkPayException(EnumErrorCode.ERRO_PAGAMENTO_PIX_CELCOIN);
-        }
-
         var receipt = pixService.savePaymentReceipt(responseDto, paymentDto);
 
-        titleService.finishTitle(receipt.getPayment());
+        titleService.finishTitle(receipt.getPayment().getTitle().getId());
         
         responseDto.setSlip(receipt.getReceiptResume());
 

@@ -12,7 +12,7 @@ public class EnumPaymentTypeAdapter implements JsonbAdapter<EnumPaymentType, Str
 
     @Override
     public String adaptToJson(EnumPaymentType enumPaymentType) {
-        return enumPaymentType.toString();
+        return enumPaymentType.getKey();
     }
 
     @Override

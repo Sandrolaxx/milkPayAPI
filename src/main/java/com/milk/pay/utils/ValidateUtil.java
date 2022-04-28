@@ -14,10 +14,6 @@ public class ValidateUtil {
 
     public static void validatePixPaymentDto(PixPaymentDto dto) {
 
-        if (NumericUtil.isNullOrZero(dto.getAmount())) {
-            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Valor(amount)");
-        }
-
         if (dto.getTitleId() == null) {
             throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Id Título(titleId)");
         }

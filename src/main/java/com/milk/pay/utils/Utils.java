@@ -1,5 +1,6 @@
 package com.milk.pay.utils;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,11 +40,11 @@ public class Utils {
         return null;
     }
 
-    public static Double getTotal(List<Title> listTitle, boolean isLiquidated) {
+    public static BigDecimal getTotal(List<Title> listTitle, boolean isLiquidated) {
         return listTitle.stream()
                 .filter(tit -> tit.isLiquidated() == isLiquidated)
-                .mapToDouble(Title::getAmount)
-                .sum();
+                .map(Title::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public static Long countTotal(List<Title> listTitle, boolean isLiquidated) {
@@ -52,12 +53,12 @@ public class Utils {
                 .count();
     }
 
-    public static Double getTotalNextDays(List<Title> listTitle, Integer nextDays) {
+    public static BigDecimal getTotalNextDays(List<Title> listTitle, Integer nextDays) {
         return listTitle.stream()
                 .filter(tit -> !tit.isLiquidated()
                         && tit.getDueDate().isBefore(LocalDateTime.now().plusDays(nextDays)))
-                .mapToDouble(Title::getAmount)
-                .sum();
+                .map(Title::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public static Long countTotalNextDays(List<Title> listTitle, Integer nextDays) {

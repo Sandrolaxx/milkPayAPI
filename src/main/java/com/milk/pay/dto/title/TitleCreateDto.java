@@ -1,5 +1,7 @@
 package com.milk.pay.dto.title;
 
+import java.math.BigDecimal;
+
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 import com.milk.pay.entities.enums.EnumPaymentType;
@@ -15,9 +17,9 @@ public class TitleCreateDto {
 
     private String userDocument;
 
-    private Double amount;
+    private BigDecimal amount;
 
-    private Double dailyInterest;
+    private BigDecimal dailyInterest;
 
     private String dueDate;
     
@@ -48,19 +50,19 @@ public class TitleCreateDto {
         this.userDocument = userDocument;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
     
-    public Double getDailyInterest() {
+    public BigDecimal getDailyInterest() {
         return dailyInterest;
     }
 
-    public void setDailyInterest(Double dailyInterest) {
+    public void setDailyInterest(BigDecimal dailyInterest) {
         this.dailyInterest = dailyInterest;
     }
 

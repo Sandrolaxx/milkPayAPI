@@ -1,5 +1,6 @@
 package com.milk.pay.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
@@ -38,13 +39,13 @@ public class Payment extends DafeEntity {
     private Integer id;
     
     @Column(name = "AMOUNT")
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(name = "INTEREST_PERCENTAGE")
-    private Double interestPercentage;
+    private BigDecimal interestPercentage;
 
     @Column(name = "INTEREST_VALUE")
-    private Double interestValue;
+    private BigDecimal interestValue;
 
     @Column(name = "PIX_KEY")
     private String pixKey;
@@ -103,11 +104,11 @@ public class Payment extends DafeEntity {
         this.id = id;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return this.amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -199,19 +200,19 @@ public class Payment extends DafeEntity {
         this.title = title;
     }
 
-    public Double getInterestPercentage() {
+    public BigDecimal getInterestPercentage() {
         return interestPercentage;
     }
 
-    public void setInterestPercentage(Double interestPercentage) {
+    public void setInterestPercentage(BigDecimal interestPercentage) {
         this.interestPercentage = interestPercentage;
     }
 
-    public Double getInterestValue() {
+    public BigDecimal getInterestValue() {
         return interestValue;
     }
 
-    public void setInterestValue(Double interestValue) {
+    public void setInterestValue(BigDecimal interestValue) {
         this.interestValue = interestValue;
     }
 

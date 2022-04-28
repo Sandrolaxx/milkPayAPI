@@ -94,13 +94,13 @@ public class NumericUtil {
         return value == null || value.equals(0.0);
     }
 
-    public static Double getInterestAmount(Double total, Double interestPercentage) {
-        return  (interestPercentage * total) / 100;
+    public static BigDecimal getInterestAmount(BigDecimal total, BigDecimal interestPercentage) {
+        return  interestPercentage.multiply(total).divide(BigDecimal.valueOf(100));
     }
 
-    public static Double getInterestPercentage(LocalDateTime dueDate, Double dailyInterest) {
+    public static BigDecimal getInterestPercentage(LocalDateTime dueDate, BigDecimal dailyInterest) {
         var numberOfDays = DateUtil.numberOfDaysBetweenDates(LocalDateTime.now(), dueDate);
 
-        return numberOfDays * dailyInterest;
+        return dailyInterest.multiply(BigDecimal.valueOf(numberOfDays));
     }
 }

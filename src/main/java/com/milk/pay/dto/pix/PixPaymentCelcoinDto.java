@@ -1,5 +1,7 @@
 package com.milk.pay.dto.pix;
 
+import java.math.BigDecimal;
+
 import com.milk.pay.entities.enums.EnumInitiationType;
 
 /**
@@ -8,7 +10,7 @@ import com.milk.pay.entities.enums.EnumInitiationType;
  */
 public class PixPaymentCelcoinDto {
 
-    private Double amount;
+    private BigDecimal amount;
 
     private String clientCode;
 
@@ -22,11 +24,11 @@ public class PixPaymentCelcoinDto {
 
     private String taxIdPaymentInitiator;
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return this.amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

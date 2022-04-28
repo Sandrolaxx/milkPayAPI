@@ -1,7 +1,5 @@
 package com.milk.pay.services;
 
-import java.math.BigDecimal;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
@@ -48,7 +46,7 @@ public class PixService {
     }
 
     @Transactional
-    public Payment persistPixPayment(PixPaymentDto dto) {
+    public Payment persistPayment(PixPaymentDto dto) {
 
         var pixPayment = pixMapper.pixPaymentDtoToPixPaymentEntity(dto);
         var title = Title.findById(dto.getTitleId());
@@ -60,9 +58,10 @@ public class PixService {
         var interestPercentage = NumericUtil.getInterestPercentage(title.getDueDate(), title.getDailyInterest());
 
         pixPayment.setTitle(title);
+        pixPayment.setAmount(title.getAmount());
         pixPayment.setInitiationType(EnumInitiationType.DICT);
         pixPayment.setInterestPercentage(interestPercentage);
-        pixPayment.setInterestPercentage(NumericUtil.getInterestAmount(dto.getAmount(), interestPercentage));
+        pixPayment.setInterestPercentage(NumericUtil.getInterestAmount(title.getAmount(), interestPercentage));
 
         try {
             pixPayment.persistAndFlush();
@@ -97,7 +96,7 @@ public class PixService {
         receiptPix.setLastAuthentication(lastReceipt != null ? lastReceipt.getAuthentication() : "GENESIS_BLOCK");
         receiptPix.setEndToEndId(paymentDto.getEndToEndId());
         receiptPix.setMovementCode(EnumMovementCode.TRANSF_INTERBANCARIA_PIX);
-        receiptPix.setAmount(BigDecimal.valueOf(paymentDto.getAmount()));
+        receiptPix.setAmount(paymentDto.getAmount());
         receiptPix.setExternalAuth(responseDto.getSlipAuth());
         receiptPix.setIspbCode(ispb);
         receiptPix.setPayment(payment);

@@ -1,5 +1,6 @@
 package com.milk.pay.dto.bankslip;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -24,23 +25,23 @@ public class BankSlipCelcoinConsultDataDto {
 
     private String payer;
 
-    private Double discountValue;
+    private BigDecimal discountValue;
 
-    private Double interestValueCalculated;
+    private BigDecimal interestValueCalculated;
 
-    private Double maxValue;
+    private BigDecimal maxValue;
 
-    private Double minValue;
+    private BigDecimal minValue;
 
-    private Double fineValueCalculated;
+    private BigDecimal fineValueCalculated;
 
-    private Double originalValue;
+    private BigDecimal originalValue;
 
-    private Double totalUpdated;
+    private BigDecimal totalUpdated;
 
-    private Double totalWithDiscount;
+    private BigDecimal totalWithDiscount;
 
-    private Double totalWithAdditional;
+    private BigDecimal totalWithAdditional;
 
     public String getDocumentRecipient() {
         return documentRecipient;
@@ -106,75 +107,75 @@ public class BankSlipCelcoinConsultDataDto {
         this.payer = payer;
     }
 
-    public Double getDiscountValue() {
+    public BigDecimal getDiscountValue() {
         return discountValue;
     }
 
-    public void setDiscountValue(Double discountValue) {
+    public void setDiscountValue(BigDecimal discountValue) {
         this.discountValue = discountValue;
     }
 
-    public Double getInterestValueCalculated() {
+    public BigDecimal getInterestValueCalculated() {
         return interestValueCalculated;
     }
 
-    public void setInterestValueCalculated(Double interestValueCalculated) {
+    public void setInterestValueCalculated(BigDecimal interestValueCalculated) {
         this.interestValueCalculated = interestValueCalculated;
     }
 
-    public Double getMaxValue() {
+    public BigDecimal getMaxValue() {
         return maxValue;
     }
 
-    public void setMaxValue(Double maxValue) {
+    public void setMaxValue(BigDecimal maxValue) {
         this.maxValue = maxValue;
     }
 
-    public Double getMinValue() {
+    public BigDecimal getMinValue() {
         return minValue;
     }
 
-    public void setMinValue(Double minValue) {
+    public void setMinValue(BigDecimal minValue) {
         this.minValue = minValue;
     }
 
-    public Double getFineValueCalculated() {
+    public BigDecimal getFineValueCalculated() {
         return fineValueCalculated;
     }
 
-    public void setFineValueCalculated(Double fineValueCalculated) {
+    public void setFineValueCalculated(BigDecimal fineValueCalculated) {
         this.fineValueCalculated = fineValueCalculated;
     }
 
-    public Double getOriginalValue() {
+    public BigDecimal getOriginalValue() {
         return originalValue;
     }
 
-    public void setOriginalValue(Double originalValue) {
+    public void setOriginalValue(BigDecimal originalValue) {
         this.originalValue = originalValue;
     }
 
-    public Double getTotalUpdated() {
+    public BigDecimal getTotalUpdated() {
         return totalUpdated;
     }
 
-    public void setTotalUpdated(Double totalUpdated) {
+    public void setTotalUpdated(BigDecimal totalUpdated) {
         this.totalUpdated = totalUpdated;
     }
 
-    public Double getTotalWithDiscount() {
+    public BigDecimal getTotalWithDiscount() {
         return totalWithDiscount;
     }
 
-    public void setTotalWithDiscount(Double totalWithDiscount) {
+    public void setTotalWithDiscount(BigDecimal totalWithDiscount) {
         this.totalWithDiscount = totalWithDiscount;
     }
 
-    public Double getTotalWithAdditional() {
+    public BigDecimal getTotalWithAdditional() {
         return totalWithAdditional;
     }
 
-    public void setTotalWithAdditional(Double totalWithAdditional) {
+    public void setTotalWithAdditional(BigDecimal totalWithAdditional) {
         this.totalWithAdditional = totalWithAdditional;
     }
 

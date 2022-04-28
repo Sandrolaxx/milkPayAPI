@@ -137,7 +137,11 @@ public class DateUtil {
         return LocalDate.from(DDMMYYYY.parse(value));
     }
 
-    public static LocalDateTime DDMMYYYYToLocalDateTime(String value) {
+    public static LocalDateTime DDMMYYYYToLocalDateTimeEndOfDay(String value) {
+        return LocalDateTime.from(DDMMYYYYToLocalDate(value).atTime(23, 59));
+    }
+
+    public static LocalDateTime DDMMYYYYToLocalDateTimeStartOfDay(String value) {
         return LocalDateTime.from(DDMMYYYYToLocalDate(value).atStartOfDay());
     }
 

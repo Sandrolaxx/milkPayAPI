@@ -1,7 +1,7 @@
 package com.milk.pay.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,13 +39,13 @@ public class Title extends DafeEntity {
     private Integer id;
 
     @Column(name = "AMOUNT")
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(name = "BALANCE")
-    private Double balance;
+    private BigDecimal balance;
 
     @Column(name = "DAYLI_INTEREST")
-    private Double dailyInterest;
+    private BigDecimal dailyInterest;
 
     @Column(name = "DUE_DATE")
     private LocalDateTime dueDate;
@@ -78,9 +78,8 @@ public class Title extends DafeEntity {
     @JoinColumn(name = "ID_USER", referencedColumnName = "ID")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_TITLE")
-    private List<Payment> listPayment;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "title")
+    private Payment payment;
 
     public static Title findById(Integer id) {
         return find("id", id).firstResult();
@@ -96,27 +95,27 @@ public class Title extends DafeEntity {
         this.id = id;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
-    public Double getDailyInterest() {
+    public BigDecimal getDailyInterest() {
         return dailyInterest;
     }
 
-    public void setDailyInterest(Double dailyInterest) {
+    public void setDailyInterest(BigDecimal dailyInterest) {
         this.dailyInterest = dailyInterest;
     }
 
@@ -192,12 +191,12 @@ public class Title extends DafeEntity {
         this.user = user;
     }
 
-    public List<Payment> getListPayment() {
-        return listPayment;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setListPayment(List<Payment> listPayment) {
-        this.listPayment = listPayment;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
 }

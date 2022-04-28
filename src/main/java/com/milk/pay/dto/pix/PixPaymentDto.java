@@ -1,5 +1,7 @@
 package com.milk.pay.dto.pix;
 
+import java.math.BigDecimal;
+
 import com.milk.pay.entities.enums.EnumAccountType;
 
 /**
@@ -8,7 +10,7 @@ import com.milk.pay.entities.enums.EnumAccountType;
  */ 
 public class PixPaymentDto {
 
-    private Double amount;
+    private BigDecimal amount;
 
     private Integer titleId;
 
@@ -30,11 +32,11 @@ public class PixPaymentDto {
 
     private Integer txId;
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

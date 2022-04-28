@@ -9,7 +9,7 @@ import com.milk.pay.utils.Utils;
 public enum EnumPaymentType implements IEnum {
 
     PIX("PIX", "PIX - Pagamentos Instantaneoes"),
-    BANKSLIP("BOLETO", "Boleto Bancário");
+    BOLETO("BOLETO", "Boleto Bancário");
 
     private EnumPaymentType(String key, String value) {
         this.key = key;
