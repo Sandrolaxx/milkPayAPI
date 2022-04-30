@@ -36,13 +36,13 @@ import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 public class PixController {
 
     @Inject
-    PixServiceCelcoin celcoinPixService;
-
-    @Inject
     PixService pixService;
 
     @Inject
     TitleService titleService;
+
+    @Inject
+    PixServiceCelcoin celcoinPixService;
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna Chave Pix consultada.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))

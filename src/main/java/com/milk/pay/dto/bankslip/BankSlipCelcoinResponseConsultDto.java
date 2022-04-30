@@ -4,14 +4,18 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.json.bind.annotation.JsonbDateFormat;
+
 public class BankSlipCelcoinResponseConsultDto {
     
     private String assignor;
 
     private BankSlipCelcoinConsultDataDto registerData;
 
+    @JsonbDateFormat(value = "dd/MM/yyyy")
     private LocalDate settleDate;
 
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime dueDate;
 
     private String endHour;

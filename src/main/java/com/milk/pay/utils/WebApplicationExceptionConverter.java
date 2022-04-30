@@ -1,12 +1,15 @@
 package com.milk.pay.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
 import javax.ws.rs.WebApplicationException;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.apache.commons.jcs.utils.zip.CompressionUtil;
 import org.jboss.resteasy.client.exception.WebApplicationExceptionWrapper;
 
@@ -20,7 +23,8 @@ public class WebApplicationExceptionConverter {
         return convertExceptionToObject(exception, targetClass, false);
     }
 
-    public static <T> T convertExceptionToObject(WebApplicationException exception, Class<T> targetClass, boolean isCollectionTypeReturn) {
+    public static <T> T convertExceptionToObject(WebApplicationException exception, Class<T> targetClass,
+            boolean isCollectionTypeReturn) {
         final WebApplicationExceptionWrapper wre = (WebApplicationExceptionWrapper) exception;
 
         if (wre != null) {
@@ -44,7 +48,8 @@ public class WebApplicationExceptionConverter {
                         String completeError;
 
                         try {
-                            completeError = new String(CompressionUtil.decompressGzipByteArray(bytes), StandardCharsets.UTF_8);
+                            completeError = new String(CompressionUtil.decompressGzipByteArray(bytes),
+                                    StandardCharsets.UTF_8);
                         } catch (Exception e) {
                             completeError = new String(bytes, StandardCharsets.UTF_8);
                         }

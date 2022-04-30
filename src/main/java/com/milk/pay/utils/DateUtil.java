@@ -33,18 +33,12 @@ public class DateUtil {
 
     public static final DateTimeFormatter YYYYMMDDHHMMSS = EnumDateFormat.YYYYMMDDHHMMSS.getFormat();
 
-    public static final DateTimeFormatter YYYYMMDDTHHMMSS = EnumDateFormat.YYYYMMDDTHHMMSS.getFormat();
-
     public static String formatYYYYMMDD(LocalDate date) {
         return date != null ? EnumDateFormat.YYYYMMDD.format(date) : "";
     }
 
     public static String formatYYYYMMDDHHMMSS(LocalDateTime date) {
         return date != null ? YYYYMMDDHHMMSS.format(date) : "";
-    }
-
-    public static String formatYYYYMMDDTHHMMSS(LocalDateTime date) {
-        return date != null ? YYYYMMDDTHHMMSS.format(date) : "";
     }
 
     public static String formatDDMMYYYYHHMMSS(LocalDateTime date) {

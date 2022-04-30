@@ -19,7 +19,6 @@ public enum EnumDateFormat {
     DDMMYYYYHHMMSS(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
     YYYYMMDD(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
     YYYYMMDDHHMMSS(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-    YYYYMMDDTHHMMSS(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
     MMYY(DateTimeFormatter.ofPattern("MM/yy")),
     MMYYYY(DateTimeFormatter.ofPattern("MM/yyyy")),
     EXTENSO(DateTimeFormatter.ofPattern("dd 'de' MMMMM 'de' yyyy")),

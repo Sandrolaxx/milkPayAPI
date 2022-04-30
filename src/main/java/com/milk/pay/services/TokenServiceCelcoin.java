@@ -29,7 +29,7 @@ public class TokenServiceCelcoin {
     @ConfigProperty(name = "celcoin.grantType")
     String grantType;
 
-    public String tokenDto() {
+    public String getToken() {
 
         Form tokenReq = new Form()
                 .param("client_id", clientId)

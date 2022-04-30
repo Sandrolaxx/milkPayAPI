@@ -13,11 +13,11 @@ public class BankSlipCelcoinConsultDataDto {
 
     private String documentPayer;
 
-    private LocalDateTime payDueLocalDate;
+    private LocalDateTime payDueDate;
 
     private LocalDateTime nextBusinessDay;
 
-    private LocalDateTime dueLocalDateTimeRegister;
+    private LocalDateTime dueDateRegister;
 
     private boolean allowChangeValue;
 
@@ -59,12 +59,20 @@ public class BankSlipCelcoinConsultDataDto {
         this.documentPayer = documentPayer;
     }
 
-    public LocalDateTime getPayDueLocalDate() {
-        return payDueLocalDate;
+    public LocalDateTime getPayDueDate() {
+        return payDueDate;
     }
 
-    public void setPayDueLocalDate(LocalDateTime payDueLocalDate) {
-        this.payDueLocalDate = payDueLocalDate;
+    public void setPayDueDate(LocalDateTime payDueDate) {
+        this.payDueDate = payDueDate;
+    }
+
+    public LocalDateTime getDueDateRegister() {
+        return dueDateRegister;
+    }
+
+    public void setDueDateRegister(LocalDateTime dueDateRegister) {
+        this.dueDateRegister = dueDateRegister;
     }
 
     public LocalDateTime getNextBusinessDay() {
@@ -73,14 +81,6 @@ public class BankSlipCelcoinConsultDataDto {
 
     public void setNextBusinessDay(LocalDateTime nextBusinessDay) {
         this.nextBusinessDay = nextBusinessDay;
-    }
-
-    public LocalDateTime getDueLocalDateTimeRegister() {
-        return dueLocalDateTimeRegister;
-    }
-
-    public void setDueLocalDateTimeRegister(LocalDateTime dueLocalDateTimeRegister) {
-        this.dueLocalDateTimeRegister = dueLocalDateTimeRegister;
     }
 
     public boolean isAllowChangeValue() {

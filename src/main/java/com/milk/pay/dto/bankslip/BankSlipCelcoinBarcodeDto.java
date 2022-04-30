@@ -6,34 +6,21 @@ package com.milk.pay.dto.bankslip;
  */
 public class BankSlipCelcoinBarcodeDto {
     
-    private Integer type;
+    private BankSlipConsultDto barcode;
 
-    private String barCode;
-
-    private String digitable;
-
-    public Integer getType() {
-        return type;
+    public BankSlipCelcoinBarcodeDto() {
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public BankSlipCelcoinBarcodeDto(BankSlipConsultDto barcode) {
+        this.barcode = barcode;
     }
 
-    public String getBarCode() {
-        return barCode;
+    public BankSlipConsultDto getBarcode() {
+        return barcode;
     }
 
-    public void setBarCode(String barCode) {
-        this.barCode = barCode;
-    }
-
-    public String getDigitable() {
-        return digitable;
-    }
-
-    public void setDigitable(String digitable) {
-        this.digitable = digitable;
+    public void setBarcode(BankSlipConsultDto barcode) {
+        this.barcode = barcode;
     }
 
 }

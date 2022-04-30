@@ -4,7 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.ws.rs.WebApplicationException;
+
+import com.milk.pay.dto.ErrorDto;
 import com.milk.pay.entities.Title;
+import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.entities.enums.IEnum;
 
 /**
@@ -66,6 +70,19 @@ public class Utils {
                 .filter(tit -> !tit.isLiquidated()
                         && tit.getDueDate().isBefore(LocalDateTime.now().plusDays(nextDays)))
                 .count();
+    }
+
+    public static MilkPayException handleException(WebApplicationException wae, EnumErrorCode defaultError) {
+        final var resp = WebApplicationExceptionConverter.convertExceptionToObject(wae, ErrorDto.class);
+
+        if (resp != null) {
+            return new MilkPayException(
+                StringUtil.isNullOrEmpty(resp.getErrorCode()) ? resp.getCode() : resp.getErrorCode() ,
+                StringUtil.isNullOrEmpty(resp.getMessage()) ? resp.getDescription() : resp.getMessage()
+            );
+        } else {
+            return new MilkPayException(defaultError);
+        }
     }
 
 }

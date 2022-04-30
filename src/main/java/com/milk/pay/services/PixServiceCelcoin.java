@@ -9,10 +9,9 @@ import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.IPixMapper;
-import com.milk.pay.restClient.RestClientPixCelcoin;
+import com.milk.pay.restClient.RestClientCelcoin;
 import com.milk.pay.utils.MilkPayException;
-import com.milk.pay.utils.StringUtil;
-import com.milk.pay.utils.WebApplicationExceptionConverter;
+import com.milk.pay.utils.Utils;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -25,7 +24,7 @@ public class PixServiceCelcoin {
 
     @Inject
     @RestClient
-    RestClientPixCelcoin restClientPix;
+    RestClientCelcoin restClient;
 
     @Inject
     IPixMapper pixMapper;
@@ -39,37 +38,25 @@ public class PixServiceCelcoin {
     public PixKeyConsultResponseCelcoinDto consultKey(String key) throws MilkPayException {
 
         try {
-            return restClientPix.consultKey(tokenService.tokenDto(), key);
+            return restClient.consultKey(tokenService.getToken(), key);
         } catch (WebApplicationException wae) {
             if (wae.getResponse() != null && wae.getResponse().getStatus() == 404) {
                 throw new MilkPayException(EnumErrorCode.CHAVE_CONSULTADA_INEXISTENTE);
             }
 
-            throw handlException(wae, EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX_CELCOIN);
+            throw Utils.handleException(wae, EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX_CELCOIN);
         }
+
     }
 
     public PixPaymentResponseDto makePayment(PixPaymentCelcoinDto dto) {
 
         try {
-            return restClientPix.makePayment(tokenService.tokenDto(), dto);
+            return restClient.makePayment(tokenService.getToken(), dto);
         } catch (WebApplicationException wae) {
-            throw handlException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX_CELCOIN);
+            throw Utils.handleException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX_CELCOIN);
         }
 
-    }
-
-    public MilkPayException handlException(WebApplicationException wae, EnumErrorCode defaultError) {
-        final PixPaymentResponseDto resp = WebApplicationExceptionConverter.convertExceptionToObject(wae,
-                PixPaymentResponseDto.class);
-
-        if (resp != null) {
-            return new MilkPayException(
-                    resp.getMessage() != null ? resp.getMessage() : resp.getDescription(),
-                    StringUtil.toString(resp.getErrorCode()));
-        } else {
-            return new MilkPayException(defaultError);
-        }
     }
 
 }

@@ -6,6 +6,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.milk.pay.dto.bankslip.BankSlipCelcoinBarcodeDto;
+import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
@@ -18,16 +20,25 @@ import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
  * @author SRamos
  */
 @RegisterRestClient(configKey = "base-uri-pix-celcoin")
-public interface RestClientPixCelcoin {
+public interface RestClientCelcoin {
 
+    // Pix Routes
     @POST
     @Path("/pix/v1/dict/key/{key}")
     @Produces(MediaType.APPLICATION_JSON)
-    PixKeyConsultResponseCelcoinDto consultKey(@HeaderParam("Authorization") String token, @PathParam("key") String key);
+    PixKeyConsultResponseCelcoinDto consultKey(@HeaderParam("Authorization") String token,
+            @PathParam("key") String key);
 
     @POST
     @Path("/pix/v1/payment")
     @Produces(MediaType.APPLICATION_JSON)
     PixPaymentResponseDto makePayment(@HeaderParam("Authorization") String token, PixPaymentCelcoinDto dto);
+
+    // BankSlip Routes
+    @POST
+    @Path("/v5/transactions/billpayments/authorize")
+    @Produces(MediaType.APPLICATION_JSON)
+    BankSlipCelcoinResponseConsultDto consultBankSlip(@HeaderParam("Authorization") String token,
+            BankSlipCelcoinBarcodeDto dto);
 
 }

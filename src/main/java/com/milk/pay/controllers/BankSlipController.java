@@ -2,11 +2,12 @@ package com.milk.pay.controllers;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.services.BankSlipService;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
@@ -32,13 +33,13 @@ public class BankSlipController {
     
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os dados do boleto consultado.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
-    @GET
+    @POST
     @Path("/consult")
-    public void consult(BankSlipConsultDto bankSlipConsultDto) {
+    public BankSlipCelcoinResponseConsultDto consult(BankSlipConsultDto bankSlipConsultDto) {
 
         ValidateUtil.validateConsultTitle(bankSlipConsultDto);
 
-        
+        return bankSlipService.consult(bankSlipConsultDto);
         
     }
 
