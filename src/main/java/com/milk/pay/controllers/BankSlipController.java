@@ -7,8 +7,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
+import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.services.BankSlipService;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
 import com.milk.pay.utils.ValidateUtil;
@@ -35,7 +35,7 @@ public class BankSlipController {
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @POST
     @Path("/consult")
-    public BankSlipCelcoinResponseConsultDto consult(BankSlipConsultDto bankSlipConsultDto) {
+    public BankSlipConsultResponseDto consult(BankSlipConsultDto bankSlipConsultDto) {
 
         ValidateUtil.validateConsultTitle(bankSlipConsultDto);
 

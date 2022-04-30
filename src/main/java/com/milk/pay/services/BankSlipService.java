@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
 import com.milk.pay.dto.bankslip.BankSlipCelcoinBarcodeDto;
-import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
+import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.restClient.RestClientCelcoin;
 import com.milk.pay.utils.Utils;
@@ -27,10 +27,12 @@ public class BankSlipService {
     @RestClient
     RestClientCelcoin restClient;
 
-    public BankSlipCelcoinResponseConsultDto consult(BankSlipConsultDto dto) {
+    public BankSlipConsultResponseDto consult(BankSlipConsultDto dto) {
 
-        try {//TODO fazer o mapping para BankSlipConsultResponseDto
-            return restClient.consultBankSlip(tokenService.getToken(), new BankSlipCelcoinBarcodeDto(dto));
+        try {
+            var response = restClient.consultBankSlip(tokenService.getToken(), new BankSlipCelcoinBarcodeDto(dto));
+            
+            return  
         } catch (WebApplicationException wae) {
             throw Utils.handleException(wae, EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
         }

@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class BankSlipConsultResponseDto {
+
+    private Long transactionId;
     
     private String bank;
 
     private String digitable;
-
-    private LocalDateTime dueDate;
 
     private String payer;
     
@@ -19,6 +19,8 @@ public class BankSlipConsultResponseDto {
 
     private String documentRecipient;
 
+    private LocalDateTime dueDate;
+
     private BigDecimal discountValue;
 
     private BigDecimal fineValueCalculated;
@@ -26,8 +28,6 @@ public class BankSlipConsultResponseDto {
     private BigDecimal interestValueCalculated;
 
     private BigDecimal amount;
-
-    private Long transactionId;
 
     public String getBank() {
         return bank;
