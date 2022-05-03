@@ -9,8 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-30T07:24:33-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
+    date = "2022-05-02T21:46:26-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
 )
 @ApplicationScoped
 public class ITitleMapperImpl implements ITitleMapper {
@@ -25,17 +25,17 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         titleDto.setAmount( entity.getAmount() );
         titleDto.setBalance( entity.getBalance() );
-        titleDto.setDailyInterest( entity.getDailyInterest() );
         if ( entity.getDueDate() != null ) {
             titleDto.setDueDate( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getDueDate() ) );
+        }
+        if ( entity.getPaidAt() != null ) {
+            titleDto.setPaidAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getPaidAt() ) );
         }
         if ( entity.hasId() ) {
             titleDto.setId( entity.getId() );
         }
         titleDto.setLiquidated( entity.isLiquidated() );
-        if ( entity.getPaidAt() != null ) {
-            titleDto.setPaidAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getPaidAt() ) );
-        }
+        titleDto.setDailyInterest( entity.getDailyInterest() );
         titleDto.setPaymentType( entity.getPaymentType() );
 
         return titleDto;

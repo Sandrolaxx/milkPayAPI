@@ -58,6 +58,7 @@
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/services/PixService.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/IspbCode.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/Title.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/bankslip/BankSlipConsultResponseDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixPaymentResponseDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/mapper/IPixMapper.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/user/TokenResponseDto.java
@@ -70,6 +71,7 @@
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/ListUtil.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/bankslip/BankSlipConsultDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/services/BankSlipService.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/mapper/IBankSlipMapper.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/restClient/RestClientTokenCelcoin.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/ValidateUtil.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixKeyAccountCelcoinDto.java

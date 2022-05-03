@@ -18,18 +18,21 @@ import org.mapstruct.Mappings;
 public interface IBankSlipMapper {
 
     @Mappings({
-        @Mapping(target = "bank", source = "assignor"),
-        @Mapping(target = "payer", source = "registerData.payer"),
-        @Mapping(target = "recipient", source = "registerData.recipient"),
-        @Mapping(target = "documentPayer", source = "registerData.documentPayer"),
-        @Mapping(target = "documentRecipient", source = "registerData.documentRecipient"),
-        @Mapping(target = "bank", source = "assignor"),
-        @Mapping(target = "dueDate", expression = "java(parseDate(dto.getDueDate()))"),
+            @Mapping(target = "bank", source = "assignor"),
+            @Mapping(target = "payer", source = "registerData.payer"),
+            @Mapping(target = "recipient", source = "registerData.recipient"),
+            @Mapping(target = "documentPayer", source = "registerData.documentPayer"),
+            @Mapping(target = "documentRecipient", source = "registerData.documentRecipient"),
+            @Mapping(target = "discount", source = "registerData.discountValue"),
+            @Mapping(target = "fine", source = "registerData.fineValueCalculated"),
+            @Mapping(target = "interest", source = "registerData.interestValueCalculated"),
+            @Mapping(target = "amount", source = "registerData.totalUpdated"),
+            @Mapping(target = "dueDate", expression = "java(parseDate(dto.getDueDate()))"),
     })
-    public BankSlipConsultResponseDto titleDtoToEntity(BankSlipCelcoinResponseConsultDto dto);
+    public BankSlipConsultResponseDto bankSlipDtoToResponseDto(BankSlipCelcoinResponseConsultDto dto);
 
-    default LocalDateTime parseDate(LocalDateTime date) {
-        return LocalDateTime.from(DateUtil.DDMMYYYYHHMMSS.format(date));
+    default String parseDate(LocalDateTime date) {
+        return DateUtil.formatDDMMYYYY(date.toLocalDate());
     }
 
 }

@@ -1,7 +1,6 @@
 package com.milk.pay.dto.bankslip;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class BankSlipConsultResponseDto {
 
@@ -19,13 +18,13 @@ public class BankSlipConsultResponseDto {
 
     private String documentRecipient;
 
-    private LocalDateTime dueDate;
+    private String dueDate;
 
-    private BigDecimal discountValue;
+    private BigDecimal discount;
 
-    private BigDecimal fineValueCalculated;
+    private BigDecimal fine;
 
-    private BigDecimal interestValueCalculated;
+    private BigDecimal interest;
 
     private BigDecimal amount;
 
@@ -45,11 +44,11 @@ public class BankSlipConsultResponseDto {
         this.digitable = digitable;
     }
 
-    public LocalDateTime getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -85,30 +84,6 @@ public class BankSlipConsultResponseDto {
         this.documentRecipient = documentRecipient;
     }
 
-    public BigDecimal getDiscountValue() {
-        return discountValue;
-    }
-
-    public void setDiscountValue(BigDecimal discountValue) {
-        this.discountValue = discountValue;
-    }
-
-    public BigDecimal getFineValueCalculated() {
-        return fineValueCalculated;
-    }
-
-    public void setFineValueCalculated(BigDecimal fineValueCalculated) {
-        this.fineValueCalculated = fineValueCalculated;
-    }
-
-    public BigDecimal getInterestValueCalculated() {
-        return interestValueCalculated;
-    }
-
-    public void setInterestValueCalculated(BigDecimal interestValueCalculated) {
-        this.interestValueCalculated = interestValueCalculated;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
@@ -123,6 +98,30 @@ public class BankSlipConsultResponseDto {
 
     public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
+    public BigDecimal getFine() {
+        return fine;
+    }
+
+    public void setFine(BigDecimal fine) {
+        this.fine = fine;
+    }
+
+    public BigDecimal getInterest() {
+        return interest;
+    }
+
+    public void setInterest(BigDecimal interest) {
+        this.interest = interest;
     }
     
 }

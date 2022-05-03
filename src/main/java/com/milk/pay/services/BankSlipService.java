@@ -8,6 +8,7 @@ import com.milk.pay.dto.bankslip.BankSlipCelcoinBarcodeDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
+import com.milk.pay.mapper.IBankSlipMapper;
 import com.milk.pay.restClient.RestClientCelcoin;
 import com.milk.pay.utils.Utils;
 
@@ -24,6 +25,9 @@ public class BankSlipService {
     TokenServiceCelcoin tokenService;
 
     @Inject
+    IBankSlipMapper mapper;
+
+    @Inject
     @RestClient
     RestClientCelcoin restClient;
 
@@ -32,7 +36,7 @@ public class BankSlipService {
         try {
             var response = restClient.consultBankSlip(tokenService.getToken(), new BankSlipCelcoinBarcodeDto(dto));
             
-            return  
+            return mapper.bankSlipDtoToResponseDto(response);
         } catch (WebApplicationException wae) {
             throw Utils.handleException(wae, EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
         }
