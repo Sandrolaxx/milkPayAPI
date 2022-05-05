@@ -17,9 +17,11 @@ import com.milk.pay.dto.title.TotalizersDto;
 import com.milk.pay.entities.Title;
 import com.milk.pay.entities.User;
 import com.milk.pay.entities.enums.EnumErrorCode;
+import com.milk.pay.entities.enums.EnumPaymentType;
 import com.milk.pay.mapper.ITitleMapper;
 import com.milk.pay.repository.TitleRepository;
 import com.milk.pay.utils.DateUtil;
+import com.milk.pay.utils.EnumUtil;
 import com.milk.pay.utils.ListUtil;
 import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.StringUtil;
@@ -79,6 +81,11 @@ public class TitleService {
 
         if (newTitleDto.getDailyInterest() == null) {
             newTitleDto.setDailyInterest(defaultDailyInterest);
+        }
+
+        if (EnumUtil.isEquals(newTitleDto.getPaymentType(), EnumPaymentType.PIX)) {
+            newTitleDto.setBarcode(null);
+            newTitleDto.setDigitabe(null);
         }
 
         var newTitle = titleMapper.titleDtoToEntity(newTitleDto);

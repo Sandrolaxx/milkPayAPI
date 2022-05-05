@@ -1,6 +1,6 @@
 package com.milk.pay.entities.enums;
 
-import com.milk.pay.utils.Utils;
+import com.milk.pay.utils.EnumUtil;
 
 /**
  *
@@ -8,20 +8,23 @@ import com.milk.pay.utils.Utils;
  */
 public enum EnumTransactionType implements IEnum  {
 
-    RECEIVEPIX("RECEIVEPIX"),    
-    PIXREVERSAL("PIXREVERSAL"),   
-    REVERTPIX("REVERTPIXL"),   
-    PAYMENT("PAYMENT");    
+    RECEIVEPIX("Pix Recebido"),    
+    PIXREVERSAL("Pix Estornado"),   
+    PAYMENT("Pix Pago");    
     
-    private final String key;
+    private final String value;
 
-    private EnumTransactionType(String key) {
-        this.key = key;
+    private EnumTransactionType(String value) {
+        this.value = value;
     }
 
     @Override
     public String getKey() {
-        return key;
+        return name();
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override
@@ -30,7 +33,7 @@ public enum EnumTransactionType implements IEnum  {
     }
 
     public static EnumTransactionType parseByKey(String key) {
-        return (EnumTransactionType) Utils.parseByKey(EnumTransactionType.class, key);
+        return (EnumTransactionType) EnumUtil.parseByKey(EnumTransactionType.class, key);
     }
 
 }

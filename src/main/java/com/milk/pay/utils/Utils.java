@@ -9,7 +9,6 @@ import javax.ws.rs.WebApplicationException;
 import com.milk.pay.dto.ErrorDto;
 import com.milk.pay.entities.Title;
 import com.milk.pay.entities.enums.EnumErrorCode;
-import com.milk.pay.entities.enums.IEnum;
 
 /**
  *
@@ -26,22 +25,6 @@ public class Utils {
             }
         }
         return (T) ((arg0 == null) ? arg1 : arg0);
-    }
-
-    public static <T extends IEnum> T parseByKey(Class<T> enumValue, String key) {
-        try {
-            if (key != null && !key.trim().isEmpty()) {
-                for (var value : enumValue.getEnumConstants()) {
-                    if (value.getKey().equalsIgnoreCase(key)) {
-                        return value;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            return null;
-        }
-
-        return null;
     }
 
     public static BigDecimal getTotal(List<Title> listTitle, boolean isLiquidated) {

@@ -5,6 +5,7 @@ import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.user.CreateUserDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
+import com.milk.pay.entities.enums.EnumPaymentType;
 
 /**
  *
@@ -73,9 +74,16 @@ public class ValidateUtil {
         if (StringUtil.isNullOrEmpty(dto.getDueDate())) {
             throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Data vencimento(dueDate)");
         }
-        
+
         if (dto.getPaymentType() == null) {
             throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Tipo de Pagamento(paymentType)");
+        }
+
+        if (EnumUtil.isEquals(dto.getPaymentType(), EnumPaymentType.BOLETO)
+                && (StringUtil.isNullOrEmpty(dto.getDigitabe())
+                        || StringUtil.isNullOrEmpty(dto.getDigitabe()))) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Tipo de Pagamento(paymentType) Boleto"
+                    + " o campo linha digitável(digitable) ou código de barras(barcode)");
         }
 
         var dueDate = DateUtil.DDMMYYYYHHMMSSToLocalDateTime(dto.getDueDate());

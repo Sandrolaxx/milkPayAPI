@@ -1,6 +1,6 @@
 package com.milk.pay.entities.enums;
 
-import com.milk.pay.utils.Utils;
+import com.milk.pay.utils.EnumUtil;
 
 import org.apache.http.HttpStatus;
 
@@ -68,7 +68,7 @@ public enum EnumErrorCode implements IEnum {
     }
 
     public static EnumErrorCode parseByKey(String key) {
-        return (EnumErrorCode) Utils.parseByKey(EnumErrorCode.class, key);
+        return (EnumErrorCode) EnumUtil.parseByKey(EnumErrorCode.class, key);
     }
     
 }

@@ -1,6 +1,6 @@
 package com.milk.pay.entities.enums;
 
-import com.milk.pay.utils.Utils;
+import com.milk.pay.utils.EnumUtil;
 
 /**
  *
@@ -73,7 +73,7 @@ public enum EnumMovementCode implements IEnum {
     }
 
     public static EnumMovementCode parseByKey(String key) {
-        return (EnumMovementCode) Utils.parseByKey(EnumMovementCode.class, key);
+        return (EnumMovementCode) EnumUtil.parseByKey(EnumMovementCode.class, key);
     }
     
 }

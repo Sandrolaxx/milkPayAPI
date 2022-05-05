@@ -1,5 +1,7 @@
 package com.milk.pay.utils;
 
+import com.milk.pay.entities.enums.IEnum;
+
 /**
  *
  * @author SRamos
@@ -26,6 +28,22 @@ public class EnumUtil {
             return false;
         }
         return false;
+    }
+
+    public static <T extends IEnum> T parseByKey(Class<T> enumValue, String key) {
+        try {
+            if (key != null && !key.trim().isEmpty()) {
+                for (var value : enumValue.getEnumConstants()) {
+                    if (value.getKey().equalsIgnoreCase(key)) {
+                        return value;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+
+        return null;
     }
 
 }

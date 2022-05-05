@@ -1,6 +1,6 @@
 package com.milk.pay.entities.enums;
 
-import com.milk.pay.utils.Utils;
+import com.milk.pay.utils.EnumUtil;
 
 /**
  *
@@ -8,21 +8,24 @@ import com.milk.pay.utils.Utils;
  */
 public enum EnumInitiationType implements IEnum {
 
-    MANUAL("MANUAL"),    
-    DICT("DICT"),    
-    PAYMENT_INITIATOR("PAYMENT_INITIATOR"),    
-    STATIC_QRCODE("STATIC_QRCODE"),    
-    DYNAMIC_QRCODE("DYNAMIC_QRCODE");    
+    MANUAL("Manual"),    
+    DICT("Diretório de Identificadores de Contas Transacionais"),    
+    PAYMENT_INITIATOR("Iniciação de Pagamento"),    
+    STATIC_QRCODE("QR Code Estático"),    
+    DYNAMIC_QRCODE("QR Code Dinâmico");    
     
-    private final String key;
+    private final String value;
 
-    private EnumInitiationType(String key) {
-        this.key = key;
+    private EnumInitiationType(String value) {
+        this.value = value;
     }
 
     @Override
     public String getKey() {
-        return key;
+        return name();
+    }
+    public String getValue() {
+        return value;
     }
 
     @Override
@@ -31,7 +34,7 @@ public enum EnumInitiationType implements IEnum {
     }
 
     public static EnumInitiationType parseByKey(String key) {
-        return (EnumInitiationType) Utils.parseByKey(EnumInitiationType.class, key);
+        return (EnumInitiationType) EnumUtil.parseByKey(EnumInitiationType.class, key);
     }
 
 }

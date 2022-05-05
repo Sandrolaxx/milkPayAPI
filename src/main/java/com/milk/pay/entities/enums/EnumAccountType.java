@@ -1,6 +1,6 @@
 package com.milk.pay.entities.enums;
 
-import com.milk.pay.utils.Utils;
+import com.milk.pay.utils.EnumUtil;
 
 /**
  *
@@ -8,23 +8,20 @@ import com.milk.pay.utils.Utils;
  */
 public enum EnumAccountType implements IEnum {
 
-    SLRY("SLRY", "Conta Salário"),
-    SVGS("SVGS", "Conta Poupança"),
-    TRAN("TRAN", "Conta de Pagamentos"),
-    CACC("CACC", "Conta Corrente");
-
-    private String key;
+    SLRY("Conta Salário"),
+    SVGS("Conta Poupança"),
+    TRAN("Conta de Pagamentos"),
+    CACC("Conta Corrente");
 
     private String value;
 
-    private EnumAccountType(String key, String value) {
-        this.key = key;
+    private EnumAccountType(String value) {
         this.value = value;
     }
 
     @Override
     public String getKey() {
-        return key;
+        return name();
     }
 
     public String getValue() {
@@ -37,7 +34,7 @@ public enum EnumAccountType implements IEnum {
     }
 
     public static EnumAccountType parseByKey(String key) {
-        return (EnumAccountType) Utils.parseByKey(EnumAccountType.class, key);
+        return (EnumAccountType) EnumUtil.parseByKey(EnumAccountType.class, key);
     }
 
 }
