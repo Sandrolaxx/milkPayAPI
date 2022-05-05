@@ -61,6 +61,12 @@ public class Title extends DafeEntity {
     
     @Column(name = "NF_NUMBER")
     private String nfNumber;
+    
+    @Column(name = "BARCODE")
+    private String barcode;
+
+    @Column(name = "DIGITABLE")
+    private String digitable;
 
     @CreationTimestamp
     @Column(name = "CREATED_AT")
@@ -157,6 +163,22 @@ public class Title extends DafeEntity {
 
     public void setNfNumber(String nfNumber) {
         this.nfNumber = nfNumber;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getDigitable() {
+        return digitable;
+    }
+
+    public void setDigitable(String digitable) {
+        this.digitable = digitable;
     }
 
     public LocalDateTime getCreatedAt() {

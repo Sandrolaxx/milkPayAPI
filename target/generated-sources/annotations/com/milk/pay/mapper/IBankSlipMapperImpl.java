@@ -9,8 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-02T21:52:55-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
+    date = "2022-05-04T19:46:07-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
 )
 @ApplicationScoped
 public class IBankSlipMapperImpl implements IBankSlipMapper {

@@ -3,6 +3,7 @@ package com.milk.pay.services;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import com.milk.pay.dto.bankslip.BankSlipCelcoinBarcodeDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
@@ -41,6 +42,12 @@ public class BankSlipService {
             throw Utils.handleException(wae, EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
         }
 
+    }
+
+    public Response payment() {
+        
+        //TODO
+        return null;
     }
 
 }
