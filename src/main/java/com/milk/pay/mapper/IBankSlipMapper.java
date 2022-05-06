@@ -2,8 +2,10 @@ package com.milk.pay.mapper;
 
 import java.time.LocalDateTime;
 
+import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
+import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
 import com.milk.pay.utils.DateUtil;
 
 import org.mapstruct.Mapper;
@@ -30,6 +32,14 @@ public interface IBankSlipMapper {
             @Mapping(target = "dueDate", expression = "java(parseDate(dto.getDueDate()))"),
     })
     public BankSlipConsultResponseDto bankSlipDtoToResponseDto(BankSlipCelcoinResponseConsultDto dto);
+
+    @Mappings({
+            @Mapping(target = "barcode.barcode", source = "barcode"),
+            @Mapping(target = "barcode.digitable", source = "digitable"),
+            @Mapping(target = "billData.value", source = "amount"),
+            @Mapping(target = "dueDate", ignore = true),
+    })
+    public BankSlipCelcoinPaymentDto bankSlipPaymentDtoToCelcoinPaymentDto(BankSlipPaymentDto dto);
 
     default String parseDate(LocalDateTime date) {
         return DateUtil.formatDDMMYYYY(date.toLocalDate());

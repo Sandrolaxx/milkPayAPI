@@ -6,9 +6,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
+import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
 import com.milk.pay.services.BankSlipService;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
 import com.milk.pay.utils.ValidateUtil;
@@ -40,6 +42,18 @@ public class BankSlipController {
         ValidateUtil.validateConsultTitle(bankSlipConsultDto);
 
         return bankSlipService.consult(bankSlipConsultDto);
+        
+    }
+
+    @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os dados do boleto pago.")
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @POST
+    @Path("/payment")
+    public Response payment(BankSlipPaymentDto bankSlipPaymentDto) {
+
+        ValidateUtil.validatePaymentTitle(bankSlipPaymentDto);
+
+        return bankSlipService.payment(bankSlipPaymentDto);
         
     }
 

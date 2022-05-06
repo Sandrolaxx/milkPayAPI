@@ -16,19 +16,19 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class RequestUtil {
 
-    @ConfigProperty(name = "dafe.account")
+    @ConfigProperty(name = "milk.account")
     String milkPayAccount;
 
-    @ConfigProperty(name = "dafe.branch")
+    @ConfigProperty(name = "milk.branch")
     String milkPayBranch;
 
-    @ConfigProperty(name = "dafe.taxId")
+    @ConfigProperty(name = "milk.taxId")
     String milkPayTaxId;
 
-    @ConfigProperty(name = "dafe.name")
+    @ConfigProperty(name = "milk.name")
     String milkPayName;
 
-    @ConfigProperty(name = "dafe.bankId")
+    @ConfigProperty(name = "milk.bankId")
     String milkPayBankISPB;
 
     public static String bearerToken(String token) {

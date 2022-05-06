@@ -35,6 +35,8 @@ public class DateUtil {
 
     public static final DateTimeFormatter YYYYMMDDTHHMM = EnumDateFormat.YYYYMMDDTHHMM.getFormat();
 
+    public static final DateTimeFormatter YYYYMMDDTHHMMZ = EnumDateFormat.YYYYMMDDTHHMMZ.getFormat();
+
     public static String formatYYYYMMDD(LocalDate date) {
         return date != null ? EnumDateFormat.YYYYMMDD.format(date) : "";
     }
@@ -147,6 +149,10 @@ public class DateUtil {
 
     public static LocalDateTime YYYYMMDDTHHMMToLocalDateTime(String value) {
         return LocalDateTime.from(YYYYMMDDTHHMM.parse(value));
+    }
+
+    public static String LocalDateToYYYYMMDDTHHMMZ(LocalDate value) {
+        return YYYYMMDDTHHMMZ.format(LocalDateTime.from(value.atStartOfDay()));
     }
 
     public static Calendar DDMMYYYYToCalendar(String value) {

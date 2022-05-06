@@ -1,6 +1,7 @@
 package com.milk.pay.utils;
 
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
+import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.user.CreateUserDto;
@@ -112,6 +113,27 @@ public class ValidateUtil {
         if (StringUtil.isNullOrEmpty(dto.getBarcode())
                 && StringUtil.isNullOrEmpty(dto.getDigitable())) {
             throw new MilkPayException(EnumErrorCode.BARCODE_DIGITABLE_NAO_INFORMADOS);
+        }
+
+    }
+
+    public static void validatePaymentTitle(BankSlipPaymentDto dto) {
+
+        if (StringUtil.isNullOrEmpty(dto.getBarcode())
+                && StringUtil.isNullOrEmpty(dto.getDigitable())) {
+            throw new MilkPayException(EnumErrorCode.BARCODE_DIGITABLE_NAO_INFORMADOS);
+        }
+
+        if (NumericUtil.isNullOrZero(dto.getAmount())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Valor(amount)");
+        }
+        
+        if (NumericUtil.isNullOrZero(dto.getTxId())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Identificador da Transação(txId)");
+        }
+        
+        if (dto.getDueDate() == null) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Data vencimento(dueDate)");
         }
 
     }

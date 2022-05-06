@@ -1,16 +1,20 @@
 package com.milk.pay.mapper;
 
+import com.milk.pay.dto.bankslip.BankSlipCelcoinBillDataDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinConsultDataDto;
+import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
+import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
+import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
 import java.math.BigDecimal;
 import javax.annotation.processing.Generated;
 import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-05T19:43:39-0300",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
+    date = "2022-05-05T22:01:56-0300",
+    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
 public class IBankSlipMapperImpl implements IBankSlipMapper {
@@ -38,6 +42,21 @@ public class IBankSlipMapperImpl implements IBankSlipMapper {
         bankSlipConsultResponseDto.setDueDate( parseDate(dto.getDueDate()) );
 
         return bankSlipConsultResponseDto;
+    }
+
+    @Override
+    public BankSlipCelcoinPaymentDto bankSlipPaymentDtoToCelcoinPaymentDto(BankSlipPaymentDto dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        BankSlipCelcoinPaymentDto bankSlipCelcoinPaymentDto = new BankSlipCelcoinPaymentDto();
+
+        bankSlipCelcoinPaymentDto.setBarcode( bankSlipPaymentDtoToBankSlipConsultDto( dto ) );
+        bankSlipCelcoinPaymentDto.setBillData( bankSlipPaymentDtoToBankSlipCelcoinBillDataDto( dto ) );
+        bankSlipCelcoinPaymentDto.setTxId( dto.getTxId() );
+
+        return bankSlipCelcoinPaymentDto;
     }
 
     private String dtoRegisterDataPayer(BankSlipCelcoinResponseConsultDto bankSlipCelcoinResponseConsultDto) {
@@ -158,5 +177,30 @@ public class IBankSlipMapperImpl implements IBankSlipMapper {
             return null;
         }
         return totalUpdated;
+    }
+
+    protected BankSlipConsultDto bankSlipPaymentDtoToBankSlipConsultDto(BankSlipPaymentDto bankSlipPaymentDto) {
+        if ( bankSlipPaymentDto == null ) {
+            return null;
+        }
+
+        BankSlipConsultDto bankSlipConsultDto = new BankSlipConsultDto();
+
+        bankSlipConsultDto.setBarcode( bankSlipPaymentDto.getBarcode() );
+        bankSlipConsultDto.setDigitable( bankSlipPaymentDto.getDigitable() );
+
+        return bankSlipConsultDto;
+    }
+
+    protected BankSlipCelcoinBillDataDto bankSlipPaymentDtoToBankSlipCelcoinBillDataDto(BankSlipPaymentDto bankSlipPaymentDto) {
+        if ( bankSlipPaymentDto == null ) {
+            return null;
+        }
+
+        BankSlipCelcoinBillDataDto bankSlipCelcoinBillDataDto = new BankSlipCelcoinBillDataDto();
+
+        bankSlipCelcoinBillDataDto.setValue( bankSlipPaymentDto.getAmount() );
+
+        return bankSlipCelcoinBillDataDto;
     }
 }

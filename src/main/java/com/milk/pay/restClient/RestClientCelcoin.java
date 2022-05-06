@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.milk.pay.dto.bankslip.BankSlipCelcoinBarcodeDto;
+import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
@@ -38,7 +39,13 @@ public interface RestClientCelcoin {
     @POST
     @Path("/v5/transactions/billpayments/authorize")
     @Produces(MediaType.APPLICATION_JSON)
-    BankSlipCelcoinResponseConsultDto consultBankSlip(@HeaderParam("Authorization") String token,
+    BankSlipCelcoinResponseConsultDto consult(@HeaderParam("Authorization") String token,
             BankSlipCelcoinBarcodeDto dto);
+
+    @POST
+    @Path("/v5/transactions/billpayments")
+    @Produces(MediaType.APPLICATION_JSON)
+    BankSlipCelcoinResponseConsultDto payment(@HeaderParam("Authorization") String token,
+            BankSlipCelcoinPaymentDto dto);
 
 }
