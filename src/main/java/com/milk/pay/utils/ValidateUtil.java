@@ -87,10 +87,10 @@ public class ValidateUtil {
                     + " o campo linha digitável(digitable) ou código de barras(barcode)");
         }
 
-        var dueDate = DateUtil.DDMMYYYYHHMMSSToLocalDateTime(dto.getDueDate());
+        var dueDate = DateUtil.DDMMYYYYToLocalDate(dto.getDueDate().substring(0, 10));
         var tomorrow = DateUtil.getTodayZeroHour().plusDays(1);
 
-        if (dueDate.isBefore(tomorrow)) {
+        if (dueDate.atStartOfDay().isBefore(tomorrow)) {
             throw new MilkPayException(EnumErrorCode.DATA_VENCIMENTO_INVALIDA);
         }
 

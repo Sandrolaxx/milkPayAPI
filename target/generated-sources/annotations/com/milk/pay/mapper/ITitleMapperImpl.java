@@ -9,8 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-05T22:01:09-0300",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
+    date = "2022-05-11T06:37:59-0300",
+    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
 public class ITitleMapperImpl implements ITitleMapper {
@@ -26,7 +26,7 @@ public class ITitleMapperImpl implements ITitleMapper {
         titleDto.setAmount( entity.getAmount() );
         titleDto.setBalance( entity.getBalance() );
         if ( entity.getDueDate() != null ) {
-            titleDto.setDueDate( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getDueDate() ) );
+            titleDto.setDueDate( DateTimeFormatter.ISO_LOCAL_DATE.format( entity.getDueDate() ) );
         }
         if ( entity.getPaidAt() != null ) {
             titleDto.setPaidAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getPaidAt() ) );
@@ -56,7 +56,7 @@ public class ITitleMapperImpl implements ITitleMapper {
         title.setBarcode( dto.getBarcode() );
         title.setPaymentType( dto.getPaymentType() );
 
-        title.setDueDate( parseDate(dto.getDueDate()) );
+        title.setDueDate( parseLocalDate(dto.getDueDate()) );
         title.setInclusionDate( parseDate(dto.getInclusionDate()) );
 
         return title;

@@ -45,8 +45,8 @@ public class TitleService {
 
         if (!StringUtil.isNullOrEmpty(offset)
                 && !StringUtil.isNullOrEmpty(limit)) {
-            params.put("offset", DateUtil.DDMMYYYYToLocalDateTimeEndOfDay(offset));
-            params.put("limit", DateUtil.DDMMYYYYToLocalDateTimeEndOfDay(limit));
+            params.put("offset", DateUtil.DDMMYYYYToLocalDate(offset));
+            params.put("limit", DateUtil.DDMMYYYYToLocalDate(limit));
         }
 
         var userTitles = repository.findByUserIdBetwenDates(params);

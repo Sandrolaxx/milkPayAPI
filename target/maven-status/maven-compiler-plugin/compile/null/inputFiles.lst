@@ -11,12 +11,14 @@
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/User.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixPaymentCelcoinDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/WebApplicationExceptionConverter.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/bankslip/BankSlipPaymentDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixReversalCelcoinDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/enums/EnumDateFormat.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/entities/TokenOAuth2.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/bankslip/BankSlipCelcoinResponseConsultDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/user/ListUserDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/title/TitleCreateDto.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/bankslip/BankSlipCelcoinBillDataDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixMerchantCelcoinDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/controllers/UserController.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/utils/MilkPayException.java
@@ -76,3 +78,4 @@
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/pix/PixKeyAccountCelcoinDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/bankslip/BankSlipCelcoinBarcodeDto.java
 /home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/user/CreateUserDto.java
+/home/sandrolax/Projects/MilkPay/milkpayAPI/src/main/java/com/milk/pay/dto/bankslip/BankSlipCelcoinPaymentDto.java

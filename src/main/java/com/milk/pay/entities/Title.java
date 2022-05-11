@@ -1,6 +1,7 @@
 package com.milk.pay.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
@@ -48,7 +49,7 @@ public class Title extends DafeEntity {
     private BigDecimal dailyInterest;
 
     @Column(name = "DUE_DATE")
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     @Column(name = "INCLUSION_DATE")
     private LocalDateTime inclusionDate;
@@ -125,11 +126,11 @@ public class Title extends DafeEntity {
         this.dailyInterest = dailyInterest;
     }
 
-    public LocalDateTime getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 

@@ -1,7 +1,7 @@
 package com.milk.pay.utils;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ws.rs.WebApplicationException;
@@ -43,7 +43,7 @@ public class Utils {
     public static BigDecimal getTotalNextDays(List<Title> listTitle, Integer nextDays) {
         return listTitle.stream()
                 .filter(tit -> !tit.isLiquidated()
-                        && tit.getDueDate().isBefore(LocalDateTime.now().plusDays(nextDays)))
+                        && tit.getDueDate().isBefore(LocalDate.now().plusDays(nextDays)))
                 .map(Title::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
@@ -51,7 +51,7 @@ public class Utils {
     public static Long countTotalNextDays(List<Title> listTitle, Integer nextDays) {
         return listTitle.stream()
                 .filter(tit -> !tit.isLiquidated()
-                        && tit.getDueDate().isBefore(LocalDateTime.now().plusDays(nextDays)))
+                        && tit.getDueDate().isBefore(LocalDate.now().plusDays(nextDays)))
                 .count();
     }
 
