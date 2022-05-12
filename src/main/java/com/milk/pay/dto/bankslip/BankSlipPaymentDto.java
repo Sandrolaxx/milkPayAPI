@@ -22,6 +22,8 @@ public class BankSlipPaymentDto {
 
     private Long txId;
 
+    private Integer titleId;
+
     public String getBarcode() {
         return barcode;
     }
@@ -60,6 +62,14 @@ public class BankSlipPaymentDto {
 
     public void setTxId(Long txId) {
         this.txId = txId;
+    }
+
+    public Integer getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(Integer titleId) {
+        this.titleId = titleId;
     }
     
 }

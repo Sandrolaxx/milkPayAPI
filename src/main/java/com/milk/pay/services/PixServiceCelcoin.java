@@ -44,7 +44,7 @@ public class PixServiceCelcoin {
                 throw new MilkPayException(EnumErrorCode.CHAVE_CONSULTADA_INEXISTENTE);
             }
 
-            throw Utils.handleException(wae, EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX_CELCOIN);
+            throw Utils.handleException(wae, EnumErrorCode.ERRO_CONSULTAR_CHAVE_PIX);
         }
 
     }
@@ -54,7 +54,7 @@ public class PixServiceCelcoin {
         try {
             return restClient.makePayment(tokenService.getToken(), dto);
         } catch (WebApplicationException wae) {
-            throw Utils.handleException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX_CELCOIN);
+            throw Utils.handleException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX);
         }
 
     }

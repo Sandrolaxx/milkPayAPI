@@ -1,10 +1,13 @@
 package com.milk.pay.utils;
 
+import java.time.LocalDate;
+
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.user.CreateUserDto;
+import com.milk.pay.entities.Title;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.entities.enums.EnumPaymentType;
 
@@ -124,16 +127,40 @@ public class ValidateUtil {
             throw new MilkPayException(EnumErrorCode.BARCODE_DIGITABLE_NAO_INFORMADOS);
         }
 
+        if (dto.getDueDate() == null) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Data vencimento(dueDate)");
+        }
+        
+        if (dto.getDueDate().isBefore(LocalDate.now())) {
+            throw new MilkPayException(EnumErrorCode.BOLETO_VENCIDO);
+        }
+
+        if (NumericUtil.isNullOrZero(dto.getTitleId())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Id do Título(titleId)");
+        }
+
+        validateTitleExistence(dto.getTitleId());
+
         if (NumericUtil.isNullOrZero(dto.getAmount())) {
             throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Valor(amount)");
         }
-        
+
         if (NumericUtil.isNullOrZero(dto.getTxId())) {
             throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Identificador da Transação(txId)");
         }
-        
-        if (dto.getDueDate() == null) {
-            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Data vencimento(dueDate)");
+
+    }
+
+    private static void validateTitleExistence(Integer titleId) {
+
+        var title = Title.findById(titleId);
+
+        if (title == null) {
+            throw new MilkPayException(EnumErrorCode.TIT_NAO_ENCONTRADO);
+        }
+
+        if (title.isLiquidated()) {
+            throw new MilkPayException(EnumErrorCode.TIT_POSSUI_LIQUIDACAO);
         }
 
     }

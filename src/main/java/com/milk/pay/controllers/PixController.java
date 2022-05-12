@@ -8,9 +8,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.milk.pay.dto.PaymentResponseDto;
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
-import com.milk.pay.dto.pix.PixPaymentResponseDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.services.PixService;
 import com.milk.pay.services.PixServiceCelcoin;
@@ -62,7 +62,7 @@ public class PixController {
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @POST
     @Path("/payment")
-    public PixPaymentResponseDto payment(PixPaymentDto paymentDto) {
+    public PaymentResponseDto payment(PixPaymentDto paymentDto) {
 
         ValidateUtil.validatePixPaymentDto(paymentDto);
 
@@ -76,10 +76,8 @@ public class PixController {
         var receipt = pixService.savePaymentReceipt(responseDto, paymentDto);
 
         titleService.finishTitle(receipt.getPayment().getTitle().getId());
-        
-        responseDto.setSlip(receipt.getReceiptResume());
 
-        return responseDto;
+        return new PaymentResponseDto(paymentDto.getTxId(), receipt.getReceiptResume());
 
     }
 

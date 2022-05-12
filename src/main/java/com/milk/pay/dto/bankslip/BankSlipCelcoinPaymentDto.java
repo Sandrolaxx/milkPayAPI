@@ -16,6 +16,7 @@ public class BankSlipCelcoinPaymentDto {
     @JsonbProperty("transactionIdAuthorize")
     private Long txId;
     
+    @JsonbProperty("barCode")
     private BankSlipConsultDto barcode;
 
     private BankSlipCelcoinBillDataDto billData;

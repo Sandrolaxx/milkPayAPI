@@ -31,14 +31,19 @@ public enum EnumErrorCode implements IEnum {
     CAMPO_OBRIGATORIO("019", "Campo {0} é obrigatório, favor informar.", HttpStatus.SC_BAD_REQUEST),
     DATA_VENCIMENTO_INVALIDA("020", "A data de vencimento informada não pode ser menor que a data do dia de amanhã.", HttpStatus.SC_BAD_REQUEST),
     BARCODE_DIGITABLE_NAO_INFORMADOS("021", "É necessário informar o código de barras ou linha digitável!", HttpStatus.SC_BAD_REQUEST),
+    TIT_NAO_ENCONTRADO("022", "Título não encontrado para o identificador informado!", HttpStatus.SC_BAD_REQUEST),
+    TIT_POSSUI_LIQUIDACAO("023", "Título informado já foi liquidado!", HttpStatus.SC_BAD_REQUEST),
+    BOLETO_VENCIDO("024", "Boleto de pagamento vencido! Impossível realizar o pagamento após seu vencimento.", HttpStatus.SC_BAD_REQUEST),
     //Erros externos
-    ERRO_COMUNICACAO_CELCOIN("050", "A requisição enviada a Celcoin retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
-    ERRO_PARSE_JSON_CELCOIN("052", "Erro ao realizar o parse do Json de resposta da Celcoin!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
-    ERRO_AUTENTICACAO_CELCOIN("053", "Erro ao se autenticar na celcoin!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
-    ERRO_TRASNF_CHAVE_PIX_CELCOIN("054", "Erro ao tentar realizar a transferência via Chave Pix, falha na comunicação com a Celcoin!", HttpStatus.SC_BAD_REQUEST),
-    ERRO_PAGAMENTO_PIX_CELCOIN("055", "Erro ao tentar realizar a pagamento Pix, falha na comunicação com a Celcoin!", HttpStatus.SC_BAD_REQUEST),
-    CHAVE_CONSULTADA_INEXISTENTE("056", "Erro ao consultar Chave Pix, nennhum dado encontrado para a chave informada!", HttpStatus.SC_NOT_FOUND),
-    ERRO_CONSULTAR_CHAVE_PIX_CELCOIN("057", "Erro ao tentar realizar a consulta da Chave Pix, falha na comunicação com a Celcoin!", HttpStatus.SC_BAD_REQUEST);
+    ERRO_COMUNICACAO("050", "A requisição enviada ao parceiro retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
+    ERRO_AUTENTICACAO("051", "Erro ao se autenticar no parceiro!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
+    ERRO_TRASNF_CHAVE_PIX("052", "Erro ao tentar realizar a transferência via Chave Pix, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
+    ERRO_PAGAMENTO_PIX("053", "Erro ao tentar realizar a pagamento Pix, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
+    CHAVE_CONSULTADA_INEXISTENTE("054", "Erro ao consultar Chave Pix, nennhum dado encontrado para a chave informada!", HttpStatus.SC_NOT_FOUND),
+    ERRO_CONSULTAR_CHAVE_PIX("055", "Erro ao tentar realizar a consulta da Chave Pix, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
+    ERRO_CONSULTAR_BOLETO("056", "Erro ao tentar realizar a consulta do boleto, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
+    ERRO_PAGAMENTO_BOLETO("057", "Erro ao tentar realizar o pagamento do boleto, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
+    ERRO_CONFIRMAR_PAGAMENTO_BOLETO("058", "Erro ao tentar realizar confirmação do pagamento do boleto, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST);
 
     private final String key, erro;
     private final int httpStatus;

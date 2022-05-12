@@ -1,5 +1,9 @@
 package com.milk.pay.dto;
 
+/**
+ *
+ * @author SRamos
+ */
 public class ErrorDto {
     
     private String code;

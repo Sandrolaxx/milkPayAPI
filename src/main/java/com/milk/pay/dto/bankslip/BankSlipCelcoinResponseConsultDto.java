@@ -6,6 +6,10 @@ import java.time.LocalDateTime;
 
 import javax.json.bind.annotation.JsonbDateFormat;
 
+/**
+ *
+ * @author SRamos
+ */
 public class BankSlipCelcoinResponseConsultDto {
     
     private String assignor;

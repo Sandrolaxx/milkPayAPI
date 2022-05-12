@@ -2,6 +2,10 @@ package com.milk.pay.dto.bankslip;
 
 import java.math.BigDecimal;
 
+/**
+ *
+ * @author SRamos
+ */
 public class BankSlipConsultResponseDto {
 
     private Long transactionId;

@@ -61,7 +61,7 @@ public class PixService {
         pixPayment.setAmount(title.getAmount());
         pixPayment.setInitiationType(EnumInitiationType.DICT);
         pixPayment.setInterestPercentage(interestPercentage);
-        pixPayment.setInterestPercentage(NumericUtil.getInterestAmount(title.getAmount(), interestPercentage));
+        pixPayment.setInterestValue(NumericUtil.getInterestAmount(title.getAmount(), interestPercentage));
 
         try {
             pixPayment.persistAndFlush();

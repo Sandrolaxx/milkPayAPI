@@ -1,5 +1,9 @@
 package com.milk.pay.dto.title;
 
+/**
+ *
+ * @author SRamos
+ */
 public class TotalizersDto {
     
     private String amountReceived;
