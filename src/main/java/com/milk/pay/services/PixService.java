@@ -1,5 +1,8 @@
 package com.milk.pay.services;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
@@ -46,9 +49,9 @@ public class PixService {
     }
 
     @Transactional
-    public Payment persistPayment(PixPaymentDto dto) {
+    public Payment persistSuccessfulPaymen(PixPaymentDto dto) {
 
-        var pixPayment = pixMapper.pixPaymentDtoToPixPaymentEntity(dto);
+        var payment = new Payment();
         var title = Title.findById(dto.getTitleId());
 
         if (title == null) {
@@ -57,19 +60,24 @@ public class PixService {
 
         var interestPercentage = NumericUtil.getInterestPercentage(title.getDueDate(), title.getDailyInterest());
 
-        pixPayment.setTitle(title);
-        pixPayment.setAmount(title.getAmount());
-        pixPayment.setInitiationType(EnumInitiationType.DICT);
-        pixPayment.setInterestPercentage(interestPercentage);
-        pixPayment.setInterestValue(NumericUtil.getInterestAmount(title.getAmount(), interestPercentage));
+        title.setBalance(BigDecimal.ZERO);
+        title.setLiquidated(true);
+        title.setPaidAt(LocalDateTime.now());
+
+        payment.setTitle(title);
+        payment.setAmount(title.getAmount());
+        payment.setPixKey(dto.getReceiverKey());
+        payment.setInitiationType(EnumInitiationType.DICT);
+        payment.setInterestPercentage(interestPercentage);
+        payment.setInterestValue(NumericUtil.getInterestAmount(title.getAmount(), interestPercentage));
 
         try {
-            pixPayment.persistAndFlush();
+            payment.persistAndFlush();
         } catch (PersistenceException e) {
             throw new MilkPayException(EnumErrorCode.PAGAMENTO_PIX_JA_REALIZADO);
         }
 
-        return pixPayment;
+        return payment;
 
     }
 
@@ -94,7 +102,7 @@ public class PixService {
         var payment = Payment.findById(paymentDto.getTxId());
 
         receiptPix.setLastAuthentication(lastReceipt != null ? lastReceipt.getAuthentication() : "GENESIS_BLOCK");
-        receiptPix.setEndToEndId(paymentDto.getEndToEndId());
+        receiptPix.setEndToEndId(responseDto.getEndToEndId());
         receiptPix.setMovementCode(EnumMovementCode.TRANSF_INTERBANCARIA_PIX);
         receiptPix.setAmount(paymentDto.getAmount());
         receiptPix.setExternalAuth(responseDto.getSlipAuth());

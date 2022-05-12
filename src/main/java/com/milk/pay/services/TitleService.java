@@ -1,7 +1,6 @@
 package com.milk.pay.services;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +13,6 @@ import javax.transaction.Transactional;
 import com.milk.pay.dto.title.TitleCreateDto;
 import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.dto.title.TotalizersDto;
-import com.milk.pay.entities.Title;
 import com.milk.pay.entities.User;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.entities.enums.EnumPaymentType;
@@ -99,17 +97,6 @@ public class TitleService {
         newTitle.setUser(user);
 
         newTitle.persistAndFlush();
-    }
-
-    @Transactional
-    public void finishTitle(Integer titleId) {
-        var title = Title.findById(titleId);
-
-        title.setBalance(BigDecimal.ZERO);
-        title.setLiquidated(true);
-        title.setPaidAt(LocalDateTime.now());
-
-        title.persistAndFlush();
     }
 
 }

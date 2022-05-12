@@ -6,6 +6,7 @@ import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
+import com.milk.pay.entities.Payment;
 import com.milk.pay.utils.DateUtil;
 
 import org.mapstruct.Mapper;
@@ -40,6 +41,13 @@ public interface IBankSlipMapper {
             @Mapping(target = "dueDate", ignore = true),
     })
     public BankSlipCelcoinPaymentDto bankSlipPaymentDtoToCelcoinPaymentDto(BankSlipPaymentDto dto);
+
+    @Mappings({
+            @Mapping(target = "barcode", source = "barcode.barcode"),
+            @Mapping(target = "digitable", source = "barcode.digitable"),
+            @Mapping(target = "amount", source = "billData.value")
+    })
+    public Payment bankSlipCelcoinPaymentDtoToPaymentEntity(BankSlipCelcoinPaymentDto dto);
 
     default String parseDate(LocalDateTime date) {
         return DateUtil.formatDDMMYYYY(date.toLocalDate());

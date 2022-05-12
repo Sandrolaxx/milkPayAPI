@@ -12,9 +12,7 @@ import com.milk.pay.dto.PaymentResponseDto;
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
-import com.milk.pay.services.PixService;
 import com.milk.pay.services.PixServiceCelcoin;
-import com.milk.pay.services.TitleService;
 import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
 import com.milk.pay.utils.ValidateUtil;
@@ -34,12 +32,6 @@ import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Pix")
 public class PixController {
-
-    @Inject
-    PixService pixService;
-
-    @Inject
-    TitleService titleService;
 
     @Inject
     PixServiceCelcoin celcoinPixService;
@@ -66,18 +58,7 @@ public class PixController {
 
         ValidateUtil.validatePixPaymentDto(paymentDto);
 
-        var payment = pixService.persistPayment(paymentDto);
-
-        paymentDto.setAmount(payment.getAmount());
-        paymentDto.setTxId(payment.getId());
-
-        var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto);
-        var responseDto = celcoinPixService.makePayment(paymentCelcoinDto);
-        var receipt = pixService.savePaymentReceipt(responseDto, paymentDto);
-
-        titleService.finishTitle(receipt.getPayment().getTitle().getId());
-
-        return new PaymentResponseDto(paymentDto.getTxId(), receipt.getReceiptResume());
+        return celcoinPixService.makePayment(paymentDto);
 
     }
 

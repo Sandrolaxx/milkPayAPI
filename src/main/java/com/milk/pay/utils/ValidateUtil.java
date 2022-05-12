@@ -19,32 +19,42 @@ public class ValidateUtil {
 
     public static void validatePixPaymentDto(PixPaymentDto dto) {
 
-        if (dto.getTitleId() == null) {
-            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Id Título(titleId)");
+        if (NumericUtil.isNullOrZero(dto.getTitleId())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Id do Título(titleId)");
         }
+
+        validateTitleExistence(dto.getTitleId());
 
         if (StringUtil.isNullOrEmpty(dto.getEndToEndId())) {
             throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "endToEndId");
+        }
+
+        if (StringUtil.isNullOrEmpty(dto.getReceiverName())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Nome Recebedor(receiverName)");
+        }
+
+        if (StringUtil.isNullOrEmpty(dto.getReceiverDocument())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Documento Recebedor(receiverDocument)");
         }
 
         if (StringUtil.isNullOrEmpty(dto.getReceiverKey())) {
             throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Chave(creditAccountKey)");
         }
 
-        if (StringUtil.isNullOrEmpty(dto.getReceiverName())) {
-            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Nome Recebedor(receiverName)");
+        if (StringUtil.isNullOrEmpty(dto.getReceiverBank())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Banco Recebedor(receiverBank)");
         }
 
-        if (StringUtil.isNullOrEmpty(dto.getReceiverName())) {
-            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Nome Recebedor(receiverName)");
+        if (StringUtil.isNullOrEmpty(dto.getReceiverAccount())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Conta Recebedor(receiverAccount)");
         }
 
-        if (StringUtil.isNullOrEmpty(dto.getReceiverName())) {
-            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Nome Recebedor(receiverName)");
+        if (dto.getReceiverAccountType() == null) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Tipo Conta Recebedor(receiverAccountType)");
         }
 
-        if (StringUtil.isNullOrEmpty(dto.getReceiverName())) {
-            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Nome Recebedor(receiverName)");
+        if (NumericUtil.isNullOrZero(dto.getReceiverBranch())) {
+            throw new MilkPayException(EnumErrorCode.CAMPO_PAGAMENTO_PIX_INVALIDO, "Agência Recebedor(receiverBranch)");
         }
 
     }
@@ -130,7 +140,7 @@ public class ValidateUtil {
         if (dto.getDueDate() == null) {
             throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Data vencimento(dueDate)");
         }
-        
+
         if (dto.getDueDate().isBefore(LocalDate.now())) {
             throw new MilkPayException(EnumErrorCode.BOLETO_VENCIDO);
         }

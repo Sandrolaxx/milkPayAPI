@@ -7,13 +7,14 @@ import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
+import com.milk.pay.entities.Payment;
 import java.math.BigDecimal;
 import javax.annotation.processing.Generated;
 import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-11T21:43:48-0300",
+    date = "2022-05-12T07:29:14-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -57,6 +58,21 @@ public class IBankSlipMapperImpl implements IBankSlipMapper {
         bankSlipCelcoinPaymentDto.setTxId( dto.getTxId() );
 
         return bankSlipCelcoinPaymentDto;
+    }
+
+    @Override
+    public Payment bankSlipCelcoinPaymentDtoToPaymentEntity(BankSlipCelcoinPaymentDto dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        Payment payment = new Payment();
+
+        payment.setBarcode( dtoBarcodeBarcode( dto ) );
+        payment.setDigitable( dtoBarcodeDigitable( dto ) );
+        payment.setAmount( dtoBillDataValue( dto ) );
+
+        return payment;
     }
 
     private String dtoRegisterDataPayer(BankSlipCelcoinResponseConsultDto bankSlipCelcoinResponseConsultDto) {
@@ -202,5 +218,50 @@ public class IBankSlipMapperImpl implements IBankSlipMapper {
         bankSlipCelcoinBillDataDto.setValue( bankSlipPaymentDto.getAmount() );
 
         return bankSlipCelcoinBillDataDto;
+    }
+
+    private String dtoBarcodeBarcode(BankSlipCelcoinPaymentDto bankSlipCelcoinPaymentDto) {
+        if ( bankSlipCelcoinPaymentDto == null ) {
+            return null;
+        }
+        BankSlipConsultDto barcode = bankSlipCelcoinPaymentDto.getBarcode();
+        if ( barcode == null ) {
+            return null;
+        }
+        String barcode1 = barcode.getBarcode();
+        if ( barcode1 == null ) {
+            return null;
+        }
+        return barcode1;
+    }
+
+    private String dtoBarcodeDigitable(BankSlipCelcoinPaymentDto bankSlipCelcoinPaymentDto) {
+        if ( bankSlipCelcoinPaymentDto == null ) {
+            return null;
+        }
+        BankSlipConsultDto barcode = bankSlipCelcoinPaymentDto.getBarcode();
+        if ( barcode == null ) {
+            return null;
+        }
+        String digitable = barcode.getDigitable();
+        if ( digitable == null ) {
+            return null;
+        }
+        return digitable;
+    }
+
+    private BigDecimal dtoBillDataValue(BankSlipCelcoinPaymentDto bankSlipCelcoinPaymentDto) {
+        if ( bankSlipCelcoinPaymentDto == null ) {
+            return null;
+        }
+        BankSlipCelcoinBillDataDto billData = bankSlipCelcoinPaymentDto.getBillData();
+        if ( billData == null ) {
+            return null;
+        }
+        BigDecimal value = billData.getValue();
+        if ( value == null ) {
+            return null;
+        }
+        return value;
     }
 }

@@ -1,5 +1,8 @@
 package com.milk.pay.services;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
@@ -13,6 +16,7 @@ import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
 import com.milk.pay.entities.Payment;
 import com.milk.pay.entities.ReceiptInfo;
+import com.milk.pay.entities.Title;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.IBankSlipMapper;
 import com.milk.pay.restClient.RestClientCelcoin;
@@ -68,8 +72,8 @@ public class BankSlipService {
 
         confirmPayment(paymentResponse.getTxId(), token);
 
-        var paymentEntity = persistSuccessfulPayment(celcoinPaymentDto);
-        var receipt = getEndPersistReceipt(paymentEntity, paymentResponse);
+        var paymentEntity = persistSuccessfulPayment(celcoinPaymentDto, dto.getTitleId());
+        var receipt = getEndPersistReceipt(paymentEntity);
 
         return new PaymentResponseDto(receipt.getPayment().getId(), receipt.getReceiptResume());
 
@@ -95,13 +99,27 @@ public class BankSlipService {
 
     }
 
-    private Payment persistSuccessfulPayment(BankSlipCelcoinPaymentDto celcoinDto) {
-        //TODO persistir pagamento realizado
-        return null;
+    private Payment persistSuccessfulPayment(BankSlipCelcoinPaymentDto celcoinDto, Integer titleId) {
+        
+        var title = Title.findById(titleId);
+        var payment = mapper.bankSlipCelcoinPaymentDtoToPaymentEntity(celcoinDto);
+
+        title.setBalance(BigDecimal.ZERO);
+        title.setLiquidated(true);
+        title.setPaidAt(LocalDateTime.now());
+
+        payment.setTitle(title);
+        payment.setPaidAt(LocalDateTime.now());
+        payment.setLiquidated(true);
+        payment.setNotified(true);
+
+        payment.persistAndFlush();
+
+        return payment;
+
     }
 
-    private ReceiptInfo getEndPersistReceipt(Payment paymentEntity,
-            BankSlipCelcoinPaymentResposeDto paymentResponse) {
+    private ReceiptInfo getEndPersistReceipt(Payment paymentEntity) {
         //TODO criar layout do comprovante
         return null;
     }

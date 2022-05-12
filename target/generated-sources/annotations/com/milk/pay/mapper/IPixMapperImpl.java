@@ -3,13 +3,12 @@ package com.milk.pay.mapper;
 import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentCreditPartyCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
-import com.milk.pay.entities.Payment;
 import javax.annotation.processing.Generated;
 import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-11T21:43:48-0300",
+    date = "2022-05-12T07:29:14-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.2 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -28,21 +27,6 @@ public class IPixMapperImpl implements IPixMapper {
         pixPaymentCelcoinDto.setEndToEndId( dto.getEndToEndId() );
 
         return pixPaymentCelcoinDto;
-    }
-
-    @Override
-    public Payment pixPaymentDtoToPixPaymentEntity(PixPaymentDto dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        Payment payment = new Payment();
-
-        payment.setPixKey( dto.getReceiverKey() );
-        payment.setAmount( dto.getAmount() );
-        payment.setEndToEndId( dto.getEndToEndId() );
-
-        return payment;
     }
 
     protected PixPaymentCreditPartyCelcoinDto pixPaymentDtoToPixPaymentCreditPartyCelcoinDto(PixPaymentDto pixPaymentDto) {

@@ -4,9 +4,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
+import com.milk.pay.dto.PaymentResponseDto;
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
-import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
-import com.milk.pay.dto.pix.PixPaymentResponseDto;
+import com.milk.pay.dto.pix.PixPaymentDto;
+import com.milk.pay.entities.Title;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.IPixMapper;
 import com.milk.pay.restClient.RestClientCelcoin;
@@ -49,10 +50,21 @@ public class PixServiceCelcoin {
 
     }
 
-    public PixPaymentResponseDto makePayment(PixPaymentCelcoinDto dto) {
+    public PaymentResponseDto makePayment(PixPaymentDto paymentDto) {
 
         try {
-            return restClient.makePayment(tokenService.getToken(), dto);
+            var title = Title.findById(paymentDto.getTitleId());
+            
+            paymentDto.setTxId(title.getId());
+            paymentDto.setAmount(title.getAmount());
+
+            var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto);
+            var paymentResponse = restClient.makePayment(tokenService.getToken(), paymentCelcoinDto);
+            var receipt = pixService.savePaymentReceipt(paymentResponse, paymentDto);
+
+            pixService.persistSuccessfulPaymen(paymentDto);
+
+            return new PaymentResponseDto(paymentDto.getTxId(), receipt.getReceiptResume());
         } catch (WebApplicationException wae) {
             throw Utils.handleException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX);
         }
