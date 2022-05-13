@@ -94,8 +94,8 @@ public class ValidateUtil {
         }
 
         if (EnumUtil.isEquals(dto.getPaymentType(), EnumPaymentType.BOLETO)
-                && (StringUtil.isNullOrEmpty(dto.getDigitabe())
-                        || StringUtil.isNullOrEmpty(dto.getDigitabe()))) {
+                && (StringUtil.isNullOrEmpty(dto.getDigitable())
+                        || StringUtil.isNullOrEmpty(dto.getDigitable()))) {
             throw new MilkPayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Tipo de Pagamento(paymentType) Boleto"
                     + " o campo linha digitável(digitable) ou código de barras(barcode)");
         }

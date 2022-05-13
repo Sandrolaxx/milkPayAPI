@@ -37,15 +37,18 @@ public class Payment extends DafeEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_MILK_PIX_PAYMENT")
     @Column(name = "ID", nullable = false, precision = 0, scale = -127)
     private Integer id;
-    
-    @Column(name = "AMOUNT")
-    private BigDecimal amount;
+
+    @Column(name = "REQUESTED_AMOUNT")
+    private BigDecimal requestedAmount;
+
+    @Column(name = "RECIVED_AMOUNT")
+    private BigDecimal receivedAmount;
 
     @Column(name = "INTEREST_PERCENTAGE")
     private BigDecimal interestPercentage;
 
-    @Column(name = "INTEREST_VALUE")
-    private BigDecimal interestValue;
+    @Column(name = "INTEREST_AMOUNT")
+    private BigDecimal interestAmount;
 
     @Column(name = "PIX_KEY")
     private String pixKey;
@@ -68,18 +71,15 @@ public class Payment extends DafeEntity {
     @Column(name = "INITIATION_TYPE")
     @Enumerated(EnumType.STRING)
     private EnumInitiationType initiationType;
-    
+
     @CreationTimestamp
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
-    
+
     @UpdateTimestamp
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
 
-    @Column(name = "PAID_AT")
-    private LocalDateTime paidAt;
-    
     @Column(name = "ERROR_MESSAGE")
     private String errorMessage;
 
@@ -94,6 +94,10 @@ public class Payment extends DafeEntity {
         return find("id", id).firstResult();
     }
 
+    public static Payment findByTitleId(Integer titleId) {
+        return find("title.id", titleId).firstResult();
+    }
+
     @Override
     public Integer getId() {
         return this.id;
@@ -104,12 +108,20 @@ public class Payment extends DafeEntity {
         this.id = id;
     }
 
-    public BigDecimal getAmount() {
-        return this.amount;
+    public BigDecimal getRequestedAmount() {
+        return requestedAmount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setRequestedAmount(BigDecimal requestedAmount) {
+        this.requestedAmount = requestedAmount;
+    }
+
+    public BigDecimal getReceivedAmount() {
+        return receivedAmount;
+    }
+
+    public void setReceivedAmount(BigDecimal receivedAmount) {
+        this.receivedAmount = receivedAmount;
     }
 
     public String getEndToEndId() {
@@ -134,14 +146,6 @@ public class Payment extends DafeEntity {
 
     public void setDigitable(String digitable) {
         this.digitable = digitable;
-    }
-
-    public LocalDateTime getPaidAt() {
-        return paidAt;
-    }
-
-    public void setPaidAt(LocalDateTime paidAt) {
-        this.paidAt = paidAt;
     }
 
     public boolean isLiquidated() {
@@ -208,12 +212,12 @@ public class Payment extends DafeEntity {
         this.interestPercentage = interestPercentage;
     }
 
-    public BigDecimal getInterestValue() {
-        return interestValue;
+    public BigDecimal getInterestAmount() {
+        return interestAmount;
     }
 
-    public void setInterestValue(BigDecimal interestValue) {
-        this.interestValue = interestValue;
+    public void setInterestAmount(BigDecimal interestAmount) {
+        this.interestAmount = interestAmount;
     }
 
     public String getPixKey() {

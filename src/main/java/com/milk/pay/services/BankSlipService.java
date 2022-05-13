@@ -5,28 +5,24 @@ import java.time.LocalDateTime;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.WebApplicationException;
+import javax.transaction.Transactional;
 
-import com.milk.pay.dto.PaymentResponseDto;
-import com.milk.pay.dto.bankslip.BankSlipCelcoinBarcodeDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentResposeDto;
-import com.milk.pay.dto.bankslip.BankSlipConsultDto;
+import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
 import com.milk.pay.entities.Payment;
 import com.milk.pay.entities.ReceiptInfo;
 import com.milk.pay.entities.Title;
-import com.milk.pay.entities.enums.EnumErrorCode;
+import com.milk.pay.entities.enums.EnumMovementCode;
 import com.milk.pay.mapper.IBankSlipMapper;
-import com.milk.pay.restClient.RestClientCelcoin;
-import com.milk.pay.utils.DateUtil;
-import com.milk.pay.utils.Utils;
+import com.milk.pay.utils.ReceiptUtil;
+import com.milk.pay.utils.RequestUtil;
+import com.milk.pay.utils.StringUtil;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-
-import io.vertx.core.json.Json;
 
 /**
  *
@@ -36,71 +32,17 @@ import io.vertx.core.json.Json;
 public class BankSlipService {
 
     @Inject
-    TokenServiceCelcoin tokenService;
-
-    @Inject
     IBankSlipMapper mapper;
-
-    @Inject
-    @RestClient
-    RestClientCelcoin restClient;
 
     @ConfigProperty(name = "milk.taxId")
     String defaultDocument;
 
-    public BankSlipConsultResponseDto consult(BankSlipConsultDto dto) {
+    @Inject
+    RequestUtil requestUtil;
 
-        try {
-            var response = restClient.consult(tokenService.getToken(), new BankSlipCelcoinBarcodeDto(dto));
+    @Transactional
+    public Payment persistSuccessfulPayment(BankSlipCelcoinPaymentDto celcoinDto, Integer titleId) {
 
-            return mapper.bankSlipDtoToResponseDto(response);
-        } catch (WebApplicationException wae) {
-            throw Utils.handleException(wae, EnumErrorCode.ERRO_CONSULTAR_BOLETO);
-        }
-
-    }
-
-    public PaymentResponseDto payment(BankSlipPaymentDto dto) {
-
-        var celcoinPaymentDto = mapper.bankSlipPaymentDtoToCelcoinPaymentDto(dto);
-        var token = tokenService.getToken();
-
-        celcoinPaymentDto.setDocument(defaultDocument);
-        celcoinPaymentDto.setDueDate(DateUtil.LocalDateToYYYYMMDDTHHMMZ(dto.getDueDate()));
-
-        var paymentResponse = makePayment(celcoinPaymentDto, token);
-
-        confirmPayment(paymentResponse.getTxId(), token);
-
-        var paymentEntity = persistSuccessfulPayment(celcoinPaymentDto, dto.getTitleId());
-        var receipt = getEndPersistReceipt(paymentEntity);
-
-        return new PaymentResponseDto(receipt.getPayment().getId(), receipt.getReceiptResume());
-
-    }
-
-    private BankSlipCelcoinPaymentResposeDto makePayment(BankSlipCelcoinPaymentDto dto, String token) {
-
-        try {
-            return restClient.payment(token, dto);
-        } catch (WebApplicationException wae) {
-            throw Utils.handleException(wae, EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
-        }
-
-    }
-
-    private void confirmPayment(Long authenticationTxId, String token) {
-
-        try {
-            restClient.confirmPayment(token, authenticationTxId, new Json());
-        } catch (WebApplicationException wae) {
-            throw Utils.handleException(wae, EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
-        }
-
-    }
-
-    private Payment persistSuccessfulPayment(BankSlipCelcoinPaymentDto celcoinDto, Integer titleId) {
-        
         var title = Title.findById(titleId);
         var payment = mapper.bankSlipCelcoinPaymentDtoToPaymentEntity(celcoinDto);
 
@@ -109,7 +51,6 @@ public class BankSlipService {
         title.setPaidAt(LocalDateTime.now());
 
         payment.setTitle(title);
-        payment.setPaidAt(LocalDateTime.now());
         payment.setLiquidated(true);
         payment.setNotified(true);
 
@@ -119,9 +60,52 @@ public class BankSlipService {
 
     }
 
-    private ReceiptInfo getEndPersistReceipt(Payment paymentEntity) {
-        //TODO criar layout do comprovante
-        return null;
+    @Transactional
+    public ReceiptInfo persistReceipt(BankSlipCelcoinPaymentResposeDto responseDto, BankSlipPaymentDto dto) {
+
+        var receipt = new ReceiptInfo();
+        var lastReceipt = ReceiptInfo.findLastReceipt();
+        var milkPayDebitParty = requestUtil.getMilkPayDebitParty();
+        var payment = Payment.findByTitleId(dto.getTitleId());
+
+        receipt.setLastAuthentication(lastReceipt != null ? lastReceipt.getAuthentication() : "GENESIS_BLOCK");
+        receipt.setMovementCode(EnumMovementCode.PAGAMENTO_BOLETO);
+        receipt.setAmount(dto.getAmount());
+        receipt.setExternalAuth(responseDto.getAuthentication().getExternalAuth());
+        receipt.setExternalTxid(responseDto.getTxId().toString());
+        receipt.setDigitable(StringUtil.isNullOrEmpty(dto.getDigitable()) ? dto.getBarcode() : dto.getDigitable());
+        receipt.setDueDate(dto.getDueDate());
+        receipt.setPayment(payment);
+
+        receipt.setReceiverName(dto.getReceiverName());
+        receipt.setReceiverAccountBank(dto.getReceiverBank());
+
+        receipt.setPayerName(milkPayDebitParty.getName().toUpperCase());
+        receipt.setPayerDocument(milkPayDebitParty.getTaxId());
+        receipt.setPayerAccount(milkPayDebitParty.getAccount());
+        receipt.setPayerAccountType(milkPayDebitParty.getAccountType());
+        receipt.setPayerAccountBank(milkPayDebitParty.getBankISPB());
+        receipt.setPayerAccountBranch(milkPayDebitParty.getBranch());
+
+        var receiptResume = ReceiptUtil.createReceiptBankSlip(receipt);
+        var authentication = DigestUtils.md5Hex(receiptResume);
+        receiptResume = ReceiptUtil.addReceiptAuth(receiptResume, authentication.toUpperCase());
+
+        receipt.setReceiptResume(receiptResume);
+        receipt.setAuthentication(authentication.toUpperCase());
+
+        receipt.persistAndFlush();
+
+        return receipt;
+
+    }
+
+    public BankSlipConsultResponseDto parseToConsultResponseDto(BankSlipCelcoinResponseConsultDto responseDto) {
+        return mapper.bankSlipDtoToResponseDto(responseDto);
+    }
+
+    public BankSlipCelcoinPaymentDto parseToCelcoinPaymentDto(BankSlipPaymentDto dto) {
+        return mapper.bankSlipPaymentDtoToCelcoinPaymentDto(dto);
     }
 
 }

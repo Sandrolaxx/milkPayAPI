@@ -83,7 +83,7 @@ public class TitleService {
 
         if (EnumUtil.isEquals(newTitleDto.getPaymentType(), EnumPaymentType.PIX)) {
             newTitleDto.setBarcode(null);
-            newTitleDto.setDigitabe(null);
+            newTitleDto.setDigitable(null);
         }
 
         var newTitle = titleMapper.titleDtoToEntity(newTitleDto);

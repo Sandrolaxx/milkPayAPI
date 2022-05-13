@@ -7,7 +7,6 @@ import javax.ws.rs.WebApplicationException;
 import com.milk.pay.dto.PaymentResponseDto;
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
-import com.milk.pay.entities.Title;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.IPixMapper;
 import com.milk.pay.restClient.RestClientCelcoin;
@@ -53,16 +52,16 @@ public class PixServiceCelcoin {
     public PaymentResponseDto makePayment(PixPaymentDto paymentDto) {
 
         try {
-            var title = Title.findById(paymentDto.getTitleId());
+            var payment = pixService.prePersistPayment(paymentDto.getTitleId());
             
-            paymentDto.setTxId(title.getId());
-            paymentDto.setAmount(title.getAmount());
+            paymentDto.setTxId(payment.getId());
+            paymentDto.setAmount(payment.getReceivedAmount());
 
             var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto);
             var paymentResponse = restClient.makePayment(tokenService.getToken(), paymentCelcoinDto);
             var receipt = pixService.savePaymentReceipt(paymentResponse, paymentDto);
 
-            pixService.persistSuccessfulPaymen(paymentDto);
+            pixService.persistSuccessfulPayment(paymentDto, paymentResponse.getEndToEndId());
 
             return new PaymentResponseDto(paymentDto.getTxId(), receipt.getReceiptResume());
         } catch (WebApplicationException wae) {

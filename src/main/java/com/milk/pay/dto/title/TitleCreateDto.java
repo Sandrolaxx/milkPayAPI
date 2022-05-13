@@ -32,7 +32,7 @@ public class TitleCreateDto {
 
     private String barcode;
 
-    private String digitabe;
+    private String digitable;
 
     public Integer getExternalId() {
         return externalId;
@@ -106,12 +106,12 @@ public class TitleCreateDto {
         this.barcode = barcode;
     }
 
-    public String getDigitabe() {
-        return digitabe;
+    public String getDigitable() {
+        return digitable;
     }
 
-    public void setDigitabe(String digitabe) {
-        this.digitabe = digitabe;
+    public void setDigitable(String digitable) {
+        this.digitable = digitable;
     }
-
+    
 }

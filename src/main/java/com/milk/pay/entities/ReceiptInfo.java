@@ -1,6 +1,7 @@
 package com.milk.pay.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -107,6 +108,9 @@ public class ReceiptInfo extends DafeEntity {
     @CreationTimestamp
     @Column(name = "PAID_AT")
     private LocalDateTime paidAt;
+
+    @Column(name = "DUE_DATE")
+    private LocalDate dueDate;
 
     @Column(name = "MOVEMENT_CODE")
     @Enumerated(EnumType.STRING)
@@ -345,6 +349,14 @@ public class ReceiptInfo extends DafeEntity {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
 }

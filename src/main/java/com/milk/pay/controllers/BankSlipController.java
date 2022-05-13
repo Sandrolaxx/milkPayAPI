@@ -11,7 +11,7 @@ import com.milk.pay.dto.PaymentResponseDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
-import com.milk.pay.services.BankSlipService;
+import com.milk.pay.services.BankSlipServiceCelcoin;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
 import com.milk.pay.utils.ValidateUtil;
 
@@ -31,7 +31,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 public class BankSlipController {
 
     @Inject
-    BankSlipService bankSlipService;
+    BankSlipServiceCelcoin bankSlipServiceCelcoin;
     
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os dados do boleto consultado.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
@@ -41,7 +41,7 @@ public class BankSlipController {
 
         ValidateUtil.validateConsultTitle(bankSlipConsultDto);
 
-        return bankSlipService.consult(bankSlipConsultDto);
+        return bankSlipServiceCelcoin.consult(bankSlipConsultDto);
         
     }
 
@@ -53,7 +53,7 @@ public class BankSlipController {
 
         ValidateUtil.validatePaymentTitle(bankSlipPaymentDto);
 
-        return bankSlipService.payment(bankSlipPaymentDto);
+        return bankSlipServiceCelcoin.payment(bankSlipPaymentDto);
         
     }
 

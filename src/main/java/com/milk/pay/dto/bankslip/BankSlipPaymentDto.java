@@ -24,6 +24,10 @@ public class BankSlipPaymentDto {
 
     private Integer titleId;
 
+    private String receiverBank;
+
+    private String receiverName;
+
     public String getBarcode() {
         return barcode;
     }
@@ -71,5 +75,21 @@ public class BankSlipPaymentDto {
     public void setTitleId(Integer titleId) {
         this.titleId = titleId;
     }
-    
+
+    public String getReceiverBank() {
+        return receiverBank;
+    }
+
+    public void setReceiverBank(String receiverBank) {
+        this.receiverBank = receiverBank;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
 }

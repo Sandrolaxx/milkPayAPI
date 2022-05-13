@@ -45,7 +45,7 @@ public interface IBankSlipMapper {
     @Mappings({
             @Mapping(target = "barcode", source = "barcode.barcode"),
             @Mapping(target = "digitable", source = "barcode.digitable"),
-            @Mapping(target = "amount", source = "billData.value")
+            @Mapping(target = "requestedAmount", source = "billData.value")
     })
     public Payment bankSlipCelcoinPaymentDtoToPaymentEntity(BankSlipCelcoinPaymentDto dto);
 
