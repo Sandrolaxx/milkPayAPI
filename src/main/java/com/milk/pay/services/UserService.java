@@ -14,8 +14,11 @@ import com.milk.pay.dto.user.ListUserDto;
 import com.milk.pay.entities.User;
 import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.mapper.IUserMapper;
+import com.milk.pay.restClient.RestClientUser;
 import com.milk.pay.utils.EncryptUtil;
 import com.milk.pay.utils.MilkPayException;
+
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
 import io.quarkus.security.identity.SecurityIdentity;
@@ -26,6 +29,10 @@ import io.quarkus.security.identity.SecurityIdentity;
  */
 @ApplicationScoped
 public class UserService {
+
+    @Inject
+    @RestClient
+    RestClientUser restClient;
 
     @Inject
     IUserMapper userMapper;
@@ -40,6 +47,8 @@ public class UserService {
     @Transactional()
     public User persistUser(CreateUserDto dto) {
 
+        //TODO finish user creation
+        var externalUserData = restClient.getUserData("basicToken");
         var newUser = userMapper.createUserDtoToUser(dto);
 
         newUser.setActive(true);

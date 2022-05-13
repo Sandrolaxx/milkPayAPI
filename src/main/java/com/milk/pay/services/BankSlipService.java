@@ -34,11 +34,11 @@ public class BankSlipService {
     @Inject
     IBankSlipMapper mapper;
 
-    @ConfigProperty(name = "milk.taxId")
-    String defaultDocument;
-
     @Inject
     RequestUtil requestUtil;
+
+    @ConfigProperty(name = "milk.taxId")
+    String defaultDocument;
 
     @Transactional
     public Payment persistSuccessfulPayment(BankSlipCelcoinPaymentDto celcoinDto, Integer titleId) {
