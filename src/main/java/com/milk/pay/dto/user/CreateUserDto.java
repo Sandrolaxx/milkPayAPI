@@ -16,6 +16,8 @@ public class CreateUserDto {
 
     private String phone;
 
+    private Long externalId;
+
     private boolean active;
 
     private String pixKey;
@@ -58,6 +60,14 @@ public class CreateUserDto {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Long getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(Long externalId) {
+        this.externalId = externalId;
     }
 
     public boolean isActive() {

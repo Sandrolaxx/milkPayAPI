@@ -45,22 +45,39 @@ public class UserService {
     }
 
     @Transactional()
-    public User persistUser(CreateUserDto dto) {
+    public void create(CreateUserDto dto) {
 
-        //TODO finish user creation
-        var externalUserData = restClient.getUserData("basicToken");
-        var newUser = userMapper.createUserDtoToUser(dto);
+        var userData = consultUserData(dto);
+        var newUser = persistNewUser(userData, dto.getPassword());
 
+        createUserKeycloak(newUser);
+
+    }
+
+    public CreateUserDto consultUserData(CreateUserDto dto) {
+
+        try {
+            return restClient.getUserData();
+        } catch (Exception e) {
+            throw new MilkPayException(EnumErrorCode.ERRO_AO_BUSCAR_DADOS_USUARIO);
+        }
+
+    }
+
+    public User persistNewUser(CreateUserDto userData, String password) {
+
+        var newUser = userMapper.createUserDtoToUser(userData);
+
+        newUser.setPassword(password);
         newUser.setActive(true);
-        newUser.persistAndFlush();
 
-        saveUserKeycloak(newUser);
+        newUser.persist();
 
         return newUser;
 
     }
 
-    public void saveUserKeycloak(User newUser) {
+    public void createUserKeycloak(User newUser) {
 
         var newUserKeycloak = new CreateUserKeycloakDto();
         var newCredencial = new CreateUserKeycloakCredentialsDto();

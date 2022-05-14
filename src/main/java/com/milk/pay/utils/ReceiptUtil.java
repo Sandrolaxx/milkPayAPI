@@ -76,7 +76,7 @@ public class ReceiptUtil {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("  MILKPAY TECNOLOGIA E PAGAMENTOS LTDA.\n\n");
+        sb.append("   AKTIE TECNOLOGIA E PAGAMENTOS LTDA.\n\n");
         sb.append("PROTOCOLO{protocolo}\n");
         sb.append("TERM 0001                       DAFE-API\n");
         sb.append("{data-atual}{hora-atual}\n");
@@ -113,7 +113,7 @@ public class ReceiptUtil {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("   DAFE TECNOLOGIA E PAGAMENTOS LTDA.\n\n");
+        sb.append("   AKTIE TECNOLOGIA E PAGAMENTOS LTDA.\n\n");
         sb.append("PROTOCOLO{protocolo}\n");
         sb.append("TERM 0001                       DAFE-API\n");
         sb.append("{data-atual}{hora-atual}\n");

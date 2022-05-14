@@ -43,7 +43,8 @@ public enum EnumErrorCode implements IEnum {
     ERRO_CONSULTAR_CHAVE_PIX("055", "Erro ao tentar realizar a consulta da Chave Pix, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
     ERRO_CONSULTAR_BOLETO("056", "Erro ao tentar realizar a consulta do boleto, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
     ERRO_PAGAMENTO_BOLETO("057", "Erro ao tentar realizar o pagamento do boleto, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
-    ERRO_CONFIRMAR_PAGAMENTO_BOLETO("058", "Erro ao tentar realizar confirmação do pagamento do boleto, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST);
+    ERRO_CONFIRMAR_PAGAMENTO_BOLETO("058", "Erro ao tentar realizar confirmação do pagamento do boleto, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
+    ERRO_AO_BUSCAR_DADOS_USUARIO("059", "Erro ao buscar informações do usuário em nossoo parceiro!", HttpStatus.SC_BAD_GATEWAY);
 
     private final String key, erro;
     private final int httpStatus;

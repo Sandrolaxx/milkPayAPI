@@ -56,7 +56,7 @@ public class UserController {
 
         ValidateUtil.validateNewUser(dto);
 
-        userService.persistUser(dto);
+        userService.create(dto);
         
         return Response.status(Status.CREATED).build();
     }

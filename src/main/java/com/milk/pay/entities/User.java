@@ -61,6 +61,9 @@ public class User extends PanacheEntityBase {
 
     @Column(name = "ACTIVE")
     private boolean active;
+    
+    @Column(name = "EXTERNAL_ID")
+    private Long externalId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
@@ -182,6 +185,12 @@ public class User extends PanacheEntityBase {
     }
     public void setActive(boolean active) {
         this.active = active;
+    }
+    public Long getExternalId() {
+        return externalId;
+    }
+    public void setExternalId(Long externalId) {
+        this.externalId = externalId;
     }
 
 }
