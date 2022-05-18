@@ -83,7 +83,7 @@ public class UserService {
         var newCredencial = new CreateUserKeycloakCredentialsDto();
         var credencialList = new ArrayList<CreateUserKeycloakCredentialsDto>();
 
-        newUserKeycloak.setUsername(EncryptUtil.textDecrypt(newUser.getEmail(), newUser.getSecret()));
+        newUserKeycloak.setUsername(newUser.getDocument());
         newUserKeycloak.setEnabled(true);
 
         newCredencial.setTemporary(false);
