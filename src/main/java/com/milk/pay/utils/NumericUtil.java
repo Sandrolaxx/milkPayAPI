@@ -18,11 +18,13 @@ public class NumericUtil {
         if (val == null) {
             return null;
         }
-        DecimalFormatSymbols symbols1 = new DecimalFormatSymbols(new Locale("en", "US"));
-        DecimalFormatSymbols symbols2 = new DecimalFormatSymbols(new Locale("pt", "BR"));
-        DecimalFormat format1 = new DecimalFormat();
+        var symbols1 = new DecimalFormatSymbols(new Locale("en", "US"));
+        var symbols2 = new DecimalFormatSymbols(new Locale("pt", "BR"));
+        var format1 = new DecimalFormat();
+
         format1.setDecimalFormatSymbols(symbols1);
         format1.setParseBigDecimal(true);
+        
         String numero = null;
         if (val instanceof String) {
             try {
