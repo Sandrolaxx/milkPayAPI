@@ -82,9 +82,10 @@ public class DateUtil {
     }
 
     public static Calendar tomorrow() {
-        Calendar h = today();
-        h.add(GregorianCalendar.DAY_OF_MONTH, 1);
-        return h;
+        var today = today();
+        today.add(GregorianCalendar.DAY_OF_MONTH, 1);
+        
+        return today;
     }
 
     public static String getDateToday() {
@@ -100,20 +101,23 @@ public class DateUtil {
     }
 
     public static Calendar resetTime(Date data) {
-        Calendar c1 = Calendar.getInstance(LOCALE_BRAZIL);
+        var c1 = Calendar.getInstance(LOCALE_BRAZIL);
         c1.setTime(data);
+
         return resetTime(c1);
     }
 
     public static Calendar localDateToCalendar(LocalDate data) {
-        Calendar c1 = Calendar.getInstance(LOCALE_BRAZIL);
+        var c1 = Calendar.getInstance(LOCALE_BRAZIL);
         c1.setTimeInMillis(data.toEpochDay());
+
         return c1;
     }
 
     public static Calendar localDateTimeToCalendar(LocalDateTime data) {
-        Calendar c1 = Calendar.getInstance(LOCALE_BRAZIL);
+        var c1 = Calendar.getInstance(LOCALE_BRAZIL);
         c1.setTime(Date.from(data.atZone(ZoneId.systemDefault()).toInstant()));
+
         return c1;
     }
 
@@ -122,8 +126,9 @@ public class DateUtil {
     }
 
     public static boolean isWeekend(LocalDate date) {
-        Calendar c1 = Calendar.getInstance(LOCALE_BRAZIL);
+        var c1 = Calendar.getInstance(LOCALE_BRAZIL);
         c1.setTimeInMillis(date.toEpochDay());
+
         return isWeekend(c1);
     }
 
@@ -168,7 +173,7 @@ public class DateUtil {
     }
 
     public static Date ConvertStringMillisToFormatedDate(String millis) {
-        Calendar calendar = Calendar.getInstance();
+        var calendar = Calendar.getInstance();
         calendar.setTimeInMillis(Long.parseLong(millis));
 
         return calendar.getTime();
