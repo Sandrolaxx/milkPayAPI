@@ -64,8 +64,8 @@ public class TitleService {
             return totalizers;
         }
 
-        totalizers.setAmountReceived(Utils.getTotal(listAllTitles, true).toString());
-        totalizers.setAmountToReceive(Utils.getTotalNextDays(listAllTitles, 30).toString());
+        totalizers.setAmountReceived(Utils.getTotal(listAllTitles, true));
+        totalizers.setAmountToReceive(Utils.getTotalNextDays(listAllTitles, 30));
         totalizers.setTitlesReceived(Utils.countTotal(listAllTitles, true).intValue());
         totalizers.setTitlesToReceive(Utils.countTotalNextDays(listAllTitles, 30).intValue());
 

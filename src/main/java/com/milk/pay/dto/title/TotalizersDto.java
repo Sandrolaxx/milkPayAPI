@@ -1,32 +1,34 @@
 package com.milk.pay.dto.title;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author SRamos
  */
 public class TotalizersDto {
     
-    private String amountReceived;
+    private BigDecimal amountReceived;
 
-    private String amountToReceive;
+    private BigDecimal amountToReceive;
 
     private Integer titlesReceived;
 
     private Integer titlesToReceive;
 
-    public String getAmountReceived() {
+    public BigDecimal getAmountReceived() {
         return amountReceived;
     }
 
-    public void setAmountReceived(String amountReceived) {
+    public void setAmountReceived(BigDecimal amountReceived) {
         this.amountReceived = amountReceived;
     }
 
-    public String getAmountToReceive() {
+    public BigDecimal getAmountToReceive() {
         return amountToReceive;
     }
 
-    public void setAmountToReceive(String amountToReceive) {
+    public void setAmountToReceive(BigDecimal amountToReceive) {
         this.amountToReceive = amountToReceive;
     }
 
