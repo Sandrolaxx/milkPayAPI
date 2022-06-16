@@ -9,7 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-02T19:24:22-0300",
+    date = "2022-06-15T21:43:55-0300",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @ApplicationScoped
@@ -25,18 +25,18 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         titleDto.setAmount( entity.getAmount() );
         titleDto.setBalance( entity.getBalance() );
+        titleDto.setBarcode( entity.getBarcode() );
+        titleDto.setDailyInterest( entity.getDailyInterest() );
         if ( entity.getDueDate() != null ) {
             titleDto.setDueDate( DateTimeFormatter.ISO_LOCAL_DATE.format( entity.getDueDate() ) );
         }
-        if ( entity.getPaidAt() != null ) {
-            titleDto.setPaidAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getPaidAt() ) );
-        }
-        titleDto.setBarcode( entity.getBarcode() );
         if ( entity.hasId() ) {
             titleDto.setId( entity.getId() );
         }
         titleDto.setLiquidated( entity.isLiquidated() );
-        titleDto.setDailyInterest( entity.getDailyInterest() );
+        if ( entity.getPaidAt() != null ) {
+            titleDto.setPaidAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getPaidAt() ) );
+        }
         titleDto.setPaymentType( entity.getPaymentType() );
 
         return titleDto;
@@ -51,10 +51,10 @@ public class ITitleMapperImpl implements ITitleMapper {
         Title title = new Title();
 
         title.setAmount( dto.getAmount() );
-        title.setDailyInterest( dto.getDailyInterest() );
-        title.setNfNumber( dto.getNfNumber() );
         title.setBarcode( dto.getBarcode() );
+        title.setDailyInterest( dto.getDailyInterest() );
         title.setDigitable( dto.getDigitable() );
+        title.setNfNumber( dto.getNfNumber() );
         title.setPaymentType( dto.getPaymentType() );
 
         title.setDueDate( parseLocalDate(dto.getDueDate()) );

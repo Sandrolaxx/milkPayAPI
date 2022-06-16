@@ -30,6 +30,8 @@ public class TitleDto {
 
     private String digitabe;
 
+    private String nfNumber;
+
     private String responseSlip;
 
     private boolean liquidated;
