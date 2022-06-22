@@ -9,8 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-21T21:05:40-0300",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
+    date = "2022-06-21T21:05:45-0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11 (Oracle Corporation)"
 )
 @ApplicationScoped
 public class ITitleMapperImpl implements ITitleMapper {
@@ -25,22 +25,22 @@ public class ITitleMapperImpl implements ITitleMapper {
 
         titleDto.setAmount( entity.getAmount() );
         titleDto.setBalance( entity.getBalance() );
-        titleDto.setBarcode( entity.getBarcode() );
-        titleDto.setDailyInterest( entity.getDailyInterest() );
-        titleDto.setDigitable( entity.getDigitable() );
         if ( entity.getDueDate() != null ) {
             titleDto.setDueDate( DateTimeFormatter.ISO_LOCAL_DATE.format( entity.getDueDate() ) );
         }
-        if ( entity.hasId() ) {
-            titleDto.setId( entity.getId() );
-        }
-        titleDto.setInclusionDate( entity.getInclusionDate() );
-        titleDto.setLiquidated( entity.isLiquidated() );
-        titleDto.setNfNumber( entity.getNfNumber() );
         if ( entity.getPaidAt() != null ) {
             titleDto.setPaidAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getPaidAt() ) );
         }
+        titleDto.setBarcode( entity.getBarcode() );
+        titleDto.setDigitable( entity.getDigitable() );
+        if ( entity.hasId() ) {
+            titleDto.setId( entity.getId() );
+        }
+        titleDto.setLiquidated( entity.isLiquidated() );
+        titleDto.setDailyInterest( entity.getDailyInterest() );
         titleDto.setPaymentType( entity.getPaymentType() );
+        titleDto.setNfNumber( entity.getNfNumber() );
+        titleDto.setInclusionDate( entity.getInclusionDate() );
 
         titleDto.setPixKey( getUserPixKey(entity.getUser(), entity.getPaymentType()) );
 
@@ -56,10 +56,10 @@ public class ITitleMapperImpl implements ITitleMapper {
         Title title = new Title();
 
         title.setAmount( dto.getAmount() );
-        title.setBarcode( dto.getBarcode() );
         title.setDailyInterest( dto.getDailyInterest() );
-        title.setDigitable( dto.getDigitable() );
         title.setNfNumber( dto.getNfNumber() );
+        title.setBarcode( dto.getBarcode() );
+        title.setDigitable( dto.getDigitable() );
         title.setPaymentType( dto.getPaymentType() );
 
         title.setDueDate( parseLocalDate(dto.getDueDate()) );

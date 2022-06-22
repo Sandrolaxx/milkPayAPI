@@ -1,6 +1,7 @@
 package com.milk.pay.dto.title;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import com.milk.pay.entities.enums.EnumPaymentType;
 
@@ -28,9 +29,11 @@ public class TitleDto {
 
     private String barcode;
 
-    private String digitabe;
+    private String digitable;
 
     private String nfNumber;
+
+    private String pixKey;
 
     private String responseSlip;
 
@@ -39,6 +42,8 @@ public class TitleDto {
     private BigDecimal dailyInterest;
     
     private EnumPaymentType paymentType;
+
+    private LocalDateTime inclusionDate;
 
     public String getUserId() {
         return userId;
@@ -104,12 +109,12 @@ public class TitleDto {
         this.barcode = barcode;
     }
 
-    public String getDigitabe() {
-        return digitabe;
+    public String getDigitable() {
+        return digitable;
     }
 
-    public void setDigitabe(String digitabe) {
-        this.digitabe = digitabe;
+    public void setDigitable(String digitable) {
+        this.digitable = digitable;
     }
 
     public String getResponseSlip() {
@@ -150,6 +155,30 @@ public class TitleDto {
 
     public void setPaymentType(EnumPaymentType paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public String getNfNumber() {
+        return nfNumber;
+    }
+
+    public void setNfNumber(String nfNumber) {
+        this.nfNumber = nfNumber;
+    }
+
+    public String getPixKey() {
+        return pixKey;
+    }
+
+    public void setPixKey(String pixKey) {
+        this.pixKey = pixKey;
+    }
+
+    public LocalDateTime getInclusionDate() {
+        return inclusionDate;
+    }
+
+    public void setInclusionDate(LocalDateTime inclusionDate) {
+        this.inclusionDate = inclusionDate;
     }
 
 }

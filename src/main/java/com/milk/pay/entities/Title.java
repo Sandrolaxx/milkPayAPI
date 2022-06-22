@@ -69,6 +69,9 @@ public class Title extends DafeEntity {
     @Column(name = "DIGITABLE")
     private String digitable;
 
+    @Column(name = "PIX_KEY")
+    private String pixKey;
+
     @CreationTimestamp
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
@@ -220,6 +223,14 @@ public class Title extends DafeEntity {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public String getPixKey() {
+        return pixKey;
+    }
+
+    public void setPixKey(String pixKey) {
+        this.pixKey = pixKey;
     }
 
 }
