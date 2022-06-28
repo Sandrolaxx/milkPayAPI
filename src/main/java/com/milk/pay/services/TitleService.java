@@ -2,7 +2,6 @@ package com.milk.pay.services;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -10,8 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import com.milk.pay.dto.title.ListTitleDto;
 import com.milk.pay.dto.title.TitleCreateDto;
-import com.milk.pay.dto.title.TitleDto;
 import com.milk.pay.dto.title.TotalizersDto;
 import com.milk.pay.entities.User;
 import com.milk.pay.entities.enums.EnumErrorCode;
@@ -34,9 +33,11 @@ public class TitleService {
     @Inject
     TitleRepository repository;
 
-    public List<TitleDto> findAll(String userId, boolean liquidated, String offset, String limit) {
+    public ListTitleDto findAll(String userId, boolean liquidated, Integer pageIndex, Integer pageSize,
+            String offset, String limit) {
 
         var params = new HashMap<String, Object>();
+        var listTitleDto = new ListTitleDto();
 
         params.put("userId", UUID.fromString(userId));
         params.put("liquidated", liquidated);
@@ -47,12 +48,16 @@ public class TitleService {
             params.put("limit", DateUtil.DDMMYYYYToLocalDate(limit));
         }
 
-        var userTitles = repository.findByUserIdBetwenDates(params);
-
-        return userTitles.stream()
+        var userTitles = repository.findByUserIdBetwenDates(params, pageIndex, pageSize);
+        var results = userTitles.stream()
                 .map(p -> titleMapper.titleToTitleDto(p))
                 .collect(Collectors.toList());
 
+        listTitleDto.setPage(pageIndex);
+        listTitleDto.setResults(results);
+        listTitleDto.setAllResultsSize(repository.getQueryResultsLenght(params));
+
+        return listTitleDto;
     }
 
     public TotalizersDto fetchTotalizers(String userId) {
