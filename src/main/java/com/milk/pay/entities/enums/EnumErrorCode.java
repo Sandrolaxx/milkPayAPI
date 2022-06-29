@@ -34,6 +34,7 @@ public enum EnumErrorCode implements IEnum {
     TIT_NAO_ENCONTRADO("022", "Título não encontrado para o identificador informado!", HttpStatus.SC_BAD_REQUEST),
     TIT_POSSUI_LIQUIDACAO("023", "Título informado já foi liquidado!", HttpStatus.SC_BAD_REQUEST),
     BOLETO_VENCIDO("024", "Boleto de pagamento vencido! Impossível realizar o pagamento após seu vencimento.", HttpStatus.SC_BAD_REQUEST),
+    DATA_CONSULTA_INVALIDA("025", "Campos 'limit' e 'offset' devem estar no padrão DD/MM/YYYY.", HttpStatus.SC_BAD_REQUEST),
     //Erros externos
     ERRO_COMUNICACAO("050", "A requisição enviada ao parceiro retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
     ERRO_AUTENTICACAO("051", "Erro ao se autenticar no parceiro!", HttpStatus.SC_INTERNAL_SERVER_ERROR),

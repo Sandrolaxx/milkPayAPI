@@ -44,8 +44,12 @@ public class TitleService {
 
         if (!StringUtil.isNullOrEmpty(offset)
                 && !StringUtil.isNullOrEmpty(limit)) {
-            params.put("offset", DateUtil.DDMMYYYYToLocalDate(offset));
-            params.put("limit", DateUtil.DDMMYYYYToLocalDate(limit));
+            try {
+                params.put("offset", DateUtil.DDMMYYYYToLocalDate(offset));
+                params.put("limit", DateUtil.DDMMYYYYToLocalDate(limit));
+            } catch (Exception e) {
+                throw new MilkPayException(EnumErrorCode.DATA_CONSULTA_INVALIDA);
+            }
         }
 
         var userTitles = repository.findByUserIdBetwenDates(params, pageIndex, pageSize);
