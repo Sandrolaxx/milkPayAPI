@@ -37,7 +37,7 @@ public enum EnumErrorCode implements IEnum {
     DATA_CONSULTA_INVALIDA("025", "Campos 'limit' e 'offset' devem estar no padrão DD/MM/YYYY.", HttpStatus.SC_BAD_REQUEST),
     //Erros externos
     ERRO_COMUNICACAO("050", "A requisição enviada ao parceiro retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
-    ERRO_AUTENTICACAO("051", "Erro ao se autenticar no parceiro!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
+    PARCEIRO_INDISPONIVEL("051", "Instituição de Pagamentos Parceira Indisponível!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_TRASNF_CHAVE_PIX("052", "Erro ao tentar realizar a transferência via Chave Pix, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
     ERRO_PAGAMENTO_PIX("053", "Erro ao tentar realizar a pagamento Pix, falha na comunicação com o parceiro!", HttpStatus.SC_BAD_REQUEST),
     CHAVE_CONSULTADA_INEXISTENTE("054", "Erro ao consultar Chave Pix, nennhum dado encontrado para a chave informada!", HttpStatus.SC_NOT_FOUND),

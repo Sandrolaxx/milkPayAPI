@@ -4,7 +4,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Form;
 
+import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.restClient.RestClientTokenCelcoin;
+import com.milk.pay.utils.MilkPayException;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -36,9 +38,13 @@ public class TokenServiceCelcoin {
                 .param("client_secret", clientSecret)
                 .param("grant_type", grantType);
 
-        var tokenDto = restClient.getNewToken(tokenReq);
-
-        return tokenDto.getTokenType() + " " + tokenDto.getAccessToken();
+        try {
+            var tokenDto = restClient.getNewToken(tokenReq);
+    
+            return tokenDto.getTokenType() + " " + tokenDto.getAccessToken();
+        } catch (Exception e) {
+            throw new MilkPayException(EnumErrorCode.PARCEIRO_INDISPONIVEL);
+        }    
     }
 
 }
