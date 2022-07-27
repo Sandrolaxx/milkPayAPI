@@ -21,12 +21,12 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 public interface RestClientKeycloak {
 
     @POST
-    @Path("/realms/MilkPay/protocol/openid-connect/token")
+    @Path("/auth/realms/MilkPay/protocol/openid-connect/token")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     TokenResponseDto getNewToken(@HeaderParam("Authorization") String basicToken, Form tokenForm);
     
     @POST
-    @Path("/admin/realms/MilkPay/users")
+    @Path("/auth/admin/realms/MilkPay/users")
     @Consumes(MediaType.APPLICATION_JSON)
     Response createUserKeycloak(@HeaderParam("Authorization") String tokenKeycloak,
             CreateUserKeycloakDto dto);

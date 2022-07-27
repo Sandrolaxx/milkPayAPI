@@ -1,15 +1,15 @@
 package com.smartbr.dafe;
 
+import org.approvaltests.Approvals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.github.database.rider.cdi.api.DBRider;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.configuration.Orthography;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.google.inject.Inject;
 import com.smartbr.dafe.util.TokenUtils;
-
-import org.approvaltests.Approvals;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -30,7 +30,7 @@ public class PixControllerTest {
     private String token;
 
     private String username;
-    
+
     private String password;
 
     @BeforeEach
@@ -40,22 +40,21 @@ public class PixControllerTest {
 
     private RequestSpecification given() {
         return RestAssured.given()
-        .contentType(ContentType.JSON).header(new Header("Authorization", "Bearer " + token));
+                .contentType(ContentType.JSON).header(new Header("Authorization", "Bearer " + token));
     }
 
     @Test
     @DataSet("cenario-testCase02.json")
     public void testConsultPix() {
         String result = given()
-            .header("txId", 1)
-            .header("provider", "celcoin")
-            .when().get("/dafe-api/v1/pix/static")
-            .then()
-            .statusCode(200)
-            .extract().asString();
+                .header("txId", 1)
+                .header("provider", "celcoin")
+                .when().get("/dafe-api/v1/pix/static")
+                .then()
+                .statusCode(200)
+                .extract().asString();
 
         Approvals.verifyJson(result);
     }
-
 
 }

@@ -11,7 +11,7 @@ import com.milk.pay.dto.user.TokenResponseDto;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 
-@RegisterRestClient(baseUri = "https://auth.dafepay.com.br")
+@RegisterRestClient(configKey = "base-uri-keycloak")
 public interface RestClientTokenTest {
     
     @POST
