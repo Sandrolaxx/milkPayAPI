@@ -7,7 +7,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
-public class DafeTestLifecycleManager implements QuarkusTestResourceLifecycleManager {
+public class MilkPayTestLifecycleManager implements QuarkusTestResourceLifecycleManager {
 
     public static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>("postgres:13");
 

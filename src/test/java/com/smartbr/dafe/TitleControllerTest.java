@@ -21,35 +21,30 @@ import io.restassured.specification.RequestSpecification;
 @DBRider
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 @QuarkusTest
-@QuarkusTestResource(DafeTestLifecycleManager.class)
-public class PixControllerTest {
+@QuarkusTestResource(MilkPayTestLifecycleManager.class)
+public class TitleControllerTest {
 
     @Inject
     private TokenUtils tokenUtils;
 
     private String token;
 
-    private String username;
-
-    private String password;
-
     @BeforeEach
     public void genereteToken() throws Exception {
-        token = tokenUtils.generateTokenTest(username, password);
+        token = tokenUtils.generateTokenTest("10564574902", "1234");
     }
 
     private RequestSpecification given() {
         return RestAssured.given()
-                .contentType(ContentType.JSON).header(new Header("Authorization", "Bearer " + token));
+                .contentType(ContentType.JSON)
+                .header(new Header("Authorization", "Bearer " + token));
     }
 
     @Test
     @DataSet("cenario-testCase02.json")
     public void testConsultPix() {
         String result = given()
-                .header("txId", 1)
-                .header("provider", "celcoin")
-                .when().get("/dafe-api/v1/pix/static")
+                .when().get("/milkpay-api/v1/title")
                 .then()
                 .statusCode(200)
                 .extract().asString();
