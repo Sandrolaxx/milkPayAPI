@@ -1,5 +1,7 @@
 package com.smartbr.dafe;
 
+import javax.inject.Inject;
+
 import org.approvaltests.Approvals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +10,6 @@ import com.github.database.rider.cdi.api.DBRider;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.configuration.Orthography;
 import com.github.database.rider.core.api.dataset.DataSet;
-import com.google.inject.Inject;
 import com.smartbr.dafe.util.TokenUtils;
 
 import io.quarkus.test.common.QuarkusTestResource;
@@ -42,7 +43,7 @@ public class TitleControllerTest {
 
     @Test
     @DataSet("cenario-testCase02.json")
-    public void testConsultPix() {
+    public void whenGetTitle() {
         String result = given()
                 .when().get("/milkpay-api/v1/title")
                 .then()

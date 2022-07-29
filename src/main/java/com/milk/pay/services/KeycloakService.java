@@ -5,13 +5,12 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import com.milk.pay.dto.user.CreateUserKeycloakDto;
-import com.milk.pay.dto.user.TokenResponseDto;
-import com.milk.pay.restClient.RestClientKeycloak;
-import com.milk.pay.utils.RequestUtil;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import com.milk.pay.dto.user.CreateUserKeycloakDto;
+import com.milk.pay.restClient.RestClientKeycloak;
+import com.milk.pay.utils.RequestUtil;
 
 /**
  *
@@ -43,7 +42,7 @@ public class KeycloakService {
                 .param("username", username)
                 .param("password", password);
 
-        TokenResponseDto tokenDto = restClientKey.getNewToken(basicToken, tokenReq);
+        var tokenDto = restClientKey.getNewToken(basicToken, tokenReq);
         var token = tokenDto.getTokenType() + " " + tokenDto.getAccessToken();
 
         return token;

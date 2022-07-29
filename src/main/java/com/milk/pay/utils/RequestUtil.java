@@ -44,9 +44,9 @@ public class RequestUtil {
     }
 
     public static String onlyBasic(String token) {
-        var tokenBearer = "Basic " + token;
+        var tokenBasic = "Basic " + token;
 
-        return tokenBearer;
+        return tokenBasic;
     }
 
     public PixPaymentDebitPartyCelcoinDto getMilkPayDebitParty() {
