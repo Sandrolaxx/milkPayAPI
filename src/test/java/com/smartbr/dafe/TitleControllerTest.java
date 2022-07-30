@@ -53,4 +53,16 @@ public class TitleControllerTest {
         Approvals.verifyJson(result);
     }
 
+    @Test
+    @DataSet("cenario-testCase02.json")
+    public void whenGetTotalizers() {
+        String result = given()
+                .when().get("/milkpay-api/v1/title/totalizers")
+                .then()
+                .statusCode(200)
+                .extract().asString();
+
+        Approvals.verifyJson(result);
+    }
+
 }
