@@ -17,6 +17,8 @@ public class TitleDto {
 
     private BigDecimal amount;
 
+    private BigDecimal finalAmount;
+
     private BigDecimal balance;
     
     private String paidAt;
@@ -59,6 +61,14 @@ public class TitleDto {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getFinalAmount() {
+        return finalAmount;
+    }
+
+    public void setFinalAmount(BigDecimal finalAmount) {
+        this.finalAmount = finalAmount;
     }
 
     public BigDecimal getBalance() {
