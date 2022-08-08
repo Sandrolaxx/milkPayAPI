@@ -128,12 +128,11 @@ public class PixService {
         receipt.setPayerAccountBranch(milkPayDebitParty.getBranch());
         receipt.setPayerAccount(milkPayDebitParty.getAccount());
 
-        var receiptResume = ReceiptUtil.createReceiptPix(receipt);
-        var authentication = DigestUtils.md5Hex(receiptResume);
-        receiptResume = ReceiptUtil.addReceiptAuth(receiptResume, authentication.toUpperCase());
-
-        receipt.setReceiptResume(receiptResume);
+        var authentication = DigestUtils.md5Hex(receipt.toString());
         receipt.setAuthentication(authentication.toUpperCase());
+
+        var receiptResume = ReceiptUtil.handleCreate(receipt);
+        receipt.setReceiptResume(receiptResume);
 
         receipt.persistAndFlush();
 

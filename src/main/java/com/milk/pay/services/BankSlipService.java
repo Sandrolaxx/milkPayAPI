@@ -7,6 +7,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentResposeDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinResponseConsultDto;
@@ -20,9 +23,6 @@ import com.milk.pay.mapper.IBankSlipMapper;
 import com.milk.pay.utils.ReceiptUtil;
 import com.milk.pay.utils.RequestUtil;
 import com.milk.pay.utils.StringUtil;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
  *
@@ -86,13 +86,12 @@ public class BankSlipService {
         receipt.setPayerAccountType(milkPayDebitParty.getAccountType());
         receipt.setPayerAccountBank(milkPayDebitParty.getBankISPB());
         receipt.setPayerAccountBranch(milkPayDebitParty.getBranch());
-
-        var receiptResume = ReceiptUtil.createReceiptBankSlip(receipt);
-        var authentication = DigestUtils.md5Hex(receiptResume);
-        receiptResume = ReceiptUtil.addReceiptAuth(receiptResume, authentication.toUpperCase());
-
-        receipt.setReceiptResume(receiptResume);
+        
+        var authentication = DigestUtils.md5Hex(receipt.toString());
         receipt.setAuthentication(authentication.toUpperCase());
+
+        var receiptResume = ReceiptUtil.handleCreate(receipt);
+        receipt.setReceiptResume(receiptResume);
 
         receipt.persistAndFlush();
 
