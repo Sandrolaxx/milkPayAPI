@@ -30,7 +30,7 @@ public class ReceiptUtil {
     public static String handleCreate(ReceiptInfo receipt) {
 
         try {
-            var newImg = getBlankImage(260, 720);
+            var newImg = getBlankImage(320, 720);
             var graphics2D = (Graphics2D) newImg.getGraphics();
 
             graphics2D.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
@@ -103,7 +103,7 @@ public class ReceiptUtil {
         
         if (EnumUtil.isEquals(paymentType, EnumPaymentType.PIX)) {
             graphics2DImage.drawString("INST:", 4, getNextMarginTop());
-            graphics2DImage.drawString(info.getReceiverAccountBank(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverAccountBank()), marginTopSize);
+            graphics2DImage.drawString(info.getReceiverAccountBank().substring(0, 16), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverAccountBank().substring(0, 16)), marginTopSize);
             graphics2DImage.drawString("AGÊNCIA:", 4, getNextMarginTop());
             graphics2DImage.drawString(info.getReceiverAccountBranch(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverAccountBranch()), marginTopSize);
             graphics2DImage.drawString("CONTA:", 4, getNextMarginTop());
