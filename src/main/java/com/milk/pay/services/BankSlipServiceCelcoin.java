@@ -4,7 +4,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
-import com.milk.pay.dto.PaymentResponseDto;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import com.milk.pay.dto.ReceiptDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinBarcodeDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentDto;
 import com.milk.pay.dto.bankslip.BankSlipCelcoinPaymentResposeDto;
@@ -15,9 +18,6 @@ import com.milk.pay.entities.enums.EnumErrorCode;
 import com.milk.pay.restClient.RestClientCelcoin;
 import com.milk.pay.utils.DateUtil;
 import com.milk.pay.utils.Utils;
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.vertx.core.json.Json;
 
@@ -53,7 +53,7 @@ public class BankSlipServiceCelcoin {
 
     }
 
-    public PaymentResponseDto payment(BankSlipPaymentDto dto) {
+    public ReceiptDto payment(BankSlipPaymentDto dto) {
 
         var celcoinPaymentDto = bankSlipService.parseToCelcoinPaymentDto(dto);
         var token = tokenService.getToken();
@@ -64,11 +64,11 @@ public class BankSlipServiceCelcoin {
         var paymentResponse = makePayment(celcoinPaymentDto, token);
 
         confirmPayment(paymentResponse.getTxId(), token);
-        bankSlipService.persistSuccessfulPayment(celcoinPaymentDto, dto.getTitleId());
+        var payment = bankSlipService.persistSuccessfulPayment(celcoinPaymentDto, dto.getTitleId());
         
-        var receipt = bankSlipService.persistReceipt(paymentResponse, dto);
+        var receiptImage = bankSlipService.persistReceipt(paymentResponse, dto);
 
-        return new PaymentResponseDto(receipt.getPayment().getId(), receipt.getReceiptResume());
+        return new ReceiptDto(payment.getId(), receiptImage);
 
     }
 
