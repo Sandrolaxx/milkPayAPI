@@ -61,7 +61,7 @@ public class BankSlipService {
     }
 
     @Transactional
-    public ReceiptInfo persistReceipt(BankSlipCelcoinPaymentResposeDto responseDto, BankSlipPaymentDto dto) {
+    public String persistReceipt(BankSlipCelcoinPaymentResposeDto responseDto, BankSlipPaymentDto dto) {
 
         var receipt = new ReceiptInfo();
         var lastReceipt = ReceiptInfo.findLastReceipt();
@@ -90,12 +90,9 @@ public class BankSlipService {
         var authentication = DigestUtils.md5Hex(receipt.toString());
         receipt.setAuthentication(authentication.toUpperCase());
 
-        var receiptResume = ReceiptUtil.handleCreate(receipt);
-        receipt.setReceiptResume(receiptResume);
-
         receipt.persistAndFlush();
 
-        return receipt;
+        return ReceiptUtil.handleCreate(receipt);
 
     }
 

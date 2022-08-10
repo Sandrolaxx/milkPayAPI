@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -22,6 +23,8 @@ public class DateUtil {
     public static final String TIMEZONE = "America/Sao_Paulo";
 
     public static final ZoneId ZONE_ID = ZoneId.of(TIMEZONE);
+
+    public static final ZoneOffset ZONE_OFFSET = ZoneOffset.of("-03:00");
 
     public static final Locale LOCALE_BRAZIL = new Locale("pt", "BR");
 

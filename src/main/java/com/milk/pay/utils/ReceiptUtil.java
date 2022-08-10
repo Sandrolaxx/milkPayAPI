@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Base64;
 
 import javax.imageio.ImageIO;
@@ -19,18 +20,12 @@ import com.milk.pay.entities.enums.EnumPaymentType;
  */
 public class ReceiptUtil {
 
-    private static int marginTopSize = 25;
-
-    public static String findAndCreate(Integer txId) {
-        var receipt = ReceiptInfo.findById(txId);
-        
-        return handleCreate(receipt);
-    }
+    private static int marginTopSize = 90;
 
     public static String handleCreate(ReceiptInfo receipt) {
 
         try {
-            var newImg = getBlankImage(320, 720);
+            var newImg = getBlankImage(320, 700);
             var graphics2D = (Graphics2D) newImg.getGraphics();
 
             graphics2D.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
@@ -43,7 +38,7 @@ public class ReceiptUtil {
 
             return new String(Base64.getEncoder().encodeToString(btArrayOutputStram.toByteArray()));
         } catch (Exception e) {
-            throw new MilkPayException(EnumErrorCode.ERRO_SALVAR_COMPROVANTE);
+            throw new MilkPayException(EnumErrorCode.ERRO_GERAR_COMPROVANTE);
         }
 
     }
@@ -59,12 +54,14 @@ public class ReceiptUtil {
         graphics2D.setColor(Color.WHITE);
         graphics2D.fillRect(0, 0, width, height);
 
+        graphics2D = addCompanyLogo(graphics2D, width);
+
         return newImg;
     }
 
     private static Graphics2D addBankSlipParams(Graphics2D graphics2DImage, ReceiptInfo info, int bgImageWidth) {
         
-        var companyName = "AKTIE TECNOLOGIA";
+        var companyName = "MILKPAY PAGAMENTOS";
         var terminal = "AKTIE-API";
         var paymentType = info.getPayment().getTitle().getPaymentType();
         var movementType = EnumUtil.isEquals(paymentType, EnumPaymentType.PIX) ? "PAGAMENTO PIX" : "PAGAMENTO DE TÍTULO";
@@ -73,7 +70,10 @@ public class ReceiptUtil {
         var paymentDate = DateUtil.formatDDMMYYYYHHMM(info.getPaidAt());
         var dueDate = DateUtil.formatDDMMYYYY(info.getDueDate());
         var digitable = info.getDigitable();
-        var separator = "---------------------------------------------------------";
+        var payerBank = info.getPayerAccountBank().length() > 34 ? info.getPayerAccountBank().substring(0, 34).concat("...") : info.getPayerAccountBank();
+        var payerName = info.getPayerName().length() > 34 ? info.getPayerName().substring(0, 34).concat("...") : info.getPayerName();
+        var receiverName = info.getReceiverName().length() > 34 ? info.getReceiverName().substring(0, 34).concat("...") : info.getReceiverName();
+        var separator = "--------------------------------------------------------------------------";
 
         graphics2DImage.drawString(companyName, getHorizontalSize(graphics2DImage, bgImageWidth, companyName), marginTopSize);
         graphics2DImage.drawString("PROTOCOLO:", 4, getNextMarginTop());
@@ -86,24 +86,26 @@ public class ReceiptUtil {
         graphics2DImage.drawString(movementType, getHorizontalSize(graphics2DImage, bgImageWidth, movementType), getNextMarginTop());
         graphics2DImage.drawString("ORIGEM", getHorizontalSize(graphics2DImage, bgImageWidth, "ORIGEM"), getNextMarginTop());
         graphics2DImage.drawString("NOME:", 4, getNextMarginTop());
-        graphics2DImage.drawString(info.getPayerName(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayerName()), marginTopSize);
+        graphics2DImage.drawString(payerName, getLeftTextSize(graphics2DImage, bgImageWidth, payerName), marginTopSize);
         graphics2DImage.drawString("CPF/CNPJ:", 4, getNextMarginTop());
         graphics2DImage.drawString(info.getPayerDocument(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayerDocument()), marginTopSize);
         graphics2DImage.drawString("INST:", 4, getNextMarginTop());
-        graphics2DImage.drawString(info.getPayerAccountBank(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayerAccountBank()), marginTopSize);
+        graphics2DImage.drawString(payerBank, getLeftTextSize(graphics2DImage, bgImageWidth, payerBank), marginTopSize);
         graphics2DImage.drawString("AGÊNCIA:", 4, getNextMarginTop());
         graphics2DImage.drawString(info.getPayerAccountBranch(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayerAccountBranch()), marginTopSize);
         graphics2DImage.drawString("CONTA:", 4, getNextMarginTop());
         graphics2DImage.drawString(info.getPayerAccount(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayerAccount()), marginTopSize);
         graphics2DImage.drawString("DESTINO", getHorizontalSize(graphics2DImage, bgImageWidth, "DESTINO"), getNextMarginTop());
         graphics2DImage.drawString("NOME:", 4, getNextMarginTop());
-        graphics2DImage.drawString(info.getReceiverName(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverName()), marginTopSize);
+        graphics2DImage.drawString(receiverName, getLeftTextSize(graphics2DImage, bgImageWidth, receiverName), marginTopSize);
         graphics2DImage.drawString("CPF/CNPJ:", 4, getNextMarginTop());
         graphics2DImage.drawString(info.getReceiverDocument(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverDocument()), marginTopSize);
         
         if (EnumUtil.isEquals(paymentType, EnumPaymentType.PIX)) {
+            var receiverBank = info.getReceiverAccountBank().length() > 34 ? info.getReceiverAccountBank().substring(0, 34).concat("...") : info.getReceiverAccountBank();
+            
             graphics2DImage.drawString("INST:", 4, getNextMarginTop());
-            graphics2DImage.drawString(info.getReceiverAccountBank().substring(0, 16), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverAccountBank().substring(0, 16)), marginTopSize);
+            graphics2DImage.drawString(receiverBank, getLeftTextSize(graphics2DImage, bgImageWidth, receiverBank), marginTopSize);
             graphics2DImage.drawString("AGÊNCIA:", 4, getNextMarginTop());
             graphics2DImage.drawString(info.getReceiverAccountBranch(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverAccountBranch()), marginTopSize);
             graphics2DImage.drawString("CONTA:", 4, getNextMarginTop());
@@ -142,6 +144,7 @@ public class ReceiptUtil {
             graphics2DImage.drawString(info.getEndToEndId(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getEndToEndId()), marginTopSize);
         }
 
+        getNextMarginTop();
         graphics2DImage.drawString("VÁLIDO COMO RECIBO DE PAGAMENTO", getHorizontalSize(graphics2DImage, bgImageWidth, "VÁLIDO COMO RECIBO DE PAGAMENTO"), getNextMarginTop());
 
         graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), getNextMarginTop());
@@ -152,6 +155,18 @@ public class ReceiptUtil {
 
         return graphics2DImage;
 
+    }
+
+    private static Graphics2D addCompanyLogo(Graphics2D graphics2DImage, int bgImageWidth) {
+        try {
+            var logo = ImageIO.read(new File("src/main/resources/META-INF/resources/logo.png"));
+
+            graphics2DImage.drawImage(logo, null, ((bgImageWidth / 2) - 40), 8);
+        } catch (Exception e) {
+            throw new MilkPayException(EnumErrorCode.ERRO_GERAR_COMPROVANTE);
+        }
+
+        return graphics2DImage;
     }
 
     private static int getNextMarginTop() {

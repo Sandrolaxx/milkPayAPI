@@ -7,18 +7,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.milk.pay.dto.PaymentResponseDto;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
+import com.milk.pay.dto.ReceiptDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultDto;
 import com.milk.pay.dto.bankslip.BankSlipConsultResponseDto;
 import com.milk.pay.dto.bankslip.BankSlipPaymentDto;
 import com.milk.pay.services.BankSlipServiceCelcoin;
 import com.milk.pay.utils.MilkPayExceptionResponseDto;
 import com.milk.pay.utils.ValidateUtil;
-
-import org.eclipse.microprofile.openapi.annotations.media.Content;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 /**
  *
@@ -49,7 +49,7 @@ public class BankSlipController {
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @POST
     @Path("/payment")
-    public PaymentResponseDto payment(BankSlipPaymentDto bankSlipPaymentDto) {
+    public ReceiptDto payment(BankSlipPaymentDto bankSlipPaymentDto) {
 
         ValidateUtil.validatePaymentTitle(bankSlipPaymentDto);
 

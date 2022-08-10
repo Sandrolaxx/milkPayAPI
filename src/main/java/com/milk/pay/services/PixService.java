@@ -96,7 +96,7 @@ public class PixService {
     }
 
     @Transactional
-    public ReceiptInfo savePaymentReceipt(PixPaymentResponseDto responseDto, PixPaymentDto paymentDto) {
+    public String savePaymentReceipt(PixPaymentResponseDto responseDto, PixPaymentDto paymentDto) {
 
         var receipt = new ReceiptInfo();
         var lastReceipt = ReceiptInfo.findLastReceipt();
@@ -111,6 +111,7 @@ public class PixService {
         receipt.setExternalAuth(responseDto.getSlipAuth());
         receipt.setIspbCode(ispb);
         receipt.setPayment(payment);
+        receipt.setPaidAt(payment.getCreatedAt());
         receipt.setExternalTxid(responseDto.getTxId().toString());
 
         receipt.setReceiverName(paymentDto.getReceiverName());
@@ -130,13 +131,10 @@ public class PixService {
 
         var authentication = DigestUtils.md5Hex(receipt.toString());
         receipt.setAuthentication(authentication.toUpperCase());
-
-        var receiptResume = ReceiptUtil.handleCreate(receipt);
-        receipt.setReceiptResume(receiptResume);
-
+        
         receipt.persistAndFlush();
 
-        return receipt;
+        return ReceiptUtil.handleCreate(receipt);
 
     }
 

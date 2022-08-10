@@ -4,7 +4,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
-import com.milk.pay.dto.PaymentResponseDto;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import com.milk.pay.dto.ReceiptDto;
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
@@ -12,9 +15,6 @@ import com.milk.pay.mapper.IPixMapper;
 import com.milk.pay.restClient.RestClientCelcoin;
 import com.milk.pay.utils.MilkPayException;
 import com.milk.pay.utils.Utils;
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @ApplicationScoped
 public class PixServiceCelcoin {
@@ -49,7 +49,7 @@ public class PixServiceCelcoin {
 
     }
 
-    public PaymentResponseDto makePayment(PixPaymentDto paymentDto) {
+    public ReceiptDto makePayment(PixPaymentDto paymentDto) {
 
         try {
             var payment = pixService.prePersistPayment(paymentDto.getTitleId());
@@ -59,11 +59,11 @@ public class PixServiceCelcoin {
 
             var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto);
             var paymentResponse = restClient.makePayment(tokenService.getToken(), paymentCelcoinDto);
-            var receipt = pixService.savePaymentReceipt(paymentResponse, paymentDto);
+            var receiptImage = pixService.savePaymentReceipt(paymentResponse, paymentDto);
 
             pixService.persistSuccessfulPayment(paymentDto, paymentResponse.getEndToEndId());
 
-            return new PaymentResponseDto(paymentDto.getTxId(), receipt.getReceiptResume());
+            return new ReceiptDto(paymentDto.getTxId(), receiptImage);
         } catch (WebApplicationException wae) {
             throw Utils.handleException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX);
         }

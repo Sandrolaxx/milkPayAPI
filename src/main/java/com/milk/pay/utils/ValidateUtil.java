@@ -161,6 +161,23 @@ public class ValidateUtil {
 
     }
 
+    public static void validateTxId(Integer txId) {
+
+        if (txId == null) {
+            throw new MilkPayException(EnumErrorCode.TX_ID_NAO_INFORMADO);
+        }
+
+    }
+
+    public static void validatePixKey(String key) {
+
+        if (key == null
+                || key.isEmpty()) {
+            throw new MilkPayException(EnumErrorCode.CHAVE_PIX_NAO_INFORMADA);
+        }
+
+    }
+
     private static void validateTitleExistence(Integer titleId) {
 
         var title = Title.findById(titleId);
@@ -174,5 +191,6 @@ public class ValidateUtil {
         }
 
     }
+    
 
 }

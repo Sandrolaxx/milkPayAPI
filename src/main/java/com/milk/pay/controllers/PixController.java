@@ -8,20 +8,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.milk.pay.dto.PaymentResponseDto;
-import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
-import com.milk.pay.dto.pix.PixPaymentDto;
-import com.milk.pay.entities.enums.EnumErrorCode;
-import com.milk.pay.services.PixServiceCelcoin;
-import com.milk.pay.utils.MilkPayException;
-import com.milk.pay.utils.MilkPayExceptionResponseDto;
-import com.milk.pay.utils.ValidateUtil;
-
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
+
+import com.milk.pay.dto.ReceiptDto;
+import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
+import com.milk.pay.dto.pix.PixPaymentDto;
+import com.milk.pay.services.PixServiceCelcoin;
+import com.milk.pay.utils.MilkPayExceptionResponseDto;
+import com.milk.pay.utils.ValidateUtil;
 
 /**
  *
@@ -42,9 +40,7 @@ public class PixController {
     @Path("/key")
     public PixKeyConsultResponseCelcoinDto consultKey(@HeaderParam String key) {
 
-        if (key == null) {
-            throw new MilkPayException(EnumErrorCode.CHAVE_PIX_NAO_INFORMADA);
-        }
+        ValidateUtil.validatePixKey(key);
 
         return celcoinPixService.consultKey(key);
 
@@ -54,7 +50,7 @@ public class PixController {
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @POST
     @Path("/payment")
-    public PaymentResponseDto payment(PixPaymentDto paymentDto) {
+    public ReceiptDto payment(PixPaymentDto paymentDto) {
 
         ValidateUtil.validatePixPaymentDto(paymentDto);
 

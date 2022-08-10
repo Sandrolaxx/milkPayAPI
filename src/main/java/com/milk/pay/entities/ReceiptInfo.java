@@ -17,11 +17,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.milk.pay.entities.enums.EnumAccountType;
 import com.milk.pay.entities.enums.EnumMovementCode;
 import com.milk.pay.entities.pattern.DafeEntity;
-
-import org.hibernate.annotations.CreationTimestamp;
+import com.milk.pay.utils.DateUtil;
 
 /**
  *
@@ -102,9 +103,6 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "EXTERNAL_TX_ID")
     private String externalTxid;
 
-    @Column(name = "RECEIPT_RESUME", length = 1500)
-    private String receiptResume;
-
     @CreationTimestamp
     @Column(name = "PAID_AT")
     private LocalDateTime paidAt;
@@ -125,12 +123,24 @@ public class ReceiptInfo extends DafeEntity {
     private IspbCode ispbCode;
 
     public static ReceiptInfo findLastReceipt() {
-        return find("select dri from ReceiptInfo dri where dri.id = (select max(id) from ReceiptInfo)")
+        return find("select ri from ReceiptInfo ri where ri.id = (select max(id) from ReceiptInfo)")
                 .firstResult();
     }
 
     public static ReceiptInfo findById(Integer id) {
         return find("id", id).firstResult();
+    }
+
+    public static ReceiptInfo findByTxId(Integer txId) {
+        return find("payment.id", txId)
+                .firstResult();
+    }
+
+    @Override
+    public String toString() {
+        return this.lastAuthentication.concat(this.externalTxid)
+                .concat(payment.getId().toString())
+                .concat(String.valueOf(this.paidAt.toEpochSecond(DateUtil.ZONE_OFFSET)));
     }
 
     @Override
@@ -317,14 +327,6 @@ public class ReceiptInfo extends DafeEntity {
 
     public void setIspbCode(IspbCode ispbCode) {
         this.ispbCode = ispbCode;
-    }
-
-    public String getReceiptResume() {
-        return receiptResume;
-    }
-
-    public void setReceiptResume(String receiptResume) {
-        this.receiptResume = receiptResume;
     }
 
     public String getBarcode() {
