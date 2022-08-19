@@ -13,8 +13,10 @@ public class TitleDto {
 
     private Integer id;
     
-    private String userId;
+    private Integer txId;
 
+    private String userId;
+    
     private BigDecimal amount;
 
     private BigDecimal finalAmount;
@@ -24,8 +26,6 @@ public class TitleDto {
     private String paidAt;
 
     private String dueDate;
-
-    private String txId;
 
     private String endToEndId;
 
@@ -87,11 +87,11 @@ public class TitleDto {
         this.dueDate = dueDate;
     }
 
-    public String getTxId() {
+    public Integer getTxId() {
         return txId;
     }
 
-    public void setTxId(String txId) {
+    public void setTxId(Integer txId) {
         this.txId = txId;
     }
 

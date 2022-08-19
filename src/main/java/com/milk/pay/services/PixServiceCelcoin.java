@@ -63,7 +63,7 @@ public class PixServiceCelcoin {
 
             pixService.persistSuccessfulPayment(paymentDto, paymentResponse.getEndToEndId());
 
-            return new ReceiptDto(paymentDto.getTxId(), receiptImage);
+            return new ReceiptDto(receiptImage);
         } catch (WebApplicationException wae) {
             throw Utils.handleException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX);
         }

@@ -64,11 +64,11 @@ public class BankSlipServiceCelcoin {
         var paymentResponse = makePayment(celcoinPaymentDto, token);
 
         confirmPayment(paymentResponse.getTxId(), token);
-        var payment = bankSlipService.persistSuccessfulPayment(celcoinPaymentDto, dto.getTitleId());
-        
+        bankSlipService.persistSuccessfulPayment(celcoinPaymentDto, dto.getTitleId());
+
         var receiptImage = bankSlipService.persistReceipt(paymentResponse, dto);
 
-        return new ReceiptDto(payment.getId(), receiptImage);
+        return new ReceiptDto(receiptImage);
 
     }
 

@@ -18,7 +18,7 @@ public class ReceiptService {
         var receiptInfo = ReceiptInfo.findByTxId(txId);
         var receiptImage = ReceiptUtil.handleCreate(receiptInfo);
 
-        return new ReceiptDto(txId, receiptImage);
+        return new ReceiptDto(receiptImage);
 
     }
 

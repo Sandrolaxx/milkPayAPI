@@ -2,7 +2,7 @@ package com.milk.pay.controllers;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -33,7 +33,7 @@ public class ReceiptController {
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna Comprovante consultado.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
-    @POST
+    @GET
     public ReceiptDto create(@HeaderParam Integer txId) {
 
         ValidateUtil.validateTxId(txId);

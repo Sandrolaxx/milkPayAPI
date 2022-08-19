@@ -2,24 +2,13 @@ package com.milk.pay.dto;
 
 public class ReceiptDto {
 
-    private Integer txId;
-
     private String receiptImage;
 
     public ReceiptDto() {
     }
 
-    public ReceiptDto(Integer txId, String receiptImage) {
-        this.txId = txId;
+    public ReceiptDto(String receiptImage) {
         this.receiptImage = receiptImage;
-    }
-
-    public Integer getTxId() {
-        return txId;
-    }
-
-    public void setTxId(Integer txId) {
-        this.txId = txId;
     }
 
     public String getReceiptImage() {

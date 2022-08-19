@@ -23,7 +23,10 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = "cdi")
 public interface ITitleMapper {
 
-    @Mapping(target = "pixKey", expression = "java(getUserPixKey(entity.getUser(), entity.getPaymentType()))")
+    @Mappings({
+        @Mapping(target = "txId", source = "payment.id"),
+        @Mapping(target = "pixKey", expression = "java(getUserPixKey(entity.getUser(), entity.getPaymentType()))")
+    })
     public TitleDto titleToTitleDto(Title entity);
 
     @Mappings({
