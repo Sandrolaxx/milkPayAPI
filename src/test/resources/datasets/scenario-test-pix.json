@@ -1,0 +1,75 @@
+{
+    "MILK_USER": [
+        {
+            "id": "1c50dd34-896b-42d0-9ac5-b1810ae9f291",
+            "active": true,
+            "created_at": "2022-06-15",
+            "document": "10564574902",
+            "email": "O9+b+Ibou6NjC9dds0JupaivWUdGvxSfxyGzmUsJ\/fQ=",
+            "external_id": 1233432,
+            "name": "BKSfBhVYfFIyopbvg842+A==",
+            "password": "QY8YpgpZOxlZEKtz4LmN0g==",
+            "phone": "L\/k\/Cig6jqygOMK0aOijKA==",
+            "pix_key": "oBmnhSOcaGLEW1yi1vF\/MQ==",
+            "secret": "4XEBUT3ZI3H3YVT3",
+            "updated_at": "2022-06-15"
+        }
+    ],
+    "MILK_TITLE": [
+        {
+            "id": 11,
+            "amount": 80.71,
+            "balance": 0.00,
+            "barcode": null,
+            "created_at": "2022-06-16",
+            "dayli_interest": 0.3,
+            "digitable": null,
+            "due_date": "2022-12-16",
+            "inclusion_date": "2022-05-22",
+            "liquidated": false,
+            "nf_number": "NF-2341252",
+            "paid_at": "2022-06-16",
+            "payment_type": "PIX",
+            "updated_at": "2022-06-16",
+            "id_user": "1c50dd34-896b-42d0-9ac5-b1810ae9f291",
+            "pix_key": null
+        },
+        {
+            "id": 26,
+            "amount": 80.71,
+            "balance": 0.00,
+            "barcode": null,
+            "created_at": "2022-06-16",
+            "dayli_interest": 0.3,
+            "digitable": null,
+            "due_date": "2022-12-16",
+            "inclusion_date": "2022-05-22",
+            "liquidated": false,
+            "nf_number": "NF-2341252",
+            "paid_at": "2022-06-16",
+            "payment_type": "PIX",
+            "updated_at": "2022-06-16",
+            "id_user": "1c50dd34-896b-42d0-9ac5-b1810ae9f291",
+            "pix_key": null
+        }
+    ],
+    "MILK_PAYMENT": [
+        {
+            "id": 134409,
+            "barcode": 80.71,
+            "digitable": 0.00,
+            "end_to_end_id": "E1393589320220810011000280383316",
+            "error_message": null,
+            "initiation_type": "DICT",
+            "interest_amount": 1.51,
+            "interest_percentage": 1.20,
+            "liquidated": true,
+            "notified": false,
+            "pix_key": "email@gmail.com",
+            "recived_amount": 124.49,
+            "requested_amount": 126.00,
+            "updated_at": "2022-06-16",
+            "id_title": 11
+        }
+    ]
+}

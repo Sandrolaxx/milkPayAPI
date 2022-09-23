@@ -25,7 +25,7 @@ import io.restassured.specification.RequestSpecification;
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 @QuarkusTest
 @QuarkusTestResource(MilkPayTestLifecycleManager.class)
-public class TitleControllerTest {
+public class PixControllerTest {
 
     @Inject
     private TokenUtils tokenUtils;
@@ -44,32 +44,24 @@ public class TitleControllerTest {
     }
 
     @Test
-    @DataSet("scenario-test-title.json")
-    public void whenPostTitle() {
+    @DataSet("scenario-test-pix.json")
+    public void whenPostPixPayment() {
 
-        var titleToCreate = Map.of(
-                "externalId", 3433223,
-                "userDocument", "10564574902",
-                "amount", 126,
-                "dailyInterest", 0.3,
-                "dueDate", "15/08/2024",
-                "inclusionDate", "29/06/2022 16:23:13",
-                "nfNumber", "NF-322444",
-                "paymentType", "PIX");
+        var pixToPay = Map.of(
+                "titleId", 26,
+                "endToEndId", "E1393589320220807192000169617934",
+                "receiverKey", "email@gmail.com",
+                "receiverBank", "18236120",
+                "receiverAccount", "0000372163",
+                "receiverBranch", 3,
+                "receiverDocument", "04219219000480",
+                "receiverAccountType", "CACC",
+                "receiverName", "FLOHA COM. DE ALIMENTOS LTDA");
 
-        given()
-                .when()
-                .body(titleToCreate)
-                .post("/milkpay-api/v1/title")
-                .then()
-                .statusCode(201);
-    }
-
-    @Test
-    @DataSet("scenario-test-title.json")
-    public void whenGetTitle() {
         var result = given()
-                .when().get("/milkpay-api/v1/title")
+                .when()
+                .body(pixToPay)
+                .post("/milkpay-api/v1/pix/payment")
                 .then()
                 .statusCode(200)
                 .extract().asString();
@@ -78,10 +70,11 @@ public class TitleControllerTest {
     }
 
     @Test
-    @DataSet("scenario-test-title.json")
-    public void whenGetTotalizers() {
+    public void whenGetPixKey() {
         var result = given()
-                .when().get("/milkpay-api/v1/title/totalizers")
+                .when()
+                .header("key", "email@gmail.com")
+                .get("/milkpay-api/v1/pix/key")
                 .then()
                 .statusCode(200)
                 .extract().asString();

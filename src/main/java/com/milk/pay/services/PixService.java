@@ -7,7 +7,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.dto.pix.PixPaymentResponseDto;
 import com.milk.pay.entities.IspbCode;
@@ -21,8 +22,6 @@ import com.milk.pay.utils.NumericUtil;
 import com.milk.pay.utils.ReceiptUtil;
 import com.milk.pay.utils.RequestUtil;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 @ApplicationScoped
 public class PixService {
 
@@ -31,19 +30,6 @@ public class PixService {
 
     @Inject
     RequestUtil requestUtil;
-
-    public PixPaymentCelcoinDto createCelcoinDto(PixPaymentDto paymentDto) {
-
-        var pixPaymentCelcoinDto = pixMapper.pixPaymentDtoToPixPaymentCelcoinDto(paymentDto);
-        var milkPayDebitParty = requestUtil.getMilkPayDebitParty();
-
-        pixPaymentCelcoinDto.setClientCode(paymentDto.getTxId().toString());
-        pixPaymentCelcoinDto.setDebitParty(milkPayDebitParty);
-        pixPaymentCelcoinDto.setInitiationType(EnumInitiationType.DICT);
-
-        return pixPaymentCelcoinDto;
-
-    }
 
     @Transactional
     public Payment prePersistPayment(Integer titleId) {

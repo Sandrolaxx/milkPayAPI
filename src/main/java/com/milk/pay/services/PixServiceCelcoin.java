@@ -9,12 +9,17 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import com.milk.pay.dto.ReceiptDto;
 import com.milk.pay.dto.pix.PixKeyConsultResponseCelcoinDto;
+import com.milk.pay.dto.pix.PixPaymentCelcoinDto;
 import com.milk.pay.dto.pix.PixPaymentDto;
 import com.milk.pay.entities.enums.EnumErrorCode;
+import com.milk.pay.entities.enums.EnumInitiationType;
 import com.milk.pay.mapper.IPixMapper;
 import com.milk.pay.restClient.RestClientCelcoin;
 import com.milk.pay.utils.MilkPayException;
+import com.milk.pay.utils.RequestUtil;
 import com.milk.pay.utils.Utils;
+
+import io.vertx.core.json.Json;
 
 @ApplicationScoped
 public class PixServiceCelcoin {
@@ -31,6 +36,9 @@ public class PixServiceCelcoin {
 
     @Inject
     PixService pixService;
+
+    @Inject
+    RequestUtil requestUtil;
 
     @ConfigProperty(name = "celcoin.pix.key")
     String pixKey;
@@ -57,7 +65,7 @@ public class PixServiceCelcoin {
             paymentDto.setTxId(payment.getId());
             paymentDto.setAmount(payment.getReceivedAmount());
 
-            var paymentCelcoinDto = pixService.createCelcoinDto(paymentDto);
+            var paymentCelcoinDto = createCelcoinDto(paymentDto);
             var paymentResponse = restClient.makePayment(tokenService.getToken(), paymentCelcoinDto);
             var receiptImage = pixService.savePaymentReceipt(paymentResponse, paymentDto);
 
@@ -67,6 +75,22 @@ public class PixServiceCelcoin {
         } catch (WebApplicationException wae) {
             throw Utils.handleException(wae, EnumErrorCode.ERRO_PAGAMENTO_PIX);
         }
+
+    }
+
+
+    private PixPaymentCelcoinDto createCelcoinDto(PixPaymentDto paymentDto) {
+
+        var pixPaymentCelcoinDto = pixMapper.pixPaymentDtoToPixPaymentCelcoinDto(paymentDto);
+        var milkPayDebitParty = requestUtil.getMilkPayDebitParty();
+
+        pixPaymentCelcoinDto.setClientCode(paymentDto.getTxId().toString());
+        pixPaymentCelcoinDto.setDebitParty(milkPayDebitParty);
+        pixPaymentCelcoinDto.setInitiationType(EnumInitiationType.DICT);
+
+        System.out.print(Json.encodePrettily(pixPaymentCelcoinDto));
+
+        return pixPaymentCelcoinDto;
 
     }
 

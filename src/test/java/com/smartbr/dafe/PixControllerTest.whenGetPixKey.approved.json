@@ -1,0 +1,17 @@
+{
+  "account": {
+    "accountNumber": "0000372163",
+    "accountType": "CACC",
+    "branch": 1,
+    "openingDate": "2022-03-30T09:58:08Z",
+    "participant": "54403563"
+  },
+  "endtoendid": "E1393589320220923094501602425302",
+  "key": "email@gmail.com",
+  "keyType": "EMAIL",
+  "owner": {
+    "name": "FLOHA COM. DE ALIMENTOS LTDA",
+    "taxIdNumber": "04219219000480",
+    "type": "LEGAL_PERSON"
+  }
+}
