@@ -59,9 +59,10 @@ public class TitleController {
     @GET
     public ListTitleDto listByUser(@HeaderParam boolean liquidated, @QueryParam Integer pageIndex, @QueryParam Integer pageSize,
             @QueryParam String offset, @QueryParam String limit) {
-        return titleService.findAll(userService.resolveUserId(identity), liquidated, pageIndex, pageSize, offset, limit);
+        return titleService.findAll(userService.resolveUserId(identity), liquidated, pageIndex, pageSize, offset,
+                limit);
     }
-
+    
     @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Status 201 - CREATED.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
     @POST
