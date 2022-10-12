@@ -17,7 +17,7 @@ import com.aktie.aktiepay.dto.bankslip.BankSlipConsultDto;
 import com.aktie.aktiepay.dto.bankslip.BankSlipConsultResponseDto;
 import com.aktie.aktiepay.dto.bankslip.BankSlipPaymentDto;
 import com.aktie.aktiepay.services.BankSlipServiceCelcoin;
-import com.aktie.aktiepay.utils.MilkPayExceptionResponseDto;
+import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
 import com.aktie.aktiepay.utils.ValidateUtil;
 
 /**
@@ -34,7 +34,7 @@ public class BankSlipController {
     BankSlipServiceCelcoin bankSlipServiceCelcoin;
     
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os dados do boleto consultado.")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @POST
     @Path("/consult")
     public BankSlipConsultResponseDto consult(BankSlipConsultDto bankSlipConsultDto) {
@@ -46,7 +46,7 @@ public class BankSlipController {
     }
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os dados do boleto pago.")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @POST
     @Path("/payment")
     public ReceiptDto payment(BankSlipPaymentDto bankSlipPaymentDto) {

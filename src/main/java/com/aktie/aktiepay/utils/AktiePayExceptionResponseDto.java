@@ -4,7 +4,7 @@ package com.aktie.aktiepay.utils;
  *
  * @author SRamos
  */
-public class MilkPayExceptionResponseDto {
+public class AktiePayExceptionResponseDto {
 
     private String errorDate;
 

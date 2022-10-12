@@ -18,7 +18,7 @@ import com.aktie.aktiepay.dto.ReceiptDto;
 import com.aktie.aktiepay.dto.pix.PixKeyConsultResponseCelcoinDto;
 import com.aktie.aktiepay.dto.pix.PixPaymentDto;
 import com.aktie.aktiepay.services.PixServiceCelcoin;
-import com.aktie.aktiepay.utils.MilkPayExceptionResponseDto;
+import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
 import com.aktie.aktiepay.utils.ValidateUtil;
 
 /**
@@ -35,7 +35,7 @@ public class PixController {
     PixServiceCelcoin celcoinPixService;
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna Chave Pix consultada.")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @GET
     @Path("/key")
     public PixKeyConsultResponseCelcoinDto consultKey(@HeaderParam String key) {
@@ -47,7 +47,7 @@ public class PixController {
     }
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna comprovante de pagamento")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @POST
     @Path("/payment")
     public ReceiptDto payment(PixPaymentDto paymentDto) {

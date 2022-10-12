@@ -1,4 +1,4 @@
-wpackage com.aktie.aktiepay.utils;
+package com.aktie.aktiepay.utils;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Type;
@@ -70,13 +70,13 @@ public class WebApplicationExceptionConverter {
                                 if (!list.isEmpty()) {
                                     return (T) list.get(0);
                                 }
-                                throw new MilkPayException("Erro na comunicação com o provedor de serviço.", "-999");
+                                throw new AktiePayException("Erro na comunicação com o provedor de serviço.", "-999");
                             } else {
                                 return gson.fromJson(completeError, targetClass);
                             }
                         }
                     } catch (Exception e) {
-                        throw new MilkPayException("Erro na comunicação com o provedor de serviço.", "-999");
+                        throw new AktiePayException("Erro na comunicação com o provedor de serviço.", "-999");
                     }
                 }
             }

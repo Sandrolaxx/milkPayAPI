@@ -15,7 +15,7 @@ import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 
 import com.aktie.aktiepay.dto.ReceiptDto;
 import com.aktie.aktiepay.services.ReceiptService;
-import com.aktie.aktiepay.utils.MilkPayExceptionResponseDto;
+import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
 import com.aktie.aktiepay.utils.ValidateUtil;
 
 /**
@@ -32,7 +32,7 @@ public class ReceiptController {
     ReceiptService receiptService;
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna Comprovante consultado.")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @GET
     public ReceiptDto create(@HeaderParam Integer txId) {
 

@@ -22,7 +22,7 @@ import com.aktie.aktiepay.dto.title.TitleCreateDto;
 import com.aktie.aktiepay.dto.title.TotalizersDto;
 import com.aktie.aktiepay.services.TitleService;
 import com.aktie.aktiepay.services.UserService;
-import com.aktie.aktiepay.utils.MilkPayExceptionResponseDto;
+import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
 import com.aktie.aktiepay.utils.ValidateUtil;
 
 import io.quarkus.security.identity.SecurityIdentity;
@@ -47,7 +47,7 @@ public class TitleController {
     SecurityIdentity identity;
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os totalizadores.")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @GET
     @Path("/totalizers")
     public TotalizersDto fetchTotalizers() {
@@ -55,16 +55,15 @@ public class TitleController {
     }
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os titulos do usuário.")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @GET
     public ListTitleDto listByUser(@HeaderParam boolean liquidated, @QueryParam Integer pageIndex, @QueryParam Integer pageSize,
             @QueryParam String offset, @QueryParam String limit) {
-        return titleService.findAll(userService.resolveUserId(identity), liquidated, pageIndex, pageSize, offset,
-                limit);
+        return titleService.findAll(userService.resolveUserId(identity), liquidated, pageIndex, pageSize, offset, limit);
     }
     
     @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Status 201 - CREATED.")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @POST
     public Response create(TitleCreateDto newTitle) {
         ValidateUtil.validateNewTitleDto(newTitle);

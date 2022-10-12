@@ -19,7 +19,7 @@ import com.aktie.aktiepay.dto.user.CreateUserDto;
 import com.aktie.aktiepay.entities.enums.EnumErrorCode;
 import com.aktie.aktiepay.services.UserService;
 import com.aktie.aktiepay.utils.AktiePayException;
-import com.aktie.aktiepay.utils.MilkPayExceptionResponseDto;
+import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
 import com.aktie.aktiepay.utils.ValidateUtil;
 
 import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
@@ -43,7 +43,7 @@ public class UserController {
 
     @POST
     @APIResponse(responseCode = "201", description = "Caso seja cadastrado com sucesso.")
-    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = MilkPayExceptionResponseDto.class)))
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     public Response createUser(CreateUserDto dto) {
 
         var userIdentity = (OidcJwtCallerPrincipal) identity.getPrincipal();

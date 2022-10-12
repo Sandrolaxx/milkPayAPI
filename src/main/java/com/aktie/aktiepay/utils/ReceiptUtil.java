@@ -20,8 +20,6 @@ import com.aktie.aktiepay.entities.enums.EnumPaymentType;
  */
 public class ReceiptUtil {
 
-    private static int marginTopSize = 90;
-
     public static String handleCreate(ReceiptInfo receipt) {
 
         try {
@@ -60,7 +58,8 @@ public class ReceiptUtil {
     }
 
     private static Graphics2D addBankSlipParams(Graphics2D graphics2DImage, ReceiptInfo info, int bgImageWidth) {
-        
+        int marginTopSize = 90;
+
         var companyName = "MILKPAY PAGAMENTOS";
         var terminal = "AKTIE-API";
         var paymentType = info.getPayment().getTitle().getPaymentType();
@@ -76,82 +75,82 @@ public class ReceiptUtil {
         var separator = "--------------------------------------------------------------------------";
 
         graphics2DImage.drawString(companyName, getHorizontalSize(graphics2DImage, bgImageWidth, companyName), marginTopSize);
-        graphics2DImage.drawString("PROTOCOLO:", 4, getNextMarginTop());
+        graphics2DImage.drawString("PROTOCOLO:", 4, marginTopSize += 20);
         graphics2DImage.drawString(protocol, getLeftTextSize(graphics2DImage, bgImageWidth, protocol), marginTopSize);
-        graphics2DImage.drawString("TERMINAL:", 4, getNextMarginTop());
+        graphics2DImage.drawString("TERMINAL:", 4, marginTopSize += 20);
         graphics2DImage.drawString(terminal, getLeftTextSize(graphics2DImage, bgImageWidth, terminal), marginTopSize);
-        graphics2DImage.drawString(paymentDate, getHorizontalSize(graphics2DImage, bgImageWidth, paymentDate), getNextMarginTop());
-        graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), getNextMarginTop());
+        graphics2DImage.drawString(paymentDate, getHorizontalSize(graphics2DImage, bgImageWidth, paymentDate), marginTopSize += 20);
+        graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), marginTopSize += 20);
         
-        graphics2DImage.drawString(movementType, getHorizontalSize(graphics2DImage, bgImageWidth, movementType), getNextMarginTop());
-        graphics2DImage.drawString("ORIGEM", getHorizontalSize(graphics2DImage, bgImageWidth, "ORIGEM"), getNextMarginTop());
-        graphics2DImage.drawString("NOME:", 4, getNextMarginTop());
+        graphics2DImage.drawString(movementType, getHorizontalSize(graphics2DImage, bgImageWidth, movementType), marginTopSize += 20);
+        graphics2DImage.drawString("ORIGEM", getHorizontalSize(graphics2DImage, bgImageWidth, "ORIGEM"), marginTopSize += 20);
+        graphics2DImage.drawString("NOME:", 4, marginTopSize += 20);
         graphics2DImage.drawString(payerName, getLeftTextSize(graphics2DImage, bgImageWidth, payerName), marginTopSize);
-        graphics2DImage.drawString("CPF/CNPJ:", 4, getNextMarginTop());
+        graphics2DImage.drawString("CPF/CNPJ:", 4, marginTopSize += 20);
         graphics2DImage.drawString(info.getPayerDocument(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayerDocument()), marginTopSize);
-        graphics2DImage.drawString("INST:", 4, getNextMarginTop());
+        graphics2DImage.drawString("INST:", 4, marginTopSize += 20);
         graphics2DImage.drawString(payerBank, getLeftTextSize(graphics2DImage, bgImageWidth, payerBank), marginTopSize);
-        graphics2DImage.drawString("AGÊNCIA:", 4, getNextMarginTop());
+        graphics2DImage.drawString("AGÊNCIA:", 4, marginTopSize += 20);
         graphics2DImage.drawString(info.getPayerAccountBranch(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayerAccountBranch()), marginTopSize);
-        graphics2DImage.drawString("CONTA:", 4, getNextMarginTop());
+        graphics2DImage.drawString("CONTA:", 4, marginTopSize += 20);
         graphics2DImage.drawString(info.getPayerAccount(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayerAccount()), marginTopSize);
-        graphics2DImage.drawString("DESTINO", getHorizontalSize(graphics2DImage, bgImageWidth, "DESTINO"), getNextMarginTop());
-        graphics2DImage.drawString("NOME:", 4, getNextMarginTop());
+        graphics2DImage.drawString("DESTINO", getHorizontalSize(graphics2DImage, bgImageWidth, "DESTINO"), marginTopSize += 20);
+        graphics2DImage.drawString("NOME:", 4, marginTopSize += 20);
         graphics2DImage.drawString(receiverName, getLeftTextSize(graphics2DImage, bgImageWidth, receiverName), marginTopSize);
-        graphics2DImage.drawString("CPF/CNPJ:", 4, getNextMarginTop());
+        graphics2DImage.drawString("CPF/CNPJ:", 4, marginTopSize += 20);
         graphics2DImage.drawString(info.getReceiverDocument(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverDocument()), marginTopSize);
         
         if (EnumUtil.isEquals(paymentType, EnumPaymentType.PIX)) {
             var receiverBank = info.getReceiverAccountBank().length() > 34 ? info.getReceiverAccountBank().substring(0, 34).concat("...") : info.getReceiverAccountBank();
             
-            graphics2DImage.drawString("INST:", 4, getNextMarginTop());
+            graphics2DImage.drawString("INST:", 4, marginTopSize += 20);
             graphics2DImage.drawString(receiverBank, getLeftTextSize(graphics2DImage, bgImageWidth, receiverBank), marginTopSize);
-            graphics2DImage.drawString("AGÊNCIA:", 4, getNextMarginTop());
+            graphics2DImage.drawString("AGÊNCIA:", 4, marginTopSize += 20);
             graphics2DImage.drawString(info.getReceiverAccountBranch(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverAccountBranch()), marginTopSize);
-            graphics2DImage.drawString("CONTA:", 4, getNextMarginTop());
+            graphics2DImage.drawString("CONTA:", 4, marginTopSize += 20);
             graphics2DImage.drawString(info.getReceiverAccount(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverAccount()), marginTopSize);
         }
         
-        graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), getNextMarginTop());
-        graphics2DImage.drawString("DATA DO PAGAMENTO:", 4, getNextMarginTop());
+        graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), marginTopSize += 20);
+        graphics2DImage.drawString("DATA DO PAGAMENTO:", 4, marginTopSize += 20);
         graphics2DImage.drawString(paymentDate.substring(0, 10), getLeftTextSize(graphics2DImage, bgImageWidth, paymentDate.substring(0, 10)), marginTopSize);
         
         if (EnumUtil.isEquals(paymentType, EnumPaymentType.BOLETO)) {
-            graphics2DImage.drawString("DATA DE VENCIMENTO:", 4, getNextMarginTop());
+            graphics2DImage.drawString("DATA DE VENCIMENTO:", 4, marginTopSize += 20);
             graphics2DImage.drawString(dueDate, getLeftTextSize(graphics2DImage, bgImageWidth, dueDate), marginTopSize);
-            graphics2DImage.drawString("VALOR TÍTULO:", 4, getNextMarginTop());
+            graphics2DImage.drawString("VALOR TÍTULO:", 4, marginTopSize += 20);
             graphics2DImage.drawString(info.getAmount().toString(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getAmount().toString()), marginTopSize);
-            graphics2DImage.drawString("VALOR PAGO:", 4, getNextMarginTop());
+            graphics2DImage.drawString("VALOR PAGO:", 4, marginTopSize += 20);
             graphics2DImage.drawString(payment.getRequestedAmount().toString(), getLeftTextSize(graphics2DImage, bgImageWidth, payment.getRequestedAmount().toString()), marginTopSize);
-            graphics2DImage.drawString("LINHA DIGITÁVEL", getHorizontalSize(graphics2DImage, bgImageWidth, "LINHA DIGITÁVEL"), getNextMarginTop());
+            graphics2DImage.drawString("LINHA DIGITÁVEL", getHorizontalSize(graphics2DImage, bgImageWidth, "LINHA DIGITÁVEL"), marginTopSize += 20);
             
             if (digitable.length() == 44) {
-                graphics2DImage.drawString(digitable.substring(0, 24), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(0, 24)), getNextMarginTop());
-                graphics2DImage.drawString(digitable.substring(25, 44), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(25, 44)), getNextMarginTop());
+                graphics2DImage.drawString(digitable.substring(0, 24), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(0, 24)), marginTopSize += 20);
+                graphics2DImage.drawString(digitable.substring(25, 44), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(25, 44)), marginTopSize += 20);
             } else if (digitable.length() == 47) {
-                graphics2DImage.drawString(digitable.substring(0, 24), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(0, 24)), getNextMarginTop());
-                graphics2DImage.drawString(digitable.substring(25, 47), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(25, 47)), getNextMarginTop());
+                graphics2DImage.drawString(digitable.substring(0, 24), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(0, 24)), marginTopSize += 20);
+                graphics2DImage.drawString(digitable.substring(25, 47), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(25, 47)), marginTopSize += 20);
             } else {
-                graphics2DImage.drawString(digitable.substring(0, 24), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(0, 24)), getNextMarginTop());
-                graphics2DImage.drawString(digitable.substring(25, 48), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(25, 48)), getNextMarginTop());
+                graphics2DImage.drawString(digitable.substring(0, 24), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(0, 24)), marginTopSize += 20);
+                graphics2DImage.drawString(digitable.substring(25, 48), getHorizontalSize(graphics2DImage, bgImageWidth, digitable.substring(25, 48)), marginTopSize += 20);
             }
         }
 
         if (EnumUtil.isEquals(paymentType, EnumPaymentType.PIX)) {
-            graphics2DImage.drawString("VALOR PIX:", 4, getNextMarginTop());
+            graphics2DImage.drawString("VALOR PIX:", 4, marginTopSize += 20);
             graphics2DImage.drawString(info.getAmount().toString(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getAmount().toString()), marginTopSize);
-            graphics2DImage.drawString("ID. PIX:", 4, getNextMarginTop());
+            graphics2DImage.drawString("ID. PIX:", 4, marginTopSize += 20);
             graphics2DImage.drawString(info.getEndToEndId(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getEndToEndId()), marginTopSize);
         }
 
-        getNextMarginTop();
-        graphics2DImage.drawString("VÁLIDO COMO RECIBO DE PAGAMENTO", getHorizontalSize(graphics2DImage, bgImageWidth, "VÁLIDO COMO RECIBO DE PAGAMENTO"), getNextMarginTop());
+        marginTopSize += 20;
+        graphics2DImage.drawString("VÁLIDO COMO RECIBO DE PAGAMENTO", getHorizontalSize(graphics2DImage, bgImageWidth, "VÁLIDO COMO RECIBO DE PAGAMENTO"), marginTopSize += 20);
 
-        graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), getNextMarginTop());
-        graphics2DImage.drawString("AUTENTICAÇÃO", getHorizontalSize(graphics2DImage, bgImageWidth, "AUTENTICAÇÃO"), getNextMarginTop());
-        graphics2DImage.drawString(info.getAuthentication(), getHorizontalSize(graphics2DImage, bgImageWidth, info.getAuthentication()), getNextMarginTop());
-        graphics2DImage.drawString(info.getLastAuthentication(), getHorizontalSize(graphics2DImage, bgImageWidth, info.getLastAuthentication()), getNextMarginTop());
-        graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), getNextMarginTop());
+        graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), marginTopSize += 20);
+        graphics2DImage.drawString("AUTENTICAÇÃO", getHorizontalSize(graphics2DImage, bgImageWidth, "AUTENTICAÇÃO"), marginTopSize += 20);
+        graphics2DImage.drawString(info.getAuthentication(), getHorizontalSize(graphics2DImage, bgImageWidth, info.getAuthentication()), marginTopSize += 20);
+        graphics2DImage.drawString(info.getLastAuthentication(), getHorizontalSize(graphics2DImage, bgImageWidth, info.getLastAuthentication()), marginTopSize += 20);
+        graphics2DImage.drawString(separator, getHorizontalSize(graphics2DImage, bgImageWidth, separator), marginTopSize += 20);
 
         return graphics2DImage;
 
@@ -167,12 +166,6 @@ public class ReceiptUtil {
         }
 
         return graphics2DImage;
-    }
-
-    private static int getNextMarginTop() {
-        marginTopSize = marginTopSize + 20;
-
-        return marginTopSize;
     }
 
     private static int getHorizontalSize(Graphics2D graphics2DImage, int bgImageWidth, String string) {

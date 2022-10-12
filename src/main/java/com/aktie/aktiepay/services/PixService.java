@@ -31,6 +31,9 @@ public class PixService {
     @Inject
     RequestUtil requestUtil;
 
+    @Inject
+    ReceiptService receiptService;
+
     @Transactional
     public Payment prePersistPayment(Integer titleId) {
 
