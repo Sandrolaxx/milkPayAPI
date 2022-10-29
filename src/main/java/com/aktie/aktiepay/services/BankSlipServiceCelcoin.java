@@ -77,7 +77,7 @@ public class BankSlipServiceCelcoin {
         try {
             return restClient.payment(token, dto);
         } catch (WebApplicationException wae) {
-            throw Utils.handleException(wae, EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
+            throw Utils.handleException(wae, EnumErrorCode.ERRO_PAGAMENTO_BOLETO);
         }
 
     }
@@ -87,7 +87,7 @@ public class BankSlipServiceCelcoin {
         try {
             restClient.confirmPayment(token, authenticationTxId, new Json());
         } catch (WebApplicationException wae) {
-            throw Utils.handleException(wae, EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
+            throw Utils.handleException(wae, EnumErrorCode.ERRO_CONFIRMAR_PAGAMENTO_BOLETO);
         }
 
     }

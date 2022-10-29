@@ -17,8 +17,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import com.aktie.aktiepay.entities.enums.EnumAccountType;
 import com.aktie.aktiepay.entities.enums.EnumMovementCode;
 import com.aktie.aktiepay.entities.pattern.DafeEntity;
@@ -103,7 +101,6 @@ public class ReceiptInfo extends DafeEntity {
     @Column(name = "EXTERNAL_TX_ID")
     private String externalTxid;
 
-    @CreationTimestamp
     @Column(name = "PAID_AT")
     private LocalDateTime paidAt;
 
@@ -139,7 +136,7 @@ public class ReceiptInfo extends DafeEntity {
     @Override
     public String toString() {
         return this.lastAuthentication.concat(this.externalTxid)
-                .concat(payment.getId().toString())
+                .concat(this.payment.getId().toString())
                 .concat(String.valueOf(this.paidAt.toEpochSecond(DateUtil.ZONE_OFFSET)));
     }
 

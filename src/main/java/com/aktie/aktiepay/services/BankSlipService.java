@@ -75,6 +75,7 @@ public class BankSlipService {
         receipt.setExternalTxid(responseDto.getTxId().toString());
         receipt.setDigitable(StringUtil.isNullOrEmpty(dto.getDigitable()) ? dto.getBarcode() : dto.getDigitable());
         receipt.setDueDate(dto.getDueDate());
+        receipt.setPaidAt(LocalDateTime.now());
         receipt.setPayment(payment);
 
         receipt.setReceiverName(dto.getReceiverName());

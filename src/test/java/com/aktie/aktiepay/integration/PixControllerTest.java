@@ -1,4 +1,4 @@
-package com.aktie.aktiepay;
+package com.aktie.aktiepay.integration;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,7 +9,9 @@ import javax.inject.Inject;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
+import com.aktie.aktiepay.MilkPayTestLifecycleManager;
 import com.aktie.aktiepay.util.TokenUtils;
 import com.github.database.rider.cdi.api.DBRider;
 import com.github.database.rider.core.api.configuration.DBUnit;
@@ -25,6 +27,7 @@ import io.restassured.specification.RequestSpecification;
 
 @DBRider
 @QuarkusTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 @QuarkusTestResource(MilkPayTestLifecycleManager.class)
 public class PixControllerTest {
@@ -36,7 +39,9 @@ public class PixControllerTest {
 
     @BeforeEach
     public void genereteToken() throws Exception {
-        token = tokenUtils.generateTokenTest("10564574902", "saporoxo");
+        if (token == null) {
+            token = tokenUtils.generateTokenTest("10564574902", "saporoxo");
+        }
     }
 
     private RequestSpecification given() {

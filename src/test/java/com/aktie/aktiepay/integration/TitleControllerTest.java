@@ -1,4 +1,4 @@
-package com.aktie.aktiepay;
+package com.aktie.aktiepay.integration;
 
 import java.util.Map;
 
@@ -6,8 +6,13 @@ import javax.inject.Inject;
 
 import org.approvaltests.Approvals;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
 
+import com.aktie.aktiepay.MilkPayTestLifecycleManager;
 import com.aktie.aktiepay.util.TokenUtils;
 import com.github.database.rider.cdi.api.DBRider;
 import com.github.database.rider.core.api.configuration.DBUnit;
@@ -23,8 +28,10 @@ import io.restassured.specification.RequestSpecification;
 
 @DBRider
 @QuarkusTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 @QuarkusTestResource(MilkPayTestLifecycleManager.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TitleControllerTest {
 
     @Inject
@@ -33,8 +40,10 @@ public class TitleControllerTest {
     private String token;
 
     @BeforeEach
-    public void genereteToken() throws Exception {
-        token = tokenUtils.generateTokenTest("10564574902", "saporoxo");
+    void genereteToken() throws Exception {
+        if (token == null) {
+            token = tokenUtils.generateTokenTest("10564574902", "saporoxo");
+        }
     }
 
     private RequestSpecification given() {
@@ -44,6 +53,7 @@ public class TitleControllerTest {
     }
 
     @Test
+    @Order(1)
     @DataSet("scenario-test-title.json")
     public void whenPostTitle() {
         var titleToCreate = Map.of(
@@ -65,14 +75,14 @@ public class TitleControllerTest {
     }
 
     @Test
+    @Order(2)
     @DataSet("scenario-test-title.json")
     public void whenGetTitles() {
         var filterParams = Map.of(
                 "offset", "22/06/2024",
                 "limit", "20/07/2024",
                 "pageIndex", "0",
-                "pageSize", "5"
-                );
+                "pageSize", "5");
 
         var result = given()
                 .when()
@@ -87,6 +97,7 @@ public class TitleControllerTest {
     }
 
     @Test
+    @Order(3)
     @DataSet("scenario-test-title.json")
     public void whenGetTotalizers() {
         var result = given()
