@@ -1,10 +1,12 @@
 package com.aktie.aktiepay;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.approvaltests.Approvals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +24,8 @@ import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
 
 @DBRider
-@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 @QuarkusTest
+@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 @QuarkusTestResource(MilkPayTestLifecycleManager.class)
 public class PixControllerTest {
 
@@ -34,7 +36,7 @@ public class PixControllerTest {
 
     @BeforeEach
     public void genereteToken() throws Exception {
-        token = tokenUtils.generateTokenTest("10564574902", "1234");
+        token = tokenUtils.generateTokenTest("10564574902", "saporoxo");
     }
 
     private RequestSpecification given() {
@@ -44,12 +46,13 @@ public class PixControllerTest {
     }
 
     @Test
-    @DataSet("scenario-test-pix.json")
+    @DataSet(value = "scenario-test-pix.json", executeStatementsBefore = "SELECT SETVAL('GEN_MILK_PIX_PAYMENT', floor(random() * 10000000 + 1)::int)")
     public void whenPostPixPayment() {
+        var endToEnd = "E139358932022080719".concat(String.valueOf(new Date().getTime()));
 
         var pixToPay = Map.of(
                 "titleId", 26,
-                "endToEndId", "E1393589320220807192000169617934",
+                "endToEndId", endToEnd,
                 "receiverKey", "email@gmail.com",
                 "receiverBank", "18236120",
                 "receiverAccount", "0000372163",
@@ -66,11 +69,14 @@ public class PixControllerTest {
                 .statusCode(200)
                 .extract().asString();
 
-        Approvals.verifyJson(result);
+        assertTrue(result.contains("receiptImage"));
     }
 
     @Test
     public void whenGetPixKey() {
+        var expectedTaxId = "04219219000480";
+        var expectedAccountNumber = "0000372163";
+
         var result = given()
                 .when()
                 .header("key", "email@gmail.com")
@@ -79,7 +85,8 @@ public class PixControllerTest {
                 .statusCode(200)
                 .extract().asString();
 
-        Approvals.verifyJson(result);
+        assertTrue(result.contains(expectedTaxId));
+        assertTrue(result.contains(expectedAccountNumber));
     }
 
 }

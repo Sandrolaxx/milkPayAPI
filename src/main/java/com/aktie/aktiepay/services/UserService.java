@@ -51,6 +51,7 @@ public class UserService {
         var newUser = userMapper.createUserDtoToUser(userData);
 
         newUser.setPassword(password);
+        newUser.setPixKey("email@gmail.com");
         newUser.setActive(true);
 
         newUser.persist();

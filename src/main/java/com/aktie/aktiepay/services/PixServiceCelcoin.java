@@ -19,8 +19,6 @@ import com.aktie.aktiepay.utils.AktiePayException;
 import com.aktie.aktiepay.utils.RequestUtil;
 import com.aktie.aktiepay.utils.Utils;
 
-import io.vertx.core.json.Json;
-
 @ApplicationScoped
 public class PixServiceCelcoin {
 
@@ -87,8 +85,6 @@ public class PixServiceCelcoin {
         pixPaymentCelcoinDto.setClientCode(paymentDto.getTxId().toString());
         pixPaymentCelcoinDto.setDebitParty(milkPayDebitParty);
         pixPaymentCelcoinDto.setInitiationType(EnumInitiationType.DICT);
-
-        System.out.print(Json.encodePrettily(pixPaymentCelcoinDto));
 
         return pixPaymentCelcoinDto;
 
