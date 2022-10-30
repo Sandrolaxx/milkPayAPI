@@ -20,7 +20,7 @@ public class BankSlipPaymentDto {
     @JsonbDateFormat("dd/MM/yyyy")
     private LocalDate dueDate;
 
-    private Long txId;
+    private Long transactionId;
 
     private Integer titleId;
 
@@ -60,12 +60,12 @@ public class BankSlipPaymentDto {
         this.dueDate = dueDate;
     }
 
-    public Long getTxId() {
-        return txId;
+    public Long getTransactionId() {
+        return transactionId;
     }
 
-    public void setTxId(Long txId) {
-        this.txId = txId;
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
     }
 
     public Integer getTitleId() {

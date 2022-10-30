@@ -155,8 +155,8 @@ public class ValidateUtil {
             throw new AktiePayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Valor(amount)");
         }
 
-        if (NumericUtil.isNullOrZero(dto.getTxId())) {
-            throw new AktiePayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Identificador da Transação(txId)");
+        if (NumericUtil.isNullOrZero(dto.getTransactionId())) {
+            throw new AktiePayException(EnumErrorCode.CAMPO_OBRIGATORIO, "Identificador da Transação(transactionId)");
         }
 
     }

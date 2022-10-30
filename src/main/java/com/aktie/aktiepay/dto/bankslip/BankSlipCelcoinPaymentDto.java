@@ -14,7 +14,7 @@ public class BankSlipCelcoinPaymentDto {
     private String dueDate;
 
     @JsonbProperty("transactionIdAuthorize")
-    private Long txId;
+    private Long transactionId;
     
     @JsonbProperty("barCode")
     private BankSlipConsultDto barcode;
@@ -36,13 +36,13 @@ public class BankSlipCelcoinPaymentDto {
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
-
-    public Long getTxId() {
-        return txId;
+    
+    public Long getTransactionId() {
+        return transactionId;
     }
 
-    public void setTxId(Long txId) {
-        this.txId = txId;
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
     }
 
     public BankSlipConsultDto getBarcode() {

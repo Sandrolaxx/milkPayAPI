@@ -136,6 +136,10 @@ public class ReceiptUtil {
         }
 
         if (EnumUtil.isEquals(paymentType, EnumPaymentType.PIX)) {
+            graphics2DImage.drawString("VALOR TÍTULO:", 4, marginTopSize += 20);
+            graphics2DImage.drawString(info.getPayment().getTitle().getAmount().toString(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayment().getTitle().getAmount().toString()), marginTopSize);
+            graphics2DImage.drawString("VALOR JURO:", 4, marginTopSize += 20);
+            graphics2DImage.drawString(info.getPayment().getInterestAmount().toString(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getPayment().getInterestAmount().toString()), marginTopSize);
             graphics2DImage.drawString("VALOR PIX:", 4, marginTopSize += 20);
             graphics2DImage.drawString(info.getAmount().toString(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getAmount().toString()), marginTopSize);
             graphics2DImage.drawString("ID. PIX:", 4, marginTopSize += 20);

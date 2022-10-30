@@ -29,9 +29,9 @@ import io.restassured.specification.RequestSpecification;
 @DBRider
 @QuarkusTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
-@QuarkusTestResource(MilkPayTestLifecycleManager.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@QuarkusTestResource(MilkPayTestLifecycleManager.class)
+@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 public class TitleControllerTest {
 
     @Inject
