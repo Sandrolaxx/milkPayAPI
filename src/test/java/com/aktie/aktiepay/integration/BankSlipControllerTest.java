@@ -37,7 +37,7 @@ import io.restassured.specification.RequestSpecification;
 public class BankSlipControllerTest {
 
     @Inject
-    private TokenUtils tokenUtils;
+    TokenUtils tokenUtils;
 
     private String token;
 

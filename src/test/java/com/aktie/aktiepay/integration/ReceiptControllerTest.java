@@ -33,7 +33,7 @@ import io.restassured.specification.RequestSpecification;
 public class ReceiptControllerTest {
 
     @Inject
-    private TokenUtils tokenUtils;
+    TokenUtils tokenUtils;
 
     private String token;
 

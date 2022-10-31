@@ -1,0 +1,58 @@
+{
+    "MILK_USER": [
+        {
+            "id": "1c50dd34-896b-42d0-9ac5-b1810ae9f291",
+            "active": true,
+            "created_at": "2022-06-15",
+            "document": "10564574902",
+            "email": "O9+b+Ibou6NjC9dds0JupaivWUdGvxSfxyGzmUsJ\/fQ=",
+            "external_id": 1233432,
+            "name": "BKSfBhVYfFIyopbvg842+A==",
+            "password": "QY8YpgpZOxlZEKtz4LmN0g==",
+            "phone": "L\/k\/Cig6jqygOMK0aOijKA==",
+            "pix_key": "oBmnhSOcaGLEW1yi1vF\/MQ==",
+            "secret": "4XEBUT3ZI3H3YVT3",
+            "updated_at": "2022-06-15"
+        }
+    ],
+    "MILK_TITLE": [
+        {
+            "id": 1,
+            "amount": 1500,
+            "balance": 0.00,
+            "barcode": null,
+            "created_at": "2022-06-16",
+            "dayli_interest": 0.0,
+            "digitable": "23793381286008301352856000063307789840000150000",
+            "due_date": "2022-10-30",
+            "inclusion_date": "2022-05-22",
+            "liquidated": false,
+            "nf_number": "NF-2341252",
+            "paid_at": "2022-06-16",
+            "payment_type": "BOLETO",
+            "updated_at": "2022-06-16",
+            "id_user": "1c50dd34-896b-42d0-9ac5-b1810ae9f291",
+            "pix_key": null
+        }
+    ],
+    "MILK_PAYMENT": [
+        {
+            "id": 1,
+            "created_at": "2022-10-29 16:47:39.854",
+            "barcode": null,
+            "digitable": "23793381286008301352856000063307789840000150000",
+            "end_to_end_id": null,
+            "error_message": null,
+            "initiation_type": null,
+            "interest_amount": null,
+            "interest_percentage": null,
+            "liquidated": true,
+            "notified": true,
+            "pix_key": "email@gmail.com",
+            "recived_amount": 1500,
+            "requested_amount": 1500,
+            "updated_at": "2022-10-29 16:47:39.854",
+            "id_title": 1
+        }
+    ]
+}

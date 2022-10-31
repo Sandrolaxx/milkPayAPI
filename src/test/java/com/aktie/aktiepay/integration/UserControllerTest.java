@@ -1,25 +1,21 @@
 package com.aktie.aktiepay.integration;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.approvaltests.Approvals;
-import org.jboss.resteasy.annotations.Body;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import com.aktie.aktiepay.MilkPayTestLifecycleManager;
-import com.aktie.aktiepay.entities.enums.EnumErrorCode;
+import com.aktie.aktiepay.integration.dto.KeycloakUserDto;
 import com.aktie.aktiepay.util.TokenUtils;
-import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
 import com.github.database.rider.cdi.api.DBRider;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.configuration.Orthography;
-import com.github.database.rider.core.api.dataset.DataSet;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -40,11 +36,43 @@ public class UserControllerTest {
 
     private String token;
 
+    @ConfigProperty(name = "the-ashen-one-username")
+    private String admUser;
+
+    @ConfigProperty(name = "the-ashen-one-password")
+    private String admPass;
+
+    @ConfigProperty(name = "base-uri-keycloak/mp-rest/url")
+    private String keycloakUrl;
+
+    private String TEST_USER_DOCUMENT = "10664571101";
+
     @BeforeEach
     void genereteToken() throws Exception {
         if (token == null) {
-            token = tokenUtils.generateTokenTest("milkpay-admin", "ad4cefd5-98fc-437e-a4bb-9ce6f3b9614d");
+            token = tokenUtils.generateTokenTest(admUser, admPass);
         }
+    }
+
+    @AfterEach
+    void removeCreatedUser() throws Exception {
+        var path = keycloakUrl.concat("/auth/admin/realms/MilkPay/users");
+
+        var createdTestUser = given()
+                .when()
+                .get(path)
+                .getBody()
+                .jsonPath()
+                .getList("", KeycloakUserDto.class);
+
+        createdTestUser.stream()
+                .filter(user -> user.getUsername().equals(TEST_USER_DOCUMENT))
+                .findFirst()
+                .ifPresent(user -> {
+                    given()
+                            .when()
+                            .delete(path.concat("/").concat(user.getId()));
+                });
     }
 
     private RequestSpecification given() {
@@ -56,7 +84,7 @@ public class UserControllerTest {
     @Test
     public void whenPostValidUser() {
         var testUserBody = Map.of(
-                "document", "10664574901",
+                "document", TEST_USER_DOCUMENT,
                 "email", "teste@teste.com",
                 "name", "Teste user 1",
                 "password", "1234",
@@ -72,7 +100,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void whenGetInvalidUserThenError() {
+    public void whenPostInvalidUserThenError() {
         var testUserBody = Map.of("email", "teste@teste.com");
 
         given()
