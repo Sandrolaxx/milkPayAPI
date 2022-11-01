@@ -7,12 +7,16 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,6 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jboss.aerogear.security.otp.api.Base32;
 
+import com.aktie.aktiepay.entities.enums.EnumUserType;
 import com.aktie.aktiepay.utils.EncryptUtil;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
@@ -61,9 +66,22 @@ public class User extends PanacheEntityBase {
 
     @Column(name = "ACTIVE")
     private boolean active;
+
+    @Column(name = "ACCEPT_TERMS")
+    private boolean acceptTerms;
     
     @Column(name = "EXTERNAL_ID")
     private Long externalId;
+    
+    @Column(name = "POSTAL_CODE")
+    private String postalCode;
+    
+    @Column(name = "ADDRESS", length = 400)
+    private String address;
+    
+    @Column(name = "TYPE")
+    @Enumerated(EnumType.STRING)
+    private EnumUserType type;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
@@ -77,6 +95,9 @@ public class User extends PanacheEntityBase {
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
 
+    @Column(name = "LAST_LOGIN")
+    private LocalDateTime lastLogin;
+
     public static User findUserByDocument(String document) {
         return find("document", document).firstResult();
     }
@@ -87,11 +108,65 @@ public class User extends PanacheEntityBase {
 
     @PrePersist
     private void encryptSensitiveData() {
-        this.name = EncryptUtil.textEncrypt(this.name, secret);
-        this.email = EncryptUtil.textEncrypt(this.email, secret);
         this.password = EncryptUtil.textEncrypt(this.password, secret);
-        this.phone = EncryptUtil.textEncrypt(this.phone, secret);
-        this.pixKey = EncryptUtil.textEncrypt(this.pixKey, secret);
+    }
+
+    @PostLoad
+    private void decryptSensitiveData() {
+        this.password = EncryptUtil.textDecrypt(this.password, secret);
+
+        if (this.pixKey != null) {
+            this.pixKey = EncryptUtil.textDecrypt(this.pixKey, secret);
+        }
+
+        if (this.name != null) {
+            this.name = EncryptUtil.textDecrypt(this.name, secret);
+        }
+
+        if (this.email != null) {
+            this.email = EncryptUtil.textDecrypt(this.email, secret);
+        }
+
+        if (this.phone != null) {
+            this.phone = EncryptUtil.textDecrypt(this.phone, secret);
+        }
+
+        if (this.address != null) {
+            this.address = EncryptUtil.textDecrypt(this.address, secret);
+        }
+
+        if (this.postalCode != null) {
+            this.postalCode = EncryptUtil.textDecrypt(this.postalCode, secret);
+        }
+    }
+
+    @PreUpdate
+    private void encryptSensitiveOnUpdate() {
+        this.password = EncryptUtil.textEncrypt(this.password, secret);
+
+        if (this.name != null) {
+            this.name = EncryptUtil.textEncrypt(this.name, secret);
+        }
+
+        if (this.email != null) {
+            this.email = EncryptUtil.textEncrypt(this.email, secret);
+        }
+
+        if (this.phone != null) {
+            this.phone = EncryptUtil.textEncrypt(this.phone, secret);
+        }
+
+        if (this.pixKey != null) {
+            this.pixKey = EncryptUtil.textEncrypt(this.pixKey, secret);
+        }
+
+        if (this.address != null) {
+            this.address = EncryptUtil.textEncrypt(this.address, secret);
+        }
+
+        if (this.postalCode != null) {
+            this.postalCode = EncryptUtil.textEncrypt(this.postalCode, secret);
+        }
     }
 
     public UUID getId() {
@@ -177,20 +252,59 @@ public class User extends PanacheEntityBase {
     public String getSecret() {
         return secret;
     }
+
     public void setSecret(String secret) {
         this.secret = secret;
     }
+
     public boolean isActive() {
         return active;
     }
+
     public void setActive(boolean active) {
         this.active = active;
     }
+
     public Long getExternalId() {
         return externalId;
     }
+    
     public void setExternalId(Long externalId) {
         this.externalId = externalId;
     }
 
+    public EnumUserType getType() {
+        return type;
+    }
+
+    public boolean isAcceptTerms() {
+        return acceptTerms;
+    }
+
+    public void setAcceptTerms(boolean acceptTerms) {
+        this.acceptTerms = acceptTerms;
+    }
+    
+    public void setType(EnumUserType type) {
+        this.type = type;
+    }
+    public String getPostalCode() {
+        return postalCode;
+    }
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+    
 }

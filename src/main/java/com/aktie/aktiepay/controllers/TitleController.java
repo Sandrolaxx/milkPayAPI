@@ -21,8 +21,8 @@ import com.aktie.aktiepay.dto.title.ListTitleDto;
 import com.aktie.aktiepay.dto.title.TitleCreateDto;
 import com.aktie.aktiepay.dto.title.TotalizersDto;
 import com.aktie.aktiepay.services.TitleService;
-import com.aktie.aktiepay.services.UserService;
 import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
+import com.aktie.aktiepay.utils.Utils;
 import com.aktie.aktiepay.utils.ValidateUtil;
 
 import io.quarkus.security.identity.SecurityIdentity;
@@ -41,9 +41,6 @@ public class TitleController {
     TitleService titleService;
 
     @Inject
-    UserService userService;
-
-    @Inject
     SecurityIdentity identity;
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os totalizadores.")
@@ -51,7 +48,7 @@ public class TitleController {
     @GET
     @Path("/totalizers")
     public TotalizersDto fetchTotalizers() {
-        return titleService.fetchTotalizers(userService.resolveUserId(identity));
+        return titleService.fetchTotalizers(Utils.resolveUserId(identity));
     }
 
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os titulos do usuário.")
@@ -59,7 +56,7 @@ public class TitleController {
     @GET
     public ListTitleDto listByUser(@HeaderParam boolean liquidated, @QueryParam Integer pageIndex, @QueryParam Integer pageSize,
             @QueryParam String offset, @QueryParam String limit) {
-        return titleService.findAll(userService.resolveUserId(identity), liquidated, pageIndex, pageSize, offset, limit);
+        return titleService.findAll(Utils.resolveUserId(identity), liquidated, pageIndex, pageSize, offset, limit);
     }
     
     @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Status 201 - CREATED.")

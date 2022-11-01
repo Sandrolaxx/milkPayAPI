@@ -2,11 +2,13 @@ package com.aktie.aktiepay.dto.user;
 
 import java.util.UUID;
 
+import com.aktie.aktiepay.entities.enums.EnumUserType;
+
 /**
  *
  * @author SRamos
  */
-public class ListUserDto {
+public class UserInfoDto {
 
     private UUID id;
 
@@ -26,13 +28,17 @@ public class ListUserDto {
 
     private boolean acceptTerms;
 
+    private String address;
+    
     private String postalCode;
 
-    private String addressCode;
+    private Long externalId;
+
+    private EnumUserType type;
 
     private String createdAt;
 
-    private String updatedAt;
+    private String lastLogin;
 
     public UUID getId() {
         return this.id;
@@ -106,14 +112,6 @@ public class ListUserDto {
         this.postalCode = postalCode;
     }
 
-    public String getAddressCode() {
-        return addressCode;
-    }
-
-    public void setAddressCode(String addressCode) {
-        this.addressCode = addressCode;
-    }
-
     public String getCreatedAt() {
         return this.createdAt;
     }
@@ -122,12 +120,12 @@ public class ListUserDto {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
-        return this.updatedAt;
+    public String getLastLogin() {
+        return lastLogin;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     public String getPixKey() {
@@ -136,6 +134,30 @@ public class ListUserDto {
 
     public void setPixKey(String pixKey) {
         this.pixKey = pixKey;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Long getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(Long externalId) {
+        this.externalId = externalId;
+    }
+
+    public EnumUserType getType() {
+        return type;
+    }
+
+    public void setType(EnumUserType type) {
+        this.type = type;
     }
 
 }

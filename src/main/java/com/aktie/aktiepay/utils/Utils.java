@@ -10,6 +10,9 @@ import com.aktie.aktiepay.dto.ErrorDto;
 import com.aktie.aktiepay.entities.Title;
 import com.aktie.aktiepay.entities.enums.EnumErrorCode;
 
+import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
+import io.quarkus.security.identity.SecurityIdentity;
+
 /**
  *
  * @author SRamos
@@ -60,12 +63,17 @@ public class Utils {
 
         if (resp != null) {
             return new AktiePayException(
-                StringUtil.isNullOrEmpty(resp.getErrorCode()) ? resp.getCode() : resp.getErrorCode() ,
-                StringUtil.isNullOrEmpty(resp.getMessage()) ? resp.getDescription() : resp.getMessage()
-            );
+                    StringUtil.isNullOrEmpty(resp.getErrorCode()) ? resp.getCode() : resp.getErrorCode(),
+                    StringUtil.isNullOrEmpty(resp.getMessage()) ? resp.getDescription() : resp.getMessage());
         } else {
             return new AktiePayException(defaultError);
         }
+    }
+    
+    public static String resolveUserId(SecurityIdentity identity) {
+        var tokenInfo = (OidcJwtCallerPrincipal) identity.getPrincipal();
+
+        return (String) tokenInfo.getClaim("userId");
     }
 
 }

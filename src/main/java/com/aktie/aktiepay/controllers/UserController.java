@@ -3,7 +3,9 @@ package com.aktie.aktiepay.controllers;
 import javax.inject.Inject;
 import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -16,10 +18,12 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import com.aktie.aktiepay.dto.user.CreateUserDto;
+import com.aktie.aktiepay.dto.user.UserInfoDto;
 import com.aktie.aktiepay.entities.enums.EnumErrorCode;
 import com.aktie.aktiepay.services.UserService;
 import com.aktie.aktiepay.utils.AktiePayException;
 import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
+import com.aktie.aktiepay.utils.Utils;
 import com.aktie.aktiepay.utils.ValidateUtil;
 
 import io.quarkus.oidc.runtime.OidcJwtCallerPrincipal;
@@ -41,6 +45,13 @@ public class UserController {
     @Inject
     SecurityIdentity identity;
 
+    @GET
+    @APIResponse(responseCode = "200", description = "Caso usuário exista na base de dados, retorna seus dados.")
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
+    public UserInfoDto getUserInfo() {
+        return userService.findInfoById(Utils.resolveUserId(identity));
+    }
+
     @POST
     @APIResponse(responseCode = "201", description = "Caso seja cadastrado com sucesso.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
@@ -57,8 +68,15 @@ public class UserController {
         ValidateUtil.validateNewUser(dto);
 
         userService.create(dto);
-        
+
         return Response.status(Status.CREATED).build();
+    }
+
+    @PUT
+    @APIResponse(responseCode = "200", description = "Atualiza e ativa os dados do usuário criado.")
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
+    public UserInfoDto updateUserInfo(UserInfoDto updateUserDto) {
+        return userService.update(updateUserDto, Utils.resolveUserId(identity));
     }
 
 }

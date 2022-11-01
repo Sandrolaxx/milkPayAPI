@@ -12,7 +12,7 @@ public enum EnumErrorCode implements IEnum {
 
     // Erros API
     JWT_NAO_INFORMADO("001", "Token não informado!", HttpStatus.SC_UNAUTHORIZED),
-    USUARIO_JWT_NAO_ENCONTRADO("002", "Usuário informado no Token não encontrado!", HttpStatus.SC_UNAUTHORIZED),
+    USUARIO_JWT_NAO_ENCONTRADO("002", "Usuário informado não encontrado!", HttpStatus.SC_UNAUTHORIZED),
     JWT_EXPIRADO("003", "Token expirado!", HttpStatus.SC_UNAUTHORIZED),
     REQUISICAO_NAO_TRATADA("004", "Não foi possível tratar sua requisição, verifique os campos enviados.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_DECRYPT("005", "Erro ao decriptar as informações da conta.", HttpStatus.SC_INTERNAL_SERVER_ERROR),
