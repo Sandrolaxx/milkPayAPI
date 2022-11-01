@@ -76,7 +76,7 @@ public class UserController {
     @APIResponse(responseCode = "200", description = "Atualiza e ativa os dados do usuário criado.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     public UserInfoDto updateUserInfo(UserInfoDto updateUserDto) {
-        return userService.update(updateUserDto, Utils.resolveUserId(identity));
+        return userService.update(updateUserDto, identity);
     }
 
 }

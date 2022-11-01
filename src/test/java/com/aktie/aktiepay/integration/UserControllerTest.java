@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -54,8 +53,45 @@ public class UserControllerTest {
         }
     }
 
-    @AfterEach
-    void removeCreatedUser() throws Exception {
+    private RequestSpecification given() {
+        return RestAssured.given()
+                .contentType(ContentType.JSON)
+                .header(new Header("Authorization", "Bearer " + token));
+    }
+
+    @Test
+    public void whenPostValidUser() throws Exception {
+        var testUserBody = Map.of(
+                "document", TEST_USER_DOCUMENT,
+                "email", "teste@teste.com",
+                "name", "Teste user 1",
+                "password", "1234",
+                "phone", "45991039812",
+                "pixKey", "email@gmail.com");
+
+        given()
+                .when()
+                .body(testUserBody)
+                .post("/milkpay-api/v1/user")
+                .then()
+                .statusCode(201);
+
+        removeCreatedUser();
+    }
+
+    @Test
+    public void whenPostInvalidUserThenError() {
+        var testUserBody = Map.of("email", "teste@teste.com");
+
+        given()
+                .when()
+                .body(testUserBody)
+                .post("/milkpay-api/v1/user")
+                .then()
+                .statusCode(400);
+    }
+
+    private void removeCreatedUser() throws Exception {
         var path = keycloakUrl.concat("/auth/admin/realms/MilkPay/users");
 
         var createdTestUser = given()
@@ -73,42 +109,6 @@ public class UserControllerTest {
                             .when()
                             .delete(path.concat("/").concat(user.getId()));
                 });
-    }
-
-    private RequestSpecification given() {
-        return RestAssured.given()
-                .contentType(ContentType.JSON)
-                .header(new Header("Authorization", "Bearer " + token));
-    }
-
-    @Test
-    public void whenPostValidUser() {
-        var testUserBody = Map.of(
-                "document", TEST_USER_DOCUMENT,
-                "email", "teste@teste.com",
-                "name", "Teste user 1",
-                "password", "1234",
-                "phone", "45991039812",
-                "pixKey", "email@gmail.com");
-
-        given()
-                .when()
-                .body(testUserBody)
-                .post("/milkpay-api/v1/user")
-                .then()
-                .statusCode(201);
-    }
-
-    @Test
-    public void whenPostInvalidUserThenError() {
-        var testUserBody = Map.of("email", "teste@teste.com");
-
-        given()
-                .when()
-                .body(testUserBody)
-                .post("/milkpay-api/v1/user")
-                .then()
-                .statusCode(400);
     }
 
 }

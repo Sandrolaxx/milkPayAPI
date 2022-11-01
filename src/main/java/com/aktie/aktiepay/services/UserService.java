@@ -1,7 +1,7 @@
 package com.aktie.aktiepay.services;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,6 +20,9 @@ import com.aktie.aktiepay.mapper.IUserMapper;
 import com.aktie.aktiepay.utils.AktiePayException;
 import com.aktie.aktiepay.utils.EncryptUtil;
 import com.aktie.aktiepay.utils.StringUtil;
+import com.aktie.aktiepay.utils.Utils;
+
+import io.quarkus.security.identity.SecurityIdentity;
 
 /**
  *
@@ -55,9 +58,9 @@ public class UserService {
     }
 
     @Transactional
-    public UserInfoDto update(UserInfoDto dto, String userId) {
+    public UserInfoDto update(UserInfoDto dto, SecurityIdentity identity) {
 
-        var user = findAndValidadeUser(userId);
+        var user = findAndValidadeUser(Utils.resolveUserId(identity));
 
         if (!StringUtil.isNullOrEmpty(dto.getPassword())
                 && !dto.getPassword().equals(user.getPassword())) {
@@ -83,7 +86,7 @@ public class UserService {
                 && !dto.getName().equals(user.getPixKey())) {
             user.setPixKey(dto.getPixKey());
         }
-        
+
         if (!StringUtil.isNullOrEmpty(dto.getAddress())
                 && !dto.getName().equals(user.getAddress())) {
             user.setAddress(dto.getAddress());
@@ -97,6 +100,8 @@ public class UserService {
         if (dto.getType() != null) {
             user.setType(dto.getType());
         }
+
+        updateUserKeycloak(user, dto, Utils.resolveKeyclockUserId(identity));
 
         return userMapper.toUserInfoDto(user);
     }
@@ -119,7 +124,6 @@ public class UserService {
 
         var newUserKeycloak = new CreateUserKeycloakDto();
         var newCredencial = new CreateUserKeycloakCredentialsDto();
-        var credencialList = new ArrayList<CreateUserKeycloakCredentialsDto>();
 
         newUserKeycloak.setUsername(newUser.getDocument());
         newUserKeycloak.setEnabled(true);
@@ -127,15 +131,50 @@ public class UserService {
         newCredencial.setTemporary(false);
         newCredencial.setValue(EncryptUtil.textDecrypt(newUser.getPassword(), newUser.getSecret()));
 
-        credencialList.add(newCredencial);
-
-        newUserKeycloak.setCredentials(credencialList);
+        newUserKeycloak.setCredentials(List.of(newCredencial));
         newUserKeycloak.setAttributes(Map.of("userId", newUser.getId().toString()));
 
         try {
             keycloakService.createUserKeycloak(newUserKeycloak);
         } catch (Exception e) {
             throw new AktiePayException(EnumErrorCode.ERRO_AO_CADASTRAR_USUARIO);
+        }
+
+    }
+
+    public void updateUserKeycloak(User user, UserInfoDto dto, String userId) {
+
+        var updatedUserKeycloak = new CreateUserKeycloakDto();
+        var newCredencial = new CreateUserKeycloakCredentialsDto();
+
+        if (!StringUtil.isNullOrEmpty(dto.getPassword())
+                && dto.getPassword().equals(user.getPassword())) {
+            newCredencial.setTemporary(false);
+            newCredencial.setValue(dto.getPassword());
+
+            updatedUserKeycloak.setCredentials(List.of(newCredencial));
+        }
+
+        if (!StringUtil.isNullOrEmpty(dto.getName())
+                && dto.getName().equals(user.getName())) {
+            updatedUserKeycloak.setFirstName(dto.getName());
+        }
+
+        if (!StringUtil.isNullOrEmpty(dto.getEmail())
+                && dto.getEmail().equals(user.getEmail())) {
+            updatedUserKeycloak.setEmail(dto.getEmail());
+        }
+
+        if (updatedUserKeycloak.getCredentials() != null
+                || !StringUtil.isNullOrEmpty(updatedUserKeycloak.getEmail())
+                || !StringUtil.isNullOrEmpty(updatedUserKeycloak.getFirstName())) {
+            updatedUserKeycloak.setEnabled(true);
+
+            try {
+                keycloakService.updateUserKeycloak(updatedUserKeycloak, userId);
+            } catch (Exception e) {
+                throw new AktiePayException(EnumErrorCode.ERRO_AO_ATUALIZAR_USUARIO);
+            }
         }
 
     }

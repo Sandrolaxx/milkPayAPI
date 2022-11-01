@@ -75,5 +75,11 @@ public class Utils {
 
         return (String) tokenInfo.getClaim("userId");
     }
+    
+    public static String resolveKeyclockUserId(SecurityIdentity identity) {
+        var tokenInfo = (OidcJwtCallerPrincipal) identity.getPrincipal();
+
+        return tokenInfo.getSubject();
+    }
 
 }

@@ -3,7 +3,9 @@ package com.aktie.aktiepay.restClient;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,11 +26,17 @@ public interface RestClientKeycloak {
     @Path("/auth/realms/MilkPay/protocol/openid-connect/token")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     TokenResponseDto getNewToken(@HeaderParam("Authorization") String basicToken, Form tokenForm);
-    
+
     @POST
     @Path("/auth/admin/realms/MilkPay/users")
     @Consumes(MediaType.APPLICATION_JSON)
     Response createUserKeycloak(@HeaderParam("Authorization") String tokenKeycloak,
             CreateUserKeycloakDto dto);
-            
+
+    @PUT
+    @Path("/auth/admin/realms/MilkPay/users/{userId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    Response updateUserKeycloak(@HeaderParam("Authorization") String tokenKeycloak, @PathParam("userId") String userId,
+            CreateUserKeycloakDto dto);
+
 }

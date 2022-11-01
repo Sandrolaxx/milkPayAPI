@@ -53,4 +53,8 @@ public class KeycloakService {
         return restClientKey.createUserKeycloak(getNewToken(), userDto);
     }
 
+    public Response updateUserKeycloak(CreateUserKeycloakDto userDto, String userId) {
+        return restClientKey.updateUserKeycloak(getNewToken(), userId, userDto);
+    }
+
 }
