@@ -78,22 +78,22 @@ public class UserService {
         }
 
         if (!StringUtil.isNullOrEmpty(dto.getPhone())
-                && !dto.getName().equals(user.getPhone())) {
+                && !dto.getPhone().equals(user.getPhone())) {
             user.setPhone(dto.getPhone());
         }
 
         if (!StringUtil.isNullOrEmpty(dto.getPixKey())
-                && !dto.getName().equals(user.getPixKey())) {
+                && !dto.getPixKey().equals(user.getPixKey())) {
             user.setPixKey(dto.getPixKey());
         }
 
         if (!StringUtil.isNullOrEmpty(dto.getAddress())
-                && !dto.getName().equals(user.getAddress())) {
+                && !dto.getAddress().equals(user.getAddress())) {
             user.setAddress(dto.getAddress());
         }
 
         if (!StringUtil.isNullOrEmpty(dto.getPostalCode())
-                && !dto.getName().equals(user.getPostalCode())) {
+                && !dto.getPostalCode().equals(user.getPostalCode())) {
             user.setPostalCode(dto.getPostalCode());
         }
 

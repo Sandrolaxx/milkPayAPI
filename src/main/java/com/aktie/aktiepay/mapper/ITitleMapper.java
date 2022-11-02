@@ -45,7 +45,7 @@ public interface ITitleMapper {
 
     default String getUserPixKey(User user, EnumPaymentType payType) {
         if (EnumUtil.isEquals(payType, EnumPaymentType.PIX)) {
-            return EncryptUtil.textDecrypt(user.getPixKey(), user.getSecret());
+            return user.getPixKey();
         }
 
         return null;

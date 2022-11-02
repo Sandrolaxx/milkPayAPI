@@ -1,6 +1,7 @@
 package com.aktie.aktiepay.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
@@ -24,7 +25,7 @@ public class NumericUtil {
 
         format1.setDecimalFormatSymbols(symbols1);
         format1.setParseBigDecimal(true);
-        
+
         String numero = null;
         if (val instanceof String) {
             try {
@@ -98,7 +99,7 @@ public class NumericUtil {
     }
 
     public static BigDecimal getInterestAmount(BigDecimal total, BigDecimal interestPercentage) {
-        return  interestPercentage.multiply(total).divide(BigDecimal.valueOf(100));
+        return interestPercentage.multiply(total).divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.FLOOR);
     }
 
     public static BigDecimal getInterestPercentage(LocalDate dueDate, BigDecimal dailyInterest) {

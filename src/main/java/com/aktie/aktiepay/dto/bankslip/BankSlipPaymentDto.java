@@ -28,6 +28,8 @@ public class BankSlipPaymentDto {
 
     private String receiverName;
 
+    private String receiverDocument;
+
     public String getBarcode() {
         return barcode;
     }
@@ -90,6 +92,14 @@ public class BankSlipPaymentDto {
 
     public void setReceiverName(String receiverName) {
         this.receiverName = receiverName;
+    }
+
+    public String getReceiverDocument() {
+        return receiverDocument;
+    }
+
+    public void setReceiverDocument(String receiverDocument) {
+        this.receiverDocument = receiverDocument;
     }
 
 }

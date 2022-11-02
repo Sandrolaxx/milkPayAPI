@@ -80,6 +80,7 @@ public class BankSlipService {
 
         receipt.setReceiverName(dto.getReceiverName());
         receipt.setReceiverAccountBank(dto.getReceiverBank());
+        receipt.setReceiverDocument(dto.getReceiverDocument());
 
         receipt.setPayerName(milkPayDebitParty.getName().toUpperCase());
         receipt.setPayerDocument(milkPayDebitParty.getTaxId());
@@ -87,7 +88,7 @@ public class BankSlipService {
         receipt.setPayerAccountType(milkPayDebitParty.getAccountType());
         receipt.setPayerAccountBank(milkPayDebitParty.getBankISPB());
         receipt.setPayerAccountBranch(milkPayDebitParty.getBranch());
-        
+
         var authentication = DigestUtils.md5Hex(receipt.toString());
         receipt.setAuthentication(authentication.toUpperCase());
 

@@ -8,7 +8,7 @@ import com.aktie.aktiepay.utils.EnumUtil;
  */
 public enum EnumPaymentType implements IEnum {
 
-    PIX("PIX - Pagamentos Instantaneoes"),
+    PIX("PIX - Pagamentos Instantâneos"),
     BOLETO("Boleto Bancário");
 
     private EnumPaymentType(String value) {

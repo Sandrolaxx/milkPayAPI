@@ -9,18 +9,18 @@ import java.math.BigDecimal;
 public class BankSlipConsultResponseDto {
 
     private Long transactionId;
-    
-    private String bank;
 
     private String digitable;
 
-    private String payer;
-    
-    private String recipient;
+    private String payerName;
 
-    private String documentPayer;
+    private String payerDocument;
 
-    private String documentRecipient;
+    private String receiverBank;
+
+    private String receiverName;
+
+    private String receiverDocument;
 
     private String dueDate;
 
@@ -31,14 +31,6 @@ public class BankSlipConsultResponseDto {
     private BigDecimal interest;
 
     private BigDecimal amount;
-
-    public String getBank() {
-        return bank;
-    }
-
-    public void setBank(String bank) {
-        this.bank = bank;
-    }
 
     public String getDigitable() {
         return digitable;
@@ -56,36 +48,44 @@ public class BankSlipConsultResponseDto {
         this.dueDate = dueDate;
     }
 
-    public String getPayer() {
-        return payer;
+    public String getPayerName() {
+        return payerName;
     }
 
-    public void setPayer(String payer) {
-        this.payer = payer;
+    public void setPayerName(String payerName) {
+        this.payerName = payerName;
     }
 
-    public String getRecipient() {
-        return recipient;
+    public String getPayerDocument() {
+        return payerDocument;
     }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setPayerDocument(String payerDocument) {
+        this.payerDocument = payerDocument;
     }
 
-    public String getDocumentPayer() {
-        return documentPayer;
+    public String getReceiverBank() {
+        return receiverBank;
     }
 
-    public void setDocumentPayer(String documentPayer) {
-        this.documentPayer = documentPayer;
+    public void setReceiverBank(String receiverBank) {
+        this.receiverBank = receiverBank;
     }
 
-    public String getDocumentRecipient() {
-        return documentRecipient;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setDocumentRecipient(String documentRecipient) {
-        this.documentRecipient = documentRecipient;
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverDocument() {
+        return receiverDocument;
+    }
+
+    public void setReceiverDocument(String receiverDocument) {
+        this.receiverDocument = receiverDocument;
     }
 
     public BigDecimal getAmount() {

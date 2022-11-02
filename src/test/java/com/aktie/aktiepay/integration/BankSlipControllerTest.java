@@ -66,8 +66,8 @@ public class BankSlipControllerTest {
 
         responseConsultTest = getBankslipConsultData();
 
-        assertTrue(responseConsultTest.getPayer().equalsIgnoreCase(expectedPayer));
-        assertTrue(responseConsultTest.getRecipient().equalsIgnoreCase(expectedRecipient));
+        assertTrue(responseConsultTest.getPayerName().equalsIgnoreCase(expectedPayer));
+        assertTrue(responseConsultTest.getReceiverName().equalsIgnoreCase(expectedRecipient));
         assertTrue(responseConsultTest.getDigitable().equalsIgnoreCase(DIGITABLE_TEST));
     }
 
@@ -84,8 +84,9 @@ public class BankSlipControllerTest {
                 "digitable", responseConsultTest.getDigitable(),
                 "amount", responseConsultTest.getAmount(),
                 "dueDate", responseConsultTest.getDueDate(),
-                "receiverBank", responseConsultTest.getBank(),
-                "receiverName", responseConsultTest.getRecipient(),
+                "receiverBank", responseConsultTest.getReceiverBank(),
+                "receiverName", responseConsultTest.getReceiverName(),
+                "receiverDocument", responseConsultTest.getReceiverDocument(),
                 "transactionId", responseConsultTest.getTransactionId());
 
         var result = given()

@@ -21,11 +21,11 @@ import com.aktie.aktiepay.utils.DateUtil;
 public interface IBankSlipMapper {
 
     @Mappings({
-            @Mapping(target = "bank", source = "assignor"),
-            @Mapping(target = "payer", source = "registerData.payer"),
-            @Mapping(target = "recipient", source = "registerData.recipient"),
-            @Mapping(target = "documentPayer", source = "registerData.documentPayer"),
-            @Mapping(target = "documentRecipient", source = "registerData.documentRecipient"),
+            @Mapping(target = "receiverBank", source = "assignor"),
+            @Mapping(target = "payerName", source = "registerData.payer"),
+            @Mapping(target = "receiverName", source = "registerData.recipient"),
+            @Mapping(target = "payerDocument", source = "registerData.documentPayer"),
+            @Mapping(target = "receiverDocument", source = "registerData.documentRecipient"),
             @Mapping(target = "discount", source = "registerData.discountValue"),
             @Mapping(target = "fine", source = "registerData.fineValueCalculated"),
             @Mapping(target = "interest", source = "registerData.interestValueCalculated"),

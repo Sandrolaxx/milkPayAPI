@@ -94,11 +94,8 @@ public class ReceiptUtil {
         graphics2DImage.drawString("DESTINO", getHorizontalSize(graphics2DImage, bgImageWidth, "DESTINO"), marginTopSize += 20);
         graphics2DImage.drawString("NOME:", 4, marginTopSize += 20);
         graphics2DImage.drawString(receiverName, getLeftTextSize(graphics2DImage, bgImageWidth, receiverName), marginTopSize);
-        
-        if (EnumUtil.isEquals(paymentType, EnumPaymentType.PIX)) {
-            graphics2DImage.drawString("CPF/CNPJ:", 4, marginTopSize += 20);
-            graphics2DImage.drawString(info.getReceiverDocument(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverDocument()), marginTopSize);
-        }
+        graphics2DImage.drawString("CPF/CNPJ:", 4, marginTopSize += 20);
+        graphics2DImage.drawString(info.getReceiverDocument(), getLeftTextSize(graphics2DImage, bgImageWidth, info.getReceiverDocument()), marginTopSize);
         
         graphics2DImage.drawString("INST:", 4, marginTopSize += 20);
         graphics2DImage.drawString(receiverBank, getLeftTextSize(graphics2DImage, bgImageWidth, receiverBank), marginTopSize);
