@@ -107,6 +107,7 @@ public class BankSlipServiceTest {
         paymentDto.setTransactionId(Long.valueOf(816873880));
         paymentDto.setReceiverBank("BANCO BRADESCO S.A.");
         paymentDto.setReceiverName("BENEFICIARIO AMBIENTE HOMOLOGACAO");
+        paymentDto.setReceiverDocument("21.568.259/0001-00");
         paymentDto.setTitleId(1);
 
         return paymentDto;

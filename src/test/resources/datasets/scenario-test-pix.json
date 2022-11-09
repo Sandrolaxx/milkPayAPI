@@ -1,7 +1,7 @@
 {
     "MILK_USER": [
         {
-            "id": "1c50dd34-896b-42d0-9ac5-b1810ae9f291",
+            "id": "d7204127-5cc2-4eab-9faa-bc8cb9465111",
             "active": true,
             "created_at": "2022-06-15",
             "document": "10564574902",
@@ -12,7 +12,8 @@
             "phone": "L\/k\/Cig6jqygOMK0aOijKA==",
             "pix_key": "oBmnhSOcaGLEW1yi1vF\/MQ==",
             "secret": "4XEBUT3ZI3H3YVT3",
-            "updated_at": "2022-06-15"
+            "updated_at": "2022-06-15",
+            "accept_terms": true
         }
     ],
     "MILK_TITLE": [
@@ -31,7 +32,7 @@
             "paid_at": "2022-06-16",
             "payment_type": "PIX",
             "updated_at": "2022-06-16",
-            "id_user": "1c50dd34-896b-42d0-9ac5-b1810ae9f291",
+            "id_user": "d7204127-5cc2-4eab-9faa-bc8cb9465111",
             "pix_key": null
         },
         {
@@ -49,7 +50,7 @@
             "paid_at": "2022-06-16",
             "payment_type": "PIX",
             "updated_at": "2022-06-16",
-            "id_user": "1c50dd34-896b-42d0-9ac5-b1810ae9f291",
+            "id_user": "d7204127-5cc2-4eab-9faa-bc8cb9465111",
             "pix_key": null
         }
     ],

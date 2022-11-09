@@ -75,6 +75,8 @@ public class BankSlipControllerTest {
     @Order(2)
     @DataSet(value = "scenario-test-bankslip.json")
     public void whenPostBankSlipPayment() {
+        System.out.println(token);
+        
         if (responseConsultTest == null) {
             responseConsultTest = getBankslipConsultData();
         }
