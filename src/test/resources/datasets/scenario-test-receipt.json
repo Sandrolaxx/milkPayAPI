@@ -1,7 +1,7 @@
 {
     "MILK_USER": [
         {
-            "id": "d7204127-5cc2-4eab-9faa-bc8cb9465111",
+            "id": "66140466-b5a4-4719-bb13-4d48f580a95f",
             "active": true,
             "created_at": "2022-06-15",
             "document": "10564574902",
@@ -32,7 +32,7 @@
             "paid_at": "2022-06-16",
             "payment_type": "BOLETO",
             "updated_at": "2022-06-16",
-            "id_user": "d7204127-5cc2-4eab-9faa-bc8cb9465111",
+            "id_user": "66140466-b5a4-4719-bb13-4d48f580a95f",
             "pix_key": null
         }
     ],

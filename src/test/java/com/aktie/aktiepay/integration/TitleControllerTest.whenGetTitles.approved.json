@@ -1,0 +1,71 @@
+{
+  "allResultsSize": 5,
+  "page": 0,
+  "results": [
+    {
+      "amount": 80.71,
+      "balance": 80.71,
+      "dailyInterest": 0.30,
+      "digitable": "23793381286008301352856000063307789840000150000",
+      "dueDate": "2024-06-26",
+      "finalAmount": -63.12,
+      "id": 24,
+      "inclusionDate": "2022-05-22T00:00:00",
+      "liquidated": false,
+      "nfNumber": "NF-2341252",
+      "paymentType": "BOLETO"
+    },
+    {
+      "amount": 80.71,
+      "balance": 80.71,
+      "dailyInterest": 0.30,
+      "digitable": "12198000000000000000000000000011114232524114",
+      "dueDate": "2024-06-26",
+      "finalAmount": -63.12,
+      "id": 25,
+      "inclusionDate": "2022-05-22T00:00:00",
+      "liquidated": false,
+      "nfNumber": "NF-2341252",
+      "paymentType": "BOLETO"
+    },
+    {
+      "amount": 80.71,
+      "balance": 80.71,
+      "dailyInterest": 0.30,
+      "digitable": "34196911500000200001090000257324450361649000",
+      "dueDate": "2024-06-22",
+      "finalAmount": -62.15,
+      "id": 27,
+      "inclusionDate": "2022-05-22T00:00:00",
+      "liquidated": false,
+      "nfNumber": "NF-2341252",
+      "paymentType": "BOLETO"
+    },
+    {
+      "amount": 80.71,
+      "balance": 80.71,
+      "dailyInterest": 0.30,
+      "dueDate": "2024-06-26",
+      "finalAmount": -63.12,
+      "id": 28,
+      "inclusionDate": "2022-05-22T00:00:00",
+      "liquidated": false,
+      "nfNumber": "NF-2341251",
+      "paymentType": "PIX",
+      "pixKey": "email@gmail.com"
+    },
+    {
+      "amount": 80.71,
+      "balance": 80.71,
+      "dailyInterest": 0.30,
+      "digitable": "34198862666531252277792218900006890430000039322",
+      "dueDate": "2024-07-12",
+      "finalAmount": -66.99,
+      "id": 32,
+      "inclusionDate": "2022-06-22T00:00:00",
+      "liquidated": false,
+      "nfNumber": "NF-2341251",
+      "paymentType": "BOLETO"
+    }
+  ]
+}

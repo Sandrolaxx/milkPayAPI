@@ -42,7 +42,7 @@ public class TitleControllerTest {
     @BeforeEach
     void genereteToken() throws Exception {
         if (token == null) {
-            token = tokenUtils.generateTokenTest("10564574902", "saporoxo");
+            token = tokenUtils.generateTokenTest("00000000000", "teste");
         }
     }
 

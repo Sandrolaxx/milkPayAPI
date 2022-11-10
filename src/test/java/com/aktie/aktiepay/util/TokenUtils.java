@@ -15,7 +15,7 @@ public class TokenUtils {
 
     public String generateTokenTest(String username, String password) throws Exception {
 
-        var basicAuth = "Basic bWlsa3BheS1hcGk6MTA4ZWJkMmMtZGQ1Mi00YTlmLWE1ZDUtNmMzZGI5OGI5OThi";
+        var basicAuth = "Basic bWlsa3BheS1hcGk6ZmNhNDRkNzktNDE5OS00ZjE0LTkzOGQtNzEzNGMwZGY4NGU3";
 
         Form tokenReq = new Form()
                 .param("username", username)
