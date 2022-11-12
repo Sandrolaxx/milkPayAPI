@@ -22,7 +22,11 @@ public class TitleRepository implements PanacheRepository<Title> {
         var defaultPageSize = 5;
         pageSize = pageSize == null ? defaultPageSize : pageSize;
 
-        query.append("user.id = :userId and liquidated = :liquidated ");
+        query.append("user.id = :userId ");
+
+        if (params.get("liquidated") != null) {
+            query.append("and liquidated = :liquidated ");
+        }
 
         if (params.get("offset") != null
                 && params.get("limit") != null) {
@@ -42,14 +46,19 @@ public class TitleRepository implements PanacheRepository<Title> {
 
     public Integer getQueryResultsLenght(Map<String, Object> params) {
         var query = new StringBuilder();
-        query.append("user.id = :userId and liquidated = :liquidated ");
+
+        query.append("user.id = :userId ");
+
+        if (params.get("liquidated") != null) {
+            query.append("and liquidated = :liquidated ");
+        }
 
         if (params.get("offset") != null
                 && params.get("limit") != null) {
             query.append("and dueDate >= :offset and dueDate <= :limit");
         }
 
-        return Long.valueOf(count(query.toString(),params)).intValue();
+        return Long.valueOf(count(query.toString(), params)).intValue();
     }
 
 }

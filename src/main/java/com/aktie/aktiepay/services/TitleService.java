@@ -37,14 +37,17 @@ public class TitleService {
     @Inject
     TitleRepository repository;
 
-    public ListTitleDto findAll(String userId, boolean liquidated, Integer pageIndex, Integer pageSize,
+    public ListTitleDto findAll(String userId, Boolean liquidated, Integer pageIndex, Integer pageSize,
             String offset, String limit) {
 
         var params = new HashMap<String, Object>();
         var listTitleDto = new ListTitleDto();
 
         params.put("userId", UUID.fromString(userId));
-        params.put("liquidated", liquidated);
+
+        if (liquidated != null) {
+            params.put("liquidated", liquidated);
+        }
 
         if (!StringUtil.isNullOrEmpty(offset)
                 && !StringUtil.isNullOrEmpty(limit)) {

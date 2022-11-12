@@ -14,7 +14,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 import com.aktie.aktiepay.dto.title.ListTitleDto;
@@ -54,11 +53,11 @@ public class TitleController {
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os titulos do usuário.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @GET
-    public ListTitleDto listByUser(@HeaderParam boolean liquidated, @QueryParam Integer pageIndex, @QueryParam Integer pageSize,
-            @QueryParam String offset, @QueryParam String limit) {
+    public ListTitleDto listByUser(@QueryParam Boolean liquidated, @QueryParam Integer pageIndex,
+            @QueryParam Integer pageSize, @QueryParam String offset, @QueryParam String limit) {
         return titleService.findAll(Utils.resolveUserId(identity), liquidated, pageIndex, pageSize, offset, limit);
     }
-    
+
     @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Status 201 - CREATED.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @POST
