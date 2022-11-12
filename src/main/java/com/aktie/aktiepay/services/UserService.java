@@ -101,6 +101,8 @@ public class UserService {
             user.setType(dto.getType());
         }
 
+        user.setAcceptTerms(dto.isAcceptTerms());
+
         updateUserKeycloak(user, dto, Utils.resolveKeyclockUserId(identity));
 
         return userMapper.toUserInfoDto(user);
