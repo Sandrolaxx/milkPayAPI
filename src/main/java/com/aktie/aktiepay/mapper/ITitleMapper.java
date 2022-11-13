@@ -13,7 +13,6 @@ import com.aktie.aktiepay.entities.Title;
 import com.aktie.aktiepay.entities.User;
 import com.aktie.aktiepay.entities.enums.EnumPaymentType;
 import com.aktie.aktiepay.utils.DateUtil;
-import com.aktie.aktiepay.utils.EncryptUtil;
 import com.aktie.aktiepay.utils.EnumUtil;
 
 /**

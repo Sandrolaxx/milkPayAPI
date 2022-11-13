@@ -18,13 +18,14 @@ import com.aktie.aktiepay.dto.title.TitleDto;
 import com.aktie.aktiepay.dto.title.TotalizersDto;
 import com.aktie.aktiepay.entities.User;
 import com.aktie.aktiepay.entities.enums.EnumErrorCode;
+import com.aktie.aktiepay.entities.enums.EnumFilterTitle;
 import com.aktie.aktiepay.entities.enums.EnumPaymentType;
 import com.aktie.aktiepay.mapper.ITitleMapper;
 import com.aktie.aktiepay.repository.TitleRepository;
+import com.aktie.aktiepay.utils.AktiePayException;
 import com.aktie.aktiepay.utils.DateUtil;
 import com.aktie.aktiepay.utils.EnumUtil;
 import com.aktie.aktiepay.utils.ListUtil;
-import com.aktie.aktiepay.utils.AktiePayException;
 import com.aktie.aktiepay.utils.StringUtil;
 import com.aktie.aktiepay.utils.Utils;
 
@@ -38,8 +39,7 @@ public class TitleService {
     TitleRepository repository;
 
     public ListTitleDto findAll(String userId, Boolean liquidated, Integer pageIndex, Integer pageSize,
-            String offset, String limit) {
-
+            String offset, String limit, EnumFilterTitle filterBy, String filterValue) {
         var params = new HashMap<String, Object>();
         var listTitleDto = new ListTitleDto();
 
@@ -47,6 +47,15 @@ public class TitleService {
 
         if (liquidated != null) {
             params.put("liquidated", liquidated);
+        }
+
+        if (filterBy != null
+                && !StringUtil.isNullOrEmpty(filterValue)) {
+                if (EnumUtil.isEquals(filterBy, EnumFilterTitle.AMOUNT)) {
+                    params.put(filterBy.getValue(), new BigDecimal(filterValue));
+                } else {
+                    params.put(filterBy.getValue(), filterValue);
+                }
         }
 
         if (!StringUtil.isNullOrEmpty(offset)
@@ -59,7 +68,7 @@ public class TitleService {
             }
         }
 
-        var userTitles = repository.findByUserIdBetwenDates(params, pageIndex, pageSize);
+        var userTitles = repository.findByUserIdBetwenDates(params, pageIndex, pageSize, filterBy);
         var results = userTitles.stream()
                 .map(t -> titleMapper.titleToTitleDto(t))
                 .map(tDto -> getFinalValue(tDto))
@@ -67,7 +76,7 @@ public class TitleService {
 
         listTitleDto.setPage(pageIndex);
         listTitleDto.setResults(results);
-        listTitleDto.setAllResultsSize(repository.getQueryResultsLenght(params));
+        listTitleDto.setAllResultsSize(userTitles.size());
 
         return listTitleDto;
     }

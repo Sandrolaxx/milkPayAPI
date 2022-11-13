@@ -19,6 +19,7 @@ import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 import com.aktie.aktiepay.dto.title.ListTitleDto;
 import com.aktie.aktiepay.dto.title.TitleCreateDto;
 import com.aktie.aktiepay.dto.title.TotalizersDto;
+import com.aktie.aktiepay.entities.enums.EnumFilterTitle;
 import com.aktie.aktiepay.services.TitleService;
 import com.aktie.aktiepay.utils.AktiePayExceptionResponseDto;
 import com.aktie.aktiepay.utils.Utils;
@@ -53,9 +54,10 @@ public class TitleController {
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os titulos do usuário.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @GET
-    public ListTitleDto listByUser(@QueryParam Boolean liquidated, @QueryParam Integer pageIndex,
-            @QueryParam Integer pageSize, @QueryParam String offset, @QueryParam String limit) {
-        return titleService.findAll(Utils.resolveUserId(identity), liquidated, pageIndex, pageSize, offset, limit);
+    public ListTitleDto listByUser(@QueryParam Boolean liquidated, @QueryParam Integer pageIndex, @QueryParam Integer pageSize,
+            @QueryParam String offset, @QueryParam String limit, @QueryParam EnumFilterTitle filterBy, @QueryParam String filterValue) {
+        return titleService.findAll(Utils.resolveUserId(identity), liquidated, pageIndex, pageSize,
+            offset, limit, filterBy, filterValue);
     }
 
     @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Status 201 - CREATED.")
