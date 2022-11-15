@@ -79,4 +79,14 @@ public class UserController {
         return userService.update(updateUserDto, identity);
     }
 
+    @POST
+    @Path("/restore-pass")
+    @APIResponse(responseCode = "200", description = "Envia um e-mail com a senha do usuário para o e-mail do cadastrado.")
+    @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
+    public Response sendPasswordToUserMail() {
+        userService.sendEmailUserPassword(identity);
+
+        return Response.ok().build();
+    }
+
 }

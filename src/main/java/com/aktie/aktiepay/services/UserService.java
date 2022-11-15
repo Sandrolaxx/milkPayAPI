@@ -22,6 +22,8 @@ import com.aktie.aktiepay.utils.EncryptUtil;
 import com.aktie.aktiepay.utils.StringUtil;
 import com.aktie.aktiepay.utils.Utils;
 
+import io.quarkus.mailer.Mail;
+import io.quarkus.mailer.Mailer;
 import io.quarkus.security.identity.SecurityIdentity;
 
 /**
@@ -36,6 +38,9 @@ public class UserService {
 
     @Inject
     KeycloakService keycloakService;
+
+    @Inject
+    Mailer mailer;
 
     @Transactional
     public UserInfoDto findInfoById(String userId) {
@@ -189,6 +194,19 @@ public class UserService {
         }
 
         return (User) user;
+    }
+
+    public void sendEmailUserPassword(SecurityIdentity identity) {
+        var user = findAndValidadeUser(Utils.resolveUserId(identity));
+        var message = "Olá, estamos entrando em contato, pois você requereu sua senha em nossa plataforma no fluxo 'Esqueci minha senha'."
+                .concat("\n\n")
+                .concat("Senha de sua conta: ".concat(user.getPassword()))
+                .concat("\n\n")
+                .concat("Caso queira realizar a troca de sua senha, realize o login e atualize seus dados.")
+                .concat("\n\n")
+                .concat("Atenciosamente,\nEquipe Aktie Tech");
+
+        mailer.send(Mail.withText(user.getEmail(), "Esqueci minha senha MilkPay🐄", message));
     }
 
 }
