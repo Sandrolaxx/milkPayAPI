@@ -1,5 +1,7 @@
 package com.aktie.aktiepay.repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -8,6 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import com.aktie.aktiepay.entities.Title;
 import com.aktie.aktiepay.entities.enums.EnumFilterTitle;
+import com.aktie.aktiepay.utils.EnumUtil;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
@@ -26,17 +29,40 @@ public class TitleRepository implements PanacheRepository<Title> {
 
         query.append("user.id = :userId");
 
-        if (params.get("liquidated") != null) {
+        if (params.containsKey("liquidated")) {
             query.append(" and liquidated = :liquidated");
         }
 
         if (filterBy != null
-                && params.get(filterBy.getValue()) != null) {
-            query.append(" and ".concat(filterBy.getValue()).concat(" = :").concat(filterBy.getValue()));
+                && params.containsKey(filterBy.getValue())) {
+            if (EnumUtil.isEquals(filterBy, EnumFilterTitle.DUE_DATE)
+                    || EnumUtil.isEquals(filterBy, EnumFilterTitle.INCLUSION_DATE)) {
+                query.append(" and ".concat(filterBy.getValue()));
+                query.append(" >= :".concat(filterBy.getValue()));
+
+                if (params.get(filterBy.getValue()) instanceof LocalDate) {
+                    var filterDate = (LocalDate) params.get(filterBy.getValue());
+                    params.put("nextDay", filterDate);
+                }
+
+                if (params.get(filterBy.getValue()) instanceof LocalDateTime) {
+                    var filterDate = (LocalDateTime) params.get(filterBy.getValue());
+                    params.put("nextDay", filterDate.plusDays(1).minusMinutes(1));
+                }
+
+                if (params.containsKey("nextDay")) {
+                    query.append(" and ".concat(filterBy.getValue()));
+                    query.append(" <= :".concat("nextDay"));
+                }
+
+            } else {
+                query.append(" and ".concat(filterBy.getValue()).concat(" = :").concat(filterBy.getValue()));
+            }
+
         }
 
-        if (params.get("offset") != null
-                && params.get("limit") != null) {
+        if (params.containsKey("offset")
+                && params.containsKey("limit")) {
             query.append(" and dueDate >= :offset and dueDate <= :limit");
         }
 

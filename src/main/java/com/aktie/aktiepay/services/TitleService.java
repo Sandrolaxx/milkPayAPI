@@ -51,11 +51,7 @@ public class TitleService {
 
         if (filterBy != null
                 && !StringUtil.isNullOrEmpty(filterValue)) {
-                if (EnumUtil.isEquals(filterBy, EnumFilterTitle.AMOUNT)) {
-                    params.put(filterBy.getValue(), new BigDecimal(filterValue));
-                } else {
-                    params.put(filterBy.getValue(), filterValue);
-                }
+            params = addFilterParams(params, filterBy, filterValue);
         }
 
         if (!StringUtil.isNullOrEmpty(offset)
@@ -129,12 +125,42 @@ public class TitleService {
         var amount = titleDto.getAmount();
         var dueDate = LocalDate.parse(titleDto.getDueDate()).atStartOfDay();
         var diffDays = DateUtil.numberOfDaysBetweenDates(LocalDateTime.now(DateUtil.ZONE_ID), dueDate);
-        var totalPercentInterest =  titleDto.getDailyInterest().multiply(BigDecimal.valueOf(diffDays));
+        var totalPercentInterest = titleDto.getDailyInterest().multiply(BigDecimal.valueOf(diffDays));
         var interestValue = amount.multiply(totalPercentInterest).divide(BigDecimal.valueOf(100));
-        
+
         titleDto.setFinalAmount(amount.subtract(interestValue).setScale(2, RoundingMode.HALF_UP));
 
         return titleDto;
+    }
+
+    private HashMap<String, Object> addFilterParams(HashMap<String, Object> params, EnumFilterTitle filterBy,
+            String filterValue) {
+
+        switch (filterBy) {
+            case AMOUNT:
+                params.put(filterBy.getValue(), new BigDecimal(filterValue));
+                break;
+            case ID:
+                params.put(filterBy.getValue(), Integer.valueOf(filterValue));
+                break;
+            case PAYMENT_TYPE:
+                params.put(filterBy.getValue(), EnumPaymentType.valueOf(filterValue));
+                break;
+            case INCLUSION_DATE:
+                params.put(filterBy.getValue(), DateUtil.DDMMYYYYToLocalDateTimeStartOfDay(filterValue));
+                break;
+            case DUE_DATE:
+                params.put(filterBy.getValue(), DateUtil.DDMMYYYYToLocalDate(filterValue));
+                break;
+            case BARCODE:
+            case DIGITABLE:
+            case NF_NUMBER:
+                params.put(filterBy.getValue(), filterValue);
+            default:
+                break;
+        }
+
+        return params;
     }
 
 }
