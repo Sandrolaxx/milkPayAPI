@@ -15,6 +15,8 @@ public enum EnumFilterTitle implements IEnum {
     NF_NUMBER("nfNumber"),
     BARCODE("barcode"),
     DIGITABLE("digitable"),
+    STATUS("liquidated"),
+    NONE("none"),
     PAYMENT_TYPE("paymentType");
 
     private EnumFilterTitle(String value) {

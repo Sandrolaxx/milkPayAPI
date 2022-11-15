@@ -54,10 +54,11 @@ public class TitleController {
     @APIResponse(responseCode = "200", description = "Caso sucesso, retorna os titulos do usuário.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
     @GET
-    public ListTitleDto listByUser(@QueryParam Boolean liquidated, @QueryParam Integer pageIndex, @QueryParam Integer pageSize,
-            @QueryParam String offset, @QueryParam String limit, @QueryParam EnumFilterTitle filterBy, @QueryParam String filterValue) {
+    public ListTitleDto listByUser(@QueryParam Boolean liquidated, @QueryParam Integer pageIndex,
+            @QueryParam Integer pageSize, @QueryParam String offset, @QueryParam String limit,
+            @QueryParam EnumFilterTitle filterBy, @QueryParam String filterValue, @QueryParam String filterValueAux) {
         return titleService.findAll(Utils.resolveUserId(identity), liquidated, pageIndex, pageSize,
-            offset, limit, filterBy, filterValue);
+                offset, limit, filterBy, filterValue, filterValueAux);
     }
 
     @APIResponse(responseCode = "201", description = "Caso sucesso, retorna Status 201 - CREATED.")

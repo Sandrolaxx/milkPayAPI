@@ -39,7 +39,7 @@ public class TitleService {
     TitleRepository repository;
 
     public ListTitleDto findAll(String userId, Boolean liquidated, Integer pageIndex, Integer pageSize,
-            String offset, String limit, EnumFilterTitle filterBy, String filterValue) {
+            String offset, String limit, EnumFilterTitle filterBy, String filterValue, String filterValueAux) {
         var params = new HashMap<String, Object>();
         var listTitleDto = new ListTitleDto();
 
@@ -51,7 +51,7 @@ public class TitleService {
 
         if (filterBy != null
                 && !StringUtil.isNullOrEmpty(filterValue)) {
-            params = addFilterParams(params, filterBy, filterValue);
+            params = addFilterParams(params, filterBy, filterValue, filterValueAux);
         }
 
         if (!StringUtil.isNullOrEmpty(offset)
@@ -72,7 +72,7 @@ public class TitleService {
 
         listTitleDto.setPage(pageIndex);
         listTitleDto.setResults(results);
-        listTitleDto.setAllResultsSize(userTitles.size());
+        listTitleDto.setAllResultsSize(repository.getQueryAllResultsLenght(params, filterBy));
 
         return listTitleDto;
     }
@@ -134,11 +134,11 @@ public class TitleService {
     }
 
     private HashMap<String, Object> addFilterParams(HashMap<String, Object> params, EnumFilterTitle filterBy,
-            String filterValue) {
+            String filterValue, String filterValueAux) {
 
         switch (filterBy) {
             case AMOUNT:
-                params.put(filterBy.getValue(), new BigDecimal(filterValue));
+                params.put(filterBy.getValue(), new BigDecimal(filterValue.replace(".", "").replace(",", ".")));
                 break;
             case ID:
                 params.put(filterBy.getValue(), Integer.valueOf(filterValue));
@@ -148,14 +148,20 @@ public class TitleService {
                 break;
             case INCLUSION_DATE:
                 params.put(filterBy.getValue(), DateUtil.DDMMYYYYToLocalDateTimeStartOfDay(filterValue));
+                params.put("auxDate", DateUtil.DDMMYYYYToLocalDateTimeStartOfDay(filterValueAux));
                 break;
             case DUE_DATE:
                 params.put(filterBy.getValue(), DateUtil.DDMMYYYYToLocalDate(filterValue));
+                params.put("auxDate", DateUtil.DDMMYYYYToLocalDate(filterValueAux));
                 break;
             case BARCODE:
             case DIGITABLE:
             case NF_NUMBER:
                 params.put(filterBy.getValue(), filterValue);
+                break;
+            case STATUS:
+                params.put(filterBy.getValue(), filterValue.equals("Aberto") ? false : true);
+                break;
             default:
                 break;
         }
