@@ -19,6 +19,7 @@ import com.aktie.aktiepay.entities.enums.EnumUserType;
 import com.aktie.aktiepay.mapper.IUserMapper;
 import com.aktie.aktiepay.utils.AktiePayException;
 import com.aktie.aktiepay.utils.EncryptUtil;
+import com.aktie.aktiepay.utils.ListUtil;
 import com.aktie.aktiepay.utils.StringUtil;
 import com.aktie.aktiepay.utils.Utils;
 
@@ -196,9 +197,21 @@ public class UserService {
         return (User) user;
     }
 
-    public void sendEmailUserPassword(SecurityIdentity identity) {
-        var user = findAndValidadeUser(Utils.resolveUserId(identity));
-        var message = "Olá, estamos entrando em contato, pois você requereu sua senha em nossa plataforma no fluxo 'Esqueci minha senha'."
+    public void sendEmailUserPassword(String email) {
+        var userList = User.listAll();
+        var user = new User();
+
+        if (ListUtil.isNullOrEmpty(userList)) {
+            throw new AktiePayException(EnumErrorCode.EMAIL_USUARIO_INVALIDO);
+        }
+
+        user = userList.stream()
+                .map(panacheUser -> (User) panacheUser)
+                .filter(u -> !StringUtil.isNullOrEmpty(u.getEmail()) && u.getEmail().equals(email))
+                .findFirst()
+                .orElseThrow(() -> new AktiePayException(EnumErrorCode.EMAIL_USUARIO_INVALIDO));
+
+        var message = "Olá, estamos entrando em contato, pois você fez o requerimento de sua senha em nossa plataforma no fluxo 'Esqueci minha senha'."
                 .concat("\n\n")
                 .concat("Senha de sua conta: ".concat(user.getPassword()))
                 .concat("\n\n")
@@ -206,7 +219,7 @@ public class UserService {
                 .concat("\n\n")
                 .concat("Atenciosamente,\nEquipe Aktie Tech");
 
-        mailer.send(Mail.withText(user.getEmail(), "Esqueci minha senha MilkPay🐄", message));
+        mailer.send(Mail.withText(email, "Esqueci minha senha MilkPay🐄", message));
     }
 
 }

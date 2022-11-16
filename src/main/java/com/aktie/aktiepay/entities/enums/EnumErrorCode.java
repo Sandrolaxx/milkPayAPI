@@ -39,6 +39,7 @@ public enum EnumErrorCode implements IEnum {
     TX_ID_NAO_ENCONTRADO("027", "Nenhum pagamento identificado para o identificador de pagamento informado.", HttpStatus.SC_NOT_FOUND),
     ERRO_GERAR_COMPROVANTE("028", "Erro ao gerar .PNG do comprovante!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
     ERRO_AO_ATUALIZAR_USUARIO("029", "Erro desconhecido ao atualizar usuário!", HttpStatus.SC_INTERNAL_SERVER_ERROR),
+    EMAIL_USUARIO_INVALIDO("030", "E-mail informado inválido, informe o e-mail de sua conta!", HttpStatus.SC_BAD_REQUEST),
     //Erros externos
     ERRO_COMUNICACAO("050", "A requisição enviada ao parceiro retornou com erro!", HttpStatus.SC_BAD_GATEWAY),
     PARCEIRO_INDISPONIVEL("051", "Instituição de Pagamentos Parceira Indisponível!", HttpStatus.SC_INTERNAL_SERVER_ERROR),

@@ -16,6 +16,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
 
 import com.aktie.aktiepay.dto.user.CreateUserDto;
 import com.aktie.aktiepay.dto.user.UserInfoDto;
@@ -83,8 +84,8 @@ public class UserController {
     @Path("/restore-pass")
     @APIResponse(responseCode = "200", description = "Envia um e-mail com a senha do usuário para o e-mail do cadastrado.")
     @APIResponse(responseCode = "400", content = @Content(schema = @Schema(allOf = AktiePayExceptionResponseDto.class)))
-    public Response sendPasswordToUserMail() {
-        userService.sendEmailUserPassword(identity);
+    public Response sendPasswordToUserMail(@HeaderParam String email) {
+        userService.sendEmailUserPassword(email);
 
         return Response.ok().build();
     }
